@@ -6,7 +6,7 @@ const TopNavBar: React.FC = () => {
     return (
         <nav className="navbar">
             <ul className="navbar-ul">
-                <li>Trang chu</li>
+                <li>Trang chủ</li>
                 <li>Tro giup</li>
                 <li>Dang nhap</li>
                 <li>Dang ky</li>
