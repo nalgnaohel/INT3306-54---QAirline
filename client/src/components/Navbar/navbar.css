@@ -1,0 +1,21 @@
+/* css for all navbars (maybe) */
+.navbar {
+    width: 50%;
+    position: relative;
+    margin-left: 50%;
+  background-color: pink;
+  color: black;
+  padding: 5px;
+  height: 10vh;
+}
+
+.navbar-ul {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-inline-start: 0;
+    list-style: none;
+    margin-block: 0;
+    height: 100%;
+}
