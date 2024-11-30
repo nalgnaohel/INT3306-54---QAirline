@@ -24,7 +24,7 @@ const Login: React.FC = () => {
                     <button type="submit">Đăng nhập</button>
                 </form>
                 <div className="toSignup">
-                    <p>Bạn chưa có tài khoản?    </p>
+                    <p>Bạn chưa có tài khoản? </p>
                     <a href="/signup">Đăng ký ngay</a>
                 </div>
             </div>
