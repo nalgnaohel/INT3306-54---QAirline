@@ -1,6 +1,7 @@
 package models
 
 import (
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -32,6 +33,23 @@ func (u *User) ComparePassword(password string) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+// SanitizePassword Sanitize user password
+func (u *User) SanitizePassword() {
+	u.Password = ""
+}
+
+// PrepareCreate Before user for register
+func (u *User) PrepareCreate() error {
+	u.Password = strings.TrimSpace(u.Password)
+
+	err := u.HashPassword()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

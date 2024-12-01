@@ -2,7 +2,7 @@ package auth
 
 import (
 	"github.com/google/uuid"
-	"github.com/nalgnaohel/INT3306-54---QAirline/server/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
 )
 
 type AuthRepository interface {

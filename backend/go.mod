@@ -1,4 +1,4 @@
-module github.com/nalgnaohel/INT3306-54---QAirline/server
+module github.com/nalgnaohel/INT3306-54---QAirline/backend
 
 go 1.23.2
 
@@ -10,9 +10,8 @@ require (
 )
 
 require (
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	go.uber.org/multierr v1.11.0 // indirect
-	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/text v0.20.0 // indirect
 )

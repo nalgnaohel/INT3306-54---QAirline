@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"github.com/nalgnaohel/INT3306-54---QAirline/server/internal/models"
-
 	"github.com/google/uuid"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 )
