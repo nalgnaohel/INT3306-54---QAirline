@@ -1,0 +1,95 @@
+.flight-results {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.flight-results h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.flight-item {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.3s ease;
+}
+
+.flight-item:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.flight-item strong {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0073e6;
+  margin-bottom: 5px;
+}
+
+.flight-item p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.flight-item p span {
+  font-weight: 600;
+  color: #333;
+}
+
+.flight-item .book-now-button {
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.flight-item .book-now-button:hover {
+  background-color: #005bb5;
+}
+
+.flight-item .book-now-button:focus {
+  outline: none;
+}
+
+.flight-item .details {
+  margin-top: 10px;
+}
+
+.flight-item .details p {
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #555;
+}
+
+.flight-item .details .duration {
+  font-weight: 600;
+  color: #333;
+}
+
+.flight-item .price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #28a745;
+  margin-top: 10px;
+}
+
+.flight-item .available-seats {
+  font-size: 14px;
+  color: #dc3545;
+  font-weight: 600;
+}
