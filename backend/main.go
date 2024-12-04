@@ -15,7 +15,7 @@ func main() {
 	log.Println("Start")
 
 	//Load config file
-	configPath := "./config/config-docker.yaml"
+	configPath := "config/config-docker"
 
 	cfgFile, err := config.LoadConfig(configPath)
 

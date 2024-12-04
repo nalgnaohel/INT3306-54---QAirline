@@ -15,7 +15,7 @@ mysql:
   Port: 3306
   User: root
   Password: abc12345
-  DtbName: qairline-dtb #Database name
+  DtbName: qairline #Database name
   MaxIdleConns: 10
   MaxOpenConns: 10
   ConnMaxLifetime: 10

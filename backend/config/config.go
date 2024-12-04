@@ -4,6 +4,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/gofiber/fiber/v2/log"
 	"github.com/spf13/viper"
 )
 
@@ -65,12 +66,15 @@ type Store struct {
 // LoadConfig - loads configuration from file
 func LoadConfig(configFileName string) (*viper.Viper, error) {
 	vip := viper.New()
+	log.Info("Loading config file: ", configFileName)
 	vip.SetConfigName(configFileName)
 	vip.AddConfigPath(".")
+	vip.AutomaticEnv()
 
 	err := vip.ReadInConfig()
 	if err != nil {
-		return nil, errors.New("Error reading config file")
+		log.Fatalf("Error reading config file: %v !", err)
+		return nil, errors.New("error reading config file")
 	}
 
 	return vip, nil
@@ -81,7 +85,7 @@ func ParseConfig(vip *viper.Viper) (*Config, error) {
 
 	err := vip.Unmarshal(&config)
 	if err != nil {
-		return nil, errors.New("Error parsing config file")
+		return nil, errors.New("error parsing config file")
 	}
 
 	return &config, nil
