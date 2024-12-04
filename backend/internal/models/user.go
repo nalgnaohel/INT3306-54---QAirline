@@ -9,12 +9,21 @@ import (
 )
 
 type User struct {
-	UserID    uuid.UUID `json:"user_id"`
-	Name      string    `json:"name"`
-	Email     string    `json:"email"`
-	Password  string    `json:"password"`
-	Type      string    `json:"type"` // admin, client
-	CreatedAt time.Time `json:"created_at"`
+	UserID      uuid.UUID `json:"user_id"`
+	FirstName   string    `json:"first_name"`
+	LastName    string    `json:"last_name"`
+	DOB         time.Time `json:"dob"`
+	Gender      string    `json:"gendee"`
+	Email       string    `json:"email"`
+	Password    string    `json:"password"`
+	PhoneNumber string    `json:"phone_number"`
+	Avatar      string    `json:"avatar"`
+	Nationality string    `json:"nationality"`
+	Type        string    `json:"type"` // admin, client
+	IdentityNo  string    `json:"identity_id"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+	LoginDate   time.Time `json:"login_date"`
 }
 
 // HashPassword hashes the password of the user with bcrypt
