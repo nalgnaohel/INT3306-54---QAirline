@@ -1,0 +1,33 @@
+server:
+  Port: 8080
+  AppVersion: 1.0.0 #Debug + tracking
+  JwtSecretKey: secretkey
+  CookieName: jwt-token
+  ReadTimeout: 10
+  WriteTimeout: 10
+  SSL: false 
+  CtxDefaultTimeout: 12
+  CSRF: true
+  Debug: false
+
+mysql:
+  Host: mysql
+  Port: 3306
+  User: root
+  Password: abc12345
+  DtbName: qairline-dtb #Database name
+  MaxIdleConns: 10
+  MaxOpenConns: 10
+  ConnMaxLifetime: 10
+
+cookie:
+  Name: jwt-token
+  MaxAge: 86400
+  Secure: false
+  HttpOnly: true
+
+session:
+  Name: session-id
+  Prefix: api-session
+  Expires: 3600
+
