@@ -46,7 +46,8 @@ func (s *Server) Start() error {
 
 	go func() {
 		log.Printf("Server is listening on PORT: %s", s.cfg.Server.Port)
-		if err := s.fiber.Listen(s.cfg.Server.Port); err != nil {
+
+		if err := s.fiber.Listen("localhost:" + s.cfg.Server.Port); err != nil {
 			log.Fatalf("Error starting Server: %e", err)
 		}
 	}()

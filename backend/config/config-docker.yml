@@ -1,5 +1,6 @@
 server:
-  Port: 8080
+  Port: 5000
+  PprofPort: 5555
   AppVersion: 1.0.0 #Debug + tracking
   JwtSecretKey: secretkey
   CookieName: jwt-token
@@ -11,11 +12,11 @@ server:
   Debug: false
 
 mysql:
-  Host: mysql
+  Host: docker.for.mac.localhost
   Port: 3306
   User: root
   Password: abc12345
-  DtbName: qairline #Database name
+  DtbName: qairline-dtb #Database name
   MaxIdleConns: 10
   MaxOpenConns: 10
   ConnMaxLifetime: 10

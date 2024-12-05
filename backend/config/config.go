@@ -33,6 +33,7 @@ type MySQL struct {
 // ServerConfig - server configuration struct
 type ServerConfig struct {
 	Port              string
+	PprofPort         string
 	AppVersion        string
 	JwtSecretKey      string
 	CookieName        string
