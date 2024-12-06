@@ -1,6 +1,7 @@
 package business
 
 import (
+	"github.com/google/uuid"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/config"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
@@ -84,10 +85,62 @@ func (auth *authBusiness) Login(email string, password string) (*models.TokenedU
 
 // Update updates a user
 func (auth *authBusiness) Update(user *models.User) (*models.User, error) {
-	return auth.authRepo.Update(user)
+	if err := user.PreRegister(); err != nil {
+		return nil, err
+	}
+
+	updatedUser, err := auth.authRepo.Update(user)
+	if err != nil {
+		return nil, err
+	}
+
+	//Make sure that user's password is not exposed in API responses or logs
+	updatedUser.SanitizePassword()
+	return updatedUser, nil
+}
+
+// Delete deletes a user
+func (auth *authBusiness) Delete(userID uuid.UUID) error {
+	return auth.authRepo.Delete(userID)
 }
 
 // GetByEmail gets a user by email
 func (auth *authBusiness) GetByEmail(email string) (*models.User, error) {
 	return auth.authRepo.GetByEmail(email)
+}
+
+// Get user by their ID
+func (auth *authBusiness) GetByID(userID uuid.UUID) (*models.User, error) {
+	return auth.authRepo.GetByID(userID)
+}
+
+// ChangePassword changes a user's password
+func (auth *authBusiness) ChangePassword(userID uuid.UUID, oldPassword string, newPassword string) (*models.User, error) {
+	user, err := auth.authRepo.GetByID(userID)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := user.PreRegister(); err != nil {
+		return nil, err
+	}
+
+	err = user.ComparePassword(oldPassword)
+	if err != nil {
+		return nil, err
+	}
+
+	//Change to newpass and hash
+	user.Password = newPassword
+	if err := user.HashPassword(); err != nil {
+		return nil, err
+	}
+
+	updatedUser, err := auth.authRepo.Update(user)
+	if err != nil {
+		return nil, err
+	}
+
+	updatedUser.SanitizePassword()
+	return updatedUser, nil
 }

@@ -6,12 +6,12 @@ import (
 )
 
 type AuthBusiness interface {
-	Register(user *models.User) (*models.User, error)
-	Login(email string, password string) (*models.User, error)
+	Register(user *models.User) (*models.TokenedUser, error)
+	Login(email string, password string) (*models.TokenedUser, error)
 	Update(user *models.User) (*models.User, error)
 	Delete(uuid uuid.UUID) error
 	GetByEmail(email string) (*models.User, error)
-	GetByUserID(uuid uuid.UUID) (*models.User, error)
+	GetByID(uuid uuid.UUID) (*models.User, error)
 	//GetUsers() ([]models.User, error)
-	ChangePassword(uuid uuid.UUID, oldPassword string, newPassword string) error
+	ChangePassword(uuid uuid.UUID, oldPassword string, newPassword string) (*models.User, error)
 }
