@@ -20,13 +20,23 @@ services:
       - DB_NAME=qairline-dtb
     depends_on:
       - mysql
+      - redis
+    restart: always
+    networks:
+      - backend_api
+
+  redis:
+    image: redis:7-alpine
+    container_name: api_redis
+    ports:
+      - "6379:6379"
     restart: always
     networks:
       - backend_api
 
   mysql:
     image: mysql:8.0
-    container_name: mysql_db
+    container_name: api_mysql
     environment:
       MYSQL_ROOT_PASSWORD: abc12345
       MYSQL_DATABASE: qairline-dtb
@@ -34,6 +44,7 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql-data:/var/lib/mysql
+      - ./migration/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - backend_api
 

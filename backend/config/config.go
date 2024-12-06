@@ -11,10 +11,24 @@ import (
 // Config - configuration struct
 type Config struct {
 	Server  ServerConfig
+	Redis   Redis
 	MySQL   MySQL
 	Cookie  Cookie
 	Store   Store
 	Session Session
+}
+
+// Redis - redis configuration struct
+type Redis struct {
+	RedisAddr      string
+	RedisPassword  string
+	RedisDB        string
+	RedisDefaultdb string
+	MinIdleConns   int
+	PoolSize       int
+	PoolTimeout    int
+	Password       string
+	DB             int
 }
 
 // DatabaseConfig - database configuration struct
