@@ -1,0 +1,175 @@
+    .box {
+        height: 70px;
+        width: 1122px;
+    }
+    .box .top-bar {
+        height: 70px;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 1122px;
+    }
+    .box .overlap {
+        background-color: #ffffff;
+        height: 70px;
+        left: 0px;
+        position: relative;
+        top: 0px;
+        width: 1122px;
+    }
+    .box .separator {
+        position: absolute;
+        top: 70px;
+        left: 280px;
+        height: 1px;
+        width: 1300px;
+        background-color: #E0E0E0;
+    }
+    .box .profile {
+        height: 50px;
+        left: 1300px;
+        position: absolute;
+        top: 10px;
+        width: 204px;
+    }
+    .box .more {
+        height: 22px;
+        left: 178px;
+        position: absolute;
+        top: 15px;
+        width: 22px;
+    }
+    .box .username {
+        color: #404040;
+        font-family: "Nunito Sans-Bold", Helvetica;
+        font-size: 14px;
+        font-weight: 700;
+        left: 76px;
+        letter-spacing: 0;
+        line-height: normal;
+        position: absolute;
+        top: 4px;
+        width: 51px;
+    }
+    .box .text-wrapper {
+        color: #565656;
+        font-family: "Nunito Sans-SemiBold", Helvetica;
+        font-size: 12px;
+        font-weight: 600;
+        left: 76px;
+        letter-spacing: 0;
+        line-height: normal;
+        position: absolute;
+        top: 30px;
+        width: 44px;
+    }
+    .box .man {
+        height: 52px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 52px;
+    }
+    .box .english {
+        height: 37px;
+        left: 1100px;
+        position: absolute;
+        top: 17px;
+        width: 172px;
+    }
+    .box .div {
+        color: #646464;
+        font-family: "Nunito Sans-SemiBold", Helvetica;
+        font-size: 14px;
+        font-weight: 600;
+        left: 70px;
+        letter-spacing: 0;
+        line-height: normal;
+        position: absolute;
+        top: 10px;
+        width: 70px;
+    }
+    .box .drop-down {
+        height: 6px;
+        left: 159px;
+        position: absolute;
+        top: 13px;
+        width: 11px;
+    }
+    .box .flag {
+        height: 37px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 55px;
+    }
+    .box .overlap-group {
+        height: 50px;
+        left: 1010px;
+        position: absolute;
+        top: 17px;
+        width: 50px;
+    }
+    .box .icon {
+        height: 42px;
+        left: 0;
+        position: absolute;
+        top: 2px;
+        width: 42px;
+    }
+    .box .overlap-group-2 {
+        height: 42px;
+        position: relative;
+        width: 40px;
+    }
+    .box .icon-2 {
+        height: 35px;
+        left: 0;
+        position: absolute;
+        top: 7px;
+        width: 33px;
+    }
+    .box .combined-shape {
+        height: 25px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 33px;
+    }
+    .box .rectangle {
+        background-color: #ff0000;
+        border-radius: 2.25px;
+        height: 8px;
+        left: 12px;
+        opacity: 0.3;
+        position: absolute;
+        top: 27px;
+        width: 8px;
+    }
+    .box .oval {
+        height: 22px;
+        left: 18px;
+        position: absolute;
+        top: 0;
+        width: 22px;
+    }
+    .box .text-wrapper-2 {
+        color: #ffffff;
+        font-family: "Nunito Sans-Bold", Helvetica;
+        font-size: 12px;
+        font-weight: 700;
+        left: 25px;
+        letter-spacing: 0;
+        line-height: normal;
+        position: absolute;
+        top: 4px;
+        white-space: nowrap;
+        width: 8px;
+    }
+    .box .img {
+        height: 26px;
+        left: 16px;
+        position: absolute;
+        top: 0;
+        width: 26px;
+    }
