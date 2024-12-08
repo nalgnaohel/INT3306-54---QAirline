@@ -11,7 +11,7 @@ services:
       - "5050:5050"
       - "7070:7070"
     volumes:
-      - ./backend:/app
+      - ./:/app
     environment:
       - PORT=5000
       - DB_HOST=mysql-data
@@ -35,7 +35,7 @@ services:
       - backend_api
 
   mysql:
-    image: mysql:8.0
+    image: mysql:8.0.31
     container_name: api_mysql
     environment:
       MYSQL_ROOT_PASSWORD: abc12345
@@ -43,8 +43,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql-data:/var/lib/mysql
-      - ./migration/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ./mysql-data:/var/lib/mysql
+      - ./migration/qairline.sql:/docker-entrypoint-initdb.d/qairline.sql
     networks:
       - backend_api
 

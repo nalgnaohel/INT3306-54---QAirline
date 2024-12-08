@@ -14,12 +14,14 @@ import (
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/config"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/pkg/utils"
 )
 
 // JWTAuthMiddleware - authentication JWT using cookie session/ Auth header
 func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg config.Config) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		authHeader := ctx.GetReqHeaders()["Authorization"][0]
+		log.Printf("Auth header: %v", ctx.GetReqHeaders()["Authorization"])
 
 		if authHeader != "" {
 			headerParts := strings.Split(authHeader, " ")
@@ -33,7 +35,7 @@ func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg confi
 
 			tokenString := headerParts[1]
 
-			if err := mw.validateJWTToken(tokenString, authBusiness, ctx, cfg); err != nil {
+			if err := m.validateJWTToken(tokenString, authBusiness, ctx, cfg); err != nil {
 				log.Panic("Auth middleware validate JWT Token - Invalid auth header")
 				return ctx.Status(http.StatusUnauthorized).JSON(fiber.Map{
 					"status":  http.StatusUnauthorized,
@@ -53,12 +55,12 @@ func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg confi
 
 func (m *Middleware) validateJWTToken(tokenString string, authBusiness auth.AuthBusiness, ctx *fiber.Ctx, cfg config.Config) error {
 	if tokenString == "" {
-		return errors.New("Token is empty")
+		return errors.New("Empty token")
 	}
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signin method %v", token.Header["alg"])
+			return nil, fmt.Errorf("Unexpected signin method %v", token.Header["alg"])
 		}
 		secret := []byte(cfg.Server.JwtSecretKey)
 		return secret, nil
@@ -75,7 +77,7 @@ func (m *Middleware) validateJWTToken(tokenString string, authBusiness auth.Auth
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		userID, ok := claims["id"].(string)
 		if !ok {
-			return errors.New("Invalid token claims")
+			return errors.New("Invalid JWT Claims")
 		}
 
 		userUUID, err := uuid.Parse(userID)
@@ -83,15 +85,16 @@ func (m *Middleware) validateJWTToken(tokenString string, authBusiness auth.Auth
 			return err
 		}
 
-		u, err := authBusiness.GetByID(utils.GetRequestCtx(ctx), userUUID)
+		user, err := authBusiness.GetByID(userUUID)
 		if err != nil {
 			return err
 		}
 
-		ctx.Locals("user", u)
+		ctx.Locals("user", user)
 
-		c := context.WithValue(ctx.Context(), utils.UserCtxKey{}, u)
+		c := context.WithValue(ctx.Context(), utils.UserCtxKey{}, user)	
 		ctx.SetUserContext(c)
+		
 	}
 	return nil
 }
