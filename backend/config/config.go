@@ -4,16 +4,31 @@ import (
 	"errors"
 	"time"
 
+	"github.com/gofiber/fiber/v2/log"
 	"github.com/spf13/viper"
 )
 
 // Config - configuration struct
 type Config struct {
 	Server  ServerConfig
+	Redis   Redis
 	MySQL   MySQL
 	Cookie  Cookie
 	Store   Store
 	Session Session
+}
+
+// Redis - redis configuration struct
+type Redis struct {
+	RedisAddr      string
+	RedisPassword  string
+	RedisDB        string
+	RedisDefaultdb string
+	MinIdleConns   int
+	PoolSize       int
+	PoolTimeout    int
+	Password       string
+	DB             int
 }
 
 // DatabaseConfig - database configuration struct
@@ -32,6 +47,7 @@ type MySQL struct {
 // ServerConfig - server configuration struct
 type ServerConfig struct {
 	Port              string
+	PprofPort         string
 	AppVersion        string
 	JwtSecretKey      string
 	CookieName        string
@@ -65,12 +81,15 @@ type Store struct {
 // LoadConfig - loads configuration from file
 func LoadConfig(configFileName string) (*viper.Viper, error) {
 	vip := viper.New()
+	log.Info("Loading config file: ", configFileName)
 	vip.SetConfigName(configFileName)
 	vip.AddConfigPath(".")
+	vip.AutomaticEnv()
 
 	err := vip.ReadInConfig()
 	if err != nil {
-		return nil, errors.New("Error reading config file")
+		log.Fatalf("Error reading config file: %v !", err)
+		return nil, errors.New("error reading config file")
 	}
 
 	return vip, nil
@@ -81,7 +100,7 @@ func ParseConfig(vip *viper.Viper) (*Config, error) {
 
 	err := vip.Unmarshal(&config)
 	if err != nil {
-		return nil, errors.New("Error parsing config file")
+		return nil, errors.New("error parsing config file")
 	}
 
 	return &config, nil

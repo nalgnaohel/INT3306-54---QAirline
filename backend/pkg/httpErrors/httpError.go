@@ -1,13 +1,13 @@
 package httpErrors
 
 type HTTPError struct {
-	ErrorStatus  int    `json:"error_status"`
-	ErrorMessage string `json:"error_message"`
+	ErrStatus  int    `json:"error_status,omitempty"`
+	ErrMessage string `json:"error_message,omitempty"`
 }
 
 func NewHTTPError(status int, message string) HTTPError {
 	return HTTPError{
-		ErrorStatus:  status,
-		ErrorMessage: message,
+		ErrStatus:  status,
+		ErrMessage: message,
 	}
 }

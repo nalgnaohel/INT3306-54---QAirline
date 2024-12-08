@@ -26,4 +26,4 @@ ENV config=docker
 EXPOSE 8080
 
 #Entrypoint commnad to run the server for CompileDaemon
-ENTRYPOINT CompileDaemon --build="go build -o /app/main" --command=./main 
+ENTRYPOINT CompileDaemon --build="go build -o cmd/main.go" --command=./main 

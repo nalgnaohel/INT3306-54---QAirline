@@ -26,6 +26,15 @@ func GenerateJWTToken(user *models.User, secret string) (string, error) {
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24))},
 	}
 
+	//Create token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
+	//Sign token
+	tokenString, err := token.SignedString([]byte(secret))
+
+	if err != nil {
+		return "", err
+	}
+
+	return tokenString, nil
 }
