@@ -10,12 +10,12 @@ import (
 )
 
 func Connect(cfg *config.Config) (*gorm.DB, error) {
-	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?loc=Local&parseTime=true",
+		cfg.MySQL.User,
+		cfg.MySQL.Password,
 		cfg.MySQL.Host,
 		cfg.MySQL.Port,
-		cfg.MySQL.User,
 		cfg.MySQL.DtbName,
-		cfg.MySQL.Password,
 	)
 
 	// Open the connection with Gorm

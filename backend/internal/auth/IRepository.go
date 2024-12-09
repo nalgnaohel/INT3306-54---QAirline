@@ -8,7 +8,7 @@ import (
 type AuthRepository interface {
 	Register(user *models.User) (*models.User, error)
 	GetByEmail(email string) (*models.User, error)
-	GetByID(id string) (*models.User, error)
+	GetByID(userID uuid.UUID) (*models.User, error)
 	Update(user *models.User) (*models.User, error)
 	Delete(userID uuid.UUID) error
 }

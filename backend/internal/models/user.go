@@ -50,8 +50,8 @@ func (u *User) SanitizePassword() {
 	u.Password = ""
 }
 
-// PrepareCreate Before user for register
-func (u *User) PrepareCreate() error {
+// PreRegister Before user for register
+func (u *User) PreRegister() error {
 	u.Password = strings.TrimSpace(u.Password)
 
 	err := u.HashPassword()
@@ -62,7 +62,7 @@ func (u *User) PrepareCreate() error {
 	return nil
 }
 
-type UserWithToken struct {
+type TokenedUser struct {
 	User  *User  `json:"user"`
 	Token string `json:"token"`
 }

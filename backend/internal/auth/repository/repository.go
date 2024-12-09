@@ -39,9 +39,9 @@ func (auth *authRepo) GetByEmail(email string) (*models.User, error) {
 }
 
 // DB Find user by id
-func (auth *authRepo) GetByID(id string) (*models.User, error) {
+func (auth *authRepo) GetByID(userID uuid.UUID) (*models.User, error) {
 	var user models.User
-	err := auth.db.Where("user_id = ?", id).First(&user).Error
+	err := auth.db.Where("user_id = ?", userID).First(&user).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "authRepo.GetByID.Where.First")
 	}
