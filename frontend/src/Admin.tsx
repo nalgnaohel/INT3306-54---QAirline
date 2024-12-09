@@ -1,13 +1,19 @@
 import React from "react";
 import SideBar from "./components/Admin/SideBar";
 import TopBar from "./components/Admin/TopBar";
+import Table from "./components/Admin/Table";
+import { TableProvider } from './components/Admin/TableContext';
+import "./css/Admin/Admin.css"
 
 const Admin: React.FC = () => {
     return (
-        <div className="Admin">
-            <TopBar />
-            <SideBar />
-        </div>
+        <TableProvider>
+            <div className="Admin">
+                <Table />
+                <TopBar />
+                <SideBar />
+            </div>
+        </TableProvider>
     );
 };
 
