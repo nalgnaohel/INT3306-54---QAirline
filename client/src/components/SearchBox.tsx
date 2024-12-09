@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "./Navbar";
 import "../css/SearchBox.css";
-import "./Flights.json";
+import flightsData from "./Flights.json";
 
 const tabs = document.querySelectorAll(".tab");
 
@@ -29,7 +29,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   const [childCount, setChildCount] = useState(0);
   const [infantCount, setInfantCount] = useState(0);
 
-  const [flights, setFlights] = useState<any[]>([]);
+  const [flights, setFlights] = useState<any[]>(flightsData.flights);
 
   const [activeTab, setActiveTab] = useState("Mua vé");
 
@@ -87,18 +87,6 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
-
-  useEffect(() => {
-    fetch("./Flights.json")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => setFlights(data.flights))
-      .catch((error) => console.error("Error fetching flights data:", error));
   }, []);
 
   const handleSearch = () => {
@@ -197,7 +185,20 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                   placeholder="Chọn điểm khởi hành"
                   value={departure}
                   onChange={(e) => setDeparture(e.target.value)}
+                  list="departure-options"
                 />
+                <datalist id="departure-options">
+                  <option value="Hà Nội" />
+                  <option value="Sài Gòn" />
+                  <option value="Đà Nẵng" />
+                  <option value="Nha Trang" />
+                  <option value="Hải Phòng" />
+                  <option value="Quy Nhơn" />
+                  <option value="Quy Nhơn" />
+                  <option value="Quy Nhơn" />
+                  <option value="Quy Nhơn" />
+                  <option value="Quy Nhơn" />
+                </datalist>
               </div>
               <div>
                 <label>Đến</label>
@@ -206,7 +207,16 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                   placeholder="Chọn điểm đến"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
+                  list="destination-options"
                 />
+                <datalist id="destination-options">
+                  <option value="Hà Nội" />
+                  <option value="Sài Gòn" />
+                  <option value="Đà Nẵng" />
+                  <option value="Nha Trang" />
+                  <option value="Hải Phòng" />
+                  <option value="Quy Nhơn" />
+                </datalist>
               </div>
               {tripType === "one-way" && (
                 <div>
@@ -270,7 +280,12 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                     <div className="passenger-item">
                       <label>Người lớn</label>
                       <div className="passenger-controls">
-                        <button onClick={() => decrement("adult")}>-</button>
+                        <button
+                          className="dec"
+                          onClick={() => decrement("adult")}
+                        >
+                          -
+                        </button>
                         <span>{adultCount}</span>
                         <button onClick={() => increment("adult")}>+</button>
                       </div>
@@ -278,7 +293,12 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                     <div className="passenger-item">
                       <label>Trẻ em</label>
                       <div className="passenger-controls">
-                        <button onClick={() => decrement("child")}>-</button>
+                        <button
+                          className="dec"
+                          onClick={() => decrement("child")}
+                        >
+                          -
+                        </button>
                         <span>{childCount}</span>
                         <button onClick={() => increment("child")}>+</button>
                       </div>
@@ -286,7 +306,12 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                     <div className="passenger-item">
                       <label>Trẻ sơ sinh</label>
                       <div className="passenger-controls">
-                        <button onClick={() => decrement("infant")}>-</button>
+                        <button
+                          className="dec"
+                          onClick={() => decrement("infant")}
+                        >
+                          -
+                        </button>
                         <span>{infantCount}</span>
                         <button onClick={() => increment("infant")}>+</button>
                       </div>

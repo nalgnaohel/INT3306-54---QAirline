@@ -1,95 +1,161 @@
 .flight-results {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.flight-results h2 {
-  font-size: 24px;
-  color: #333;
+h2 {
+  text-align: center;
   margin-bottom: 20px;
-  font-weight: 600;
 }
 
 .flight-item {
-  background-color: #fff;
-  padding: 15px;
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Phần thông tin chuyến bay và hạng vé */
+  background-color: #f5faff;
+  border-radius: 12px;
+  overflow: hidden;
   margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .flight-item:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.flight-item strong {
-  font-size: 20px;
+.flight-item .flight-info {
+  background-color: #e0f2fe;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  border-right: 2px solid #fff;
+}
+
+.flight-info .time-details {
+  text-align: center;
+}
+
+.flight-info .time-details strong {
+  font-size: 32px;
+  color: #424242;
+}
+
+.flight-info p {
+  margin: 5px 0;
+  color: #424242;
+  font-size: 15px;
+}
+
+.flight-info .duration #muiten {
+  font-size: 50px;
+}
+
+.flight-item .fare-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fare-option {
+  padding: 20px;
+  text-align: center;
+  color: white;
   font-weight: bold;
-  color: #0073e6;
-  margin-bottom: 5px;
+  font-size: 18px;
+  background-color: #64b5f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.flight-item p {
-  font-size: 14px;
-  color: #666;
+.fare-option.business {
+  background-color: #ff9800;
+}
+
+.fare-option p {
   margin: 5px 0;
 }
 
-.flight-item p span {
-  font-weight: 600;
-  color: #333;
+.fare-option span {
+  font-size: 24px;
+  margin-top: 10px;
 }
 
-.flight-item .book-now-button {
-  background-color: #0073e6;
+.fare-option .dropdown {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.fare-selection {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-row: 2;
+  gap: 10px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  grid-column: span 2;
+}
+
+.fare-box {
+  background-color: #c2e4ff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 20px;
+}
+
+.fare-box.selected {
+  background-color: #64b5f6;
+  border-color: #007bff;
+}
+
+.fare-box h3 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+.fare-details p {
+  margin: 5px 0;
+}
+
+.button-container {
+  grid-row: 3;
+  position: relative;
+  left: 360px;
+}
+
+button {
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 15px;
-  transition: background-color 0.3s ease;
+  font-size: 1em;
+  transition: background-color 0.3s;
+  border-radius: 10px;
 }
 
-.flight-item .book-now-button:hover {
-  background-color: #005bb5;
+button:hover {
+  background-color: #0056b3;
 }
 
-.flight-item .book-now-button:focus {
-  outline: none;
+.fare-option.selected.business {
+  border: 2px solid #fa7900;
+  box-shadow: 0 4px 15px rgba(245, 170, 66, 0.4);
+  color: white;
 }
 
-.flight-item .details {
-  margin-top: 10px;
-}
-
-.flight-item .details p {
-  margin-bottom: 5px;
-  font-size: 13px;
-  color: #555;
-}
-
-.flight-item .details .duration {
-  font-weight: 600;
-  color: #333;
-}
-
-.flight-item .price {
-  font-size: 18px;
-  font-weight: bold;
-  color: #28a745;
-  margin-top: 10px;
-}
-
-.flight-item .available-seats {
-  font-size: 14px;
-  color: #dc3545;
-  font-weight: 600;
+.fare-option:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }

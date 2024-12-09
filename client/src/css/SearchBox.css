@@ -144,6 +144,10 @@
   outline: none;
 }
 
+.inputs input[list="departure-options"] {
+  background-color: #fff;
+}
+
 .search-button-container {
   display: flex;
   justify-content: center;
@@ -203,7 +207,7 @@
   height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-top: 7px solid #333;
+  border-top: 7.5px solid #333;
 }
 
 .passenger-dropdown {
@@ -247,8 +251,8 @@
   transition: background-color 0.3s;
 }
 
-.passenger-controls button#dec {
-  padding: 5px 13px;
+.passenger-controls .dec {
+  padding: 5px 12px;
 }
 
 .passenger-controls button:hover {
