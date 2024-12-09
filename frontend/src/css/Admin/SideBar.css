@@ -1,9 +1,9 @@
     .box-2 {
-        height: 600px;
+        height: 100vw;
         width: 280px;
     }
     .box-2 .side-bar {
-        height: 600px;
+        height: 100vw;
         left: 0;
         position: fixed;
         top: 0;
@@ -11,10 +11,10 @@
     }
     .box-2 .overlap {
         background-color: #ffffff;
-        height: 600px;
-        left: -1px;
+        height: 100vw;
+        left: 0px;
         position: relative;
-        top: -1px;
+        top: 0px;
     }
     .box-2 .logout {
         height: 60px;
@@ -130,4 +130,13 @@
     }
     .box-2 .text-wrapper-4 {
         color: #474747;
+    }
+    .box-2 .products:hover {
+        background-color: #E0E0E0;
+    }
+    .box-2 .home .products:hover {
+        background-color: #1F77CF;
+    }
+    .box-2 .products .active {
+        background-color: #80bcff;
     }

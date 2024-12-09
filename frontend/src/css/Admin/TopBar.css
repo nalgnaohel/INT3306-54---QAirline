@@ -1,21 +1,21 @@
     .box {
         height: 70px;
-        width: 1122px;
+        right: 0;
     }
     .box .top-bar {
         height: 70px;
         left: 0;
         position: fixed;
         top: 0;
-        width: 1122px;
+        right: 0;
     }
     .box .overlap {
         background-color: #ffffff;
         height: 70px;
         left: 0px;
+        right: 0;
         position: relative;
         top: 0px;
-        width: 1122px;
     }
     .box .separator {
         position: absolute;
