@@ -1,0 +1,27 @@
+/* css for all navbars (maybe) */
+.navbar {
+    width: 50vw;
+    position: relative;
+    margin-left: 50%;
+    background-color: transparent;
+    color: black;
+    padding: 2.5px;
+    height: 7vh;
+}
+
+.navbar-ul {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-inline-start: 0;
+    list-style: none;
+    margin-block: 0;
+    height: 100%;
+    font-family: Calibri ;
+}
+
+.navbar ul li {
+    margin: 10px 0;
+}
+
