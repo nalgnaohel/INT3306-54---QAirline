@@ -9,6 +9,7 @@ const Admin: React.FC = () => {
     return (
         <TableProvider>
             <div className="Admin">
+                <div className="background"></div>
                 <Table />
                 <TopBar />
                 <SideBar />

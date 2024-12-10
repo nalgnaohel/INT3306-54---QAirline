@@ -6,14 +6,15 @@ const SideBar: React.FC = () => {
     const [selectedDiv, setSelectedDiv] = useState<string | null>(null);
 
   const menuItems = [
-    { id: 'logout', label: 'Đăng xuất', table: null },
-    { id: 'settings', label: 'Cài đặt', table: null },
+    { id: 'logout', label: 'Đăng xuất', table: 8 },
+    { id: 'settings', label: 'Cài đặt', table: 7 },
+    { id: 'blog', label: 'Đăng bài', table: 6 },
     { id: 'user', label: 'Người dùng', table: 5 },
     { id: 'airlines', label: 'Hãng bay', table: 4 },
     { id: 'airport', label: 'Sân bay', table: 3 },
     { id: 'flights', label: 'Chuyến bay', table: 2 },
     { id: 'booked', label: 'Đặt chỗ', table: 1 },
-    { id: 'home', label: 'Trang chủ', table: null },
+    { id: 'home', label: 'Trang chủ', table: 0 },
   ];
 
   const handleClick = (id: string, table: number | null) => {
@@ -27,17 +28,16 @@ return (
 <div className="box-2">
     <div className="side-bar">
         <div className="overlap">
-        {menuItems.map((item) => (
-        <div className={item.id}>
+          {menuItems.map((item) => (
+          <div key={item.id} className={item.id}>
             <div
-            key={item.id}
-            className={`products ${selectedDiv === item.id ? 'active' : ''}`}
-            onClick={() => handleClick(item.id, item.table)}
+              className={`products ${selectedDiv === item.id ? 'active' : ''}`}
+              onClick={() => handleClick(item.id, item.table)}
             >
-                <div className="text-wrapper-3">{item.label}</div>
+              <div className={`text-wrapper-3 ${selectedDiv === item.id ? 'active' : ''}`}>{item.label}</div>
             </div>
-        </div>
-      ))}
+          </div>
+        ))}
             <p className="bright-web">
                 <span className="span">QARILINE </span>
                 <span className="text-wrapper-4">HỆ THỐNG ĐẶT CHỖ TRỰC TUYẾN</span>

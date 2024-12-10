@@ -1,9 +1,9 @@
     .box-2 {
-        height: 100vw;
+        min-height: calc(100vh - 70px);
         width: 280px;
     }
     .box-2 .side-bar {
-        height: 100vw;
+        height: 100%;
         left: 0;
         position: fixed;
         top: 0;
@@ -11,7 +11,7 @@
     }
     .box-2 .overlap {
         background-color: #ffffff;
-        height: 100vw;
+        height: 100%;
         left: 0px;
         position: relative;
         top: 0px;
@@ -20,10 +20,11 @@
         height: 60px;
         left: 1px;
         position: absolute;
-        top: 514px;
+        top: 563px;
         width: 280px;
     }
     .box-2 .products {
+        cursor: pointer;
         height: 60px;
         position: relative;
         width: 280px;
@@ -43,7 +44,7 @@
         height: 60px;
         left: 1px;
         position: absolute;
-        top: 454px;
+        top: 503px;
         width: 280px;
     }
     .box-2 .separator {
@@ -56,10 +57,17 @@
     }
     .box-2 .divider {
         position: absolute;
-        top: 448px;
+        top: 503px;
         width: 280px;
         height: 1px;
         background-color: #E0E0E0;
+    }
+    .box-2 .blog {
+        height: 60px;
+        left: 1px;
+        position: absolute;
+        top: 443px;
+        width: 280px;
     }
     .box-2 .user {
         height: 60px;
@@ -103,14 +111,14 @@
         top: 83px;
         width: 280px;
     }
-    .box-2 .home .products {
+    .box-2 .products.active, .box-2 .products.active:hover {
         background-color: #80bcff;
         background-size: 100% 100%;
         height: 60px;
         position: relative;
         width: 280px;
     }
-    .box-2 .home .text-wrapper-3 {
+    .box-2 .text-wrapper-3.active{
         color: #ffffff;
     }
     .box-2 .bright-web {
@@ -133,10 +141,4 @@
     }
     .box-2 .products:hover {
         background-color: #E0E0E0;
-    }
-    .box-2 .home .products:hover {
-        background-color: #1F77CF;
-    }
-    .box-2 .products .active {
-        background-color: #80bcff;
     }

@@ -74,24 +74,20 @@ table tr:nth-child(even) {
   background-color: #eaf6ff;
 }
 
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .edit-btn,
-.delete-btn {
-  background: none;
-  border: none;
+.remove-btn {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
   cursor: pointer;
-  font-size: 16px;
-  margin-right: 5px;
 }
 
-.edit-btn:hover {
-  color: #007bff;
-}
-
-.delete-btn:hover {
-  color: #dc3545;
-}
-
-  
   /* Modal styles */
   .modal {
     position: fixed;
@@ -108,6 +104,7 @@ table tr:nth-child(even) {
   .modal-content {
     background: white;
     padding: 20px;
+    padding-right: 36px;
     border-radius: 10px;
     text-align: left;
     width: 400px;
@@ -128,19 +125,22 @@ table tr:nth-child(even) {
     text-align: right;
   }
   
-  button.confirm-button {
-    background-color: #007bff;
+  button.confirm-button, .confirm-dialog .confirm {
+    width: 80px;
+    margin-right: 20px;
+    background-color: #80bcff;
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
   }
   
-  button.confirm-button:hover {
-    background-color: #0056b3;
+  button.confirm-button:hover, .confirm-dialog .confirm:hover {
+    background-color: #007bff;
   }
 
   button.cancel-button {
+    width: 80px;
     background-color: #fff;
     color: #474747;
     border-color: #474747;
@@ -177,4 +177,26 @@ table tr:nth-child(even) {
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   font-size: 14px;
+}
+
+.setting div{
+  padding-bottom: 30px;
+  padding-right: 36px;
+  padding-left: 8px;
+}
+.setting button {
+  font-size: 16px;
+  background-color: #80bcff;
+  color: white;
+  border: none;
+  padding: 10px 50px;
+  border-radius: 5px;
+}
+.setting button:hover {
+  background-color: #007bff;
+}
+.setting .button-container {
+  width: 98%;
+  display: flex;
+  justify-content: center;
 }
