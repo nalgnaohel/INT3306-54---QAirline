@@ -66,7 +66,7 @@ const TopBar: React.FC = () => {
                         <div className="text-wrapper">Admin</div>
                         <div className="avatar-background"></div>
                         <img className="man" alt="Man" src={man438081960720} />
-                        {menuVisible  && (
+                        {menuVisible && (
                             <div
                                 className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}
                                 onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
