@@ -5,22 +5,24 @@ import remove from "../../assets/images/Admin/trash-can.png";
 import "../../css/Admin/Table.css";
 
 const Table: React.FC = () => {
-  const { setActiveTable } = useTableContext();
-  const { activeTable } = useTableContext();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newRowData, setNewRowData] = useState<string[]>([]);
-  const [additionalField, setAdditionalField] = useState<string>('');
+  const { setActiveTable } = useTableContext(); // Link với TableContext component
+  const { activeTable } = useTableContext(); // Link với TableContext component
+  const [isModalOpen, setIsModalOpen] = useState(false); // Lưu trạng thái của modal
+  const [newRowData, setNewRowData] = useState<string[]>([]); // Thêm hàng mới
+  const [additionalField, setAdditionalField] = useState<string>(''); 
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // Lưu lỗi nhập liệu
-  const [formData, setFormData] = useState({
+  const [preview, setPreview] = useState<string | null>(null);
+  const [selectedRowIndex, setSelectedRowIndex] = useState<number | null>(null); // Dòng được chọn để edit hoặc remove
+  const [limit, setLimit] = useState<number>(5); // Giới hạn số hàng hiển thị
+  const [searchTerm, setSearchTerm] = useState<string>(''); // Tìm kiếm
+
+  const [formData, setFormData] = useState({ // Setting
     systemName: 'QAirline',
     email: 'example@gmail.com',
     phone: '+84 123456789',
-    avatar: null as File | null, // Optional type for avatar
+    avatar: null as File | null,
   });
-  const [preview, setPreview] = useState<string | null>(null);
-  const [selectedRowIndex, setSelectedRowIndex] = useState<number | null>(null); // Dòng được chọn
-
-  const [tables, setTables] = useState([
+  const [tables, setTables] = useState([ // Table content
     {
       id: 0,
       title: ['Trang chủ'],
@@ -97,6 +99,24 @@ const Table: React.FC = () => {
     rows: [[''],],
     },
   ]);
+  // Hàm dổi giới hạn hiển thị
+  const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLimit(Number(e.target.value));
+  };
+
+  // Hàm đổi từ khóa tìm kiếm
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value.toLowerCase());
+  };
+
+  // Hàm hiển thị các dòng có từ khóa khớp với từ tìm kiếm
+  const getFilteredRows = (rows: string[][]) => {
+    return rows.filter(row =>
+      row.some(cell => cell.toLowerCase().includes(searchTerm))
+    );
+  };
+
+  // Thay đổi dữ liệu ở setting
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -104,6 +124,7 @@ const Table: React.FC = () => {
     });
   };
   
+  // Thay đổi file ảnh ở setting
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; // Lấy file đầu tiên từ input
     if (file) {
@@ -116,76 +137,76 @@ const Table: React.FC = () => {
     }
   };
   
+  // Lưu dữ liệu được nhập ở setting
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Ở đây bạn sẽ xử lý việc gửi dữ liệu đi, ví dụ gửi lên server
+    // Gửi dữ liệu đi tại đây
     console.log(formData);
   };
 
-    const openModal = () => {
-        if (activeTable !== null) {
-          const columnCount = tables.find((table) => table.id === activeTable)?.headers.length || 1;
-          setNewRowData(Array(columnCount - 1).fill('')); // Loại bỏ cột số thứ tự
-          setIsModalOpen(true);
-          setErrorMessage(null); // Xóa thông báo lỗi khi mở modal mới
-        }
-      };
-    
-    const handleInputChange = (index: number, value: string) => {
-      setNewRowData((prevData) =>
-        prevData.map((data, i) => (i === index ? value : data))
-      );
-    };
+  // Mở model để thêm hoặc sửa dữ liệu của 1 hàng
+  const openModal = () => {
+    if (activeTable !== null) {
+      const columnCount = tables.find((table) => table.id === activeTable)?.headers.length || 1;
+      setNewRowData(Array(columnCount - 1).fill('')); // Loại bỏ cột số thứ tự
+      setIsModalOpen(true);
+      setErrorMessage(null); // Xóa thông báo lỗi khi mở modal mới
+    }
+  };
+  
+  // Lưu dữ liệu tạm thời của modal
+  const handleInputChange = (index: number, value: string) => {
+    setNewRowData((prevData) =>
+      prevData.map((data, i) => (i === index ? value : data))
+    );
+  };
 
-    const validateInputs = () => {
-      if (newRowData.slice(1, -1).some((value) => value.trim() === '')) {
-        setErrorMessage('All table fields must be filled out except the first and last columns.');
-        return false;
+  // Kiểm tra dữ liệu nhập vào ở modal có hợp lệ không
+  const validateInputs = () => {
+    if (newRowData.slice(1, -1).some((value) => value.trim() === '')) {
+      setErrorMessage('All table fields must be filled out except the first and last columns.');
+      return false;
+    }
+    return true;
+  };
+  
+  // Lưu dữ liệu của modal
+  const confirmAddRow = () => {
+    if (!validateInputs()) {
+      alert("Vui lòng nhập đủ dữ liệu");
+        return; // Dừng nếu dữ liệu không hợp lệ
       }
-      return true;
-    };
-    
-    const confirmAddRow = () => {
-      if (!validateInputs()) {
-        alert("Vui lòng nhập đủ dữ liệu");
-          return; // Dừng nếu dữ liệu không hợp lệ
-        }
 
-      if (activeTable !== null) {
-        setTables((prevTables) =>
-          prevTables.map((table) =>
-            table.id === activeTable
-              ? {
-                  ...table,
-                  rows: [
-                    ...table.rows,
-                    [
-                      (table.rows.length + 1).toString(), // Tự động thêm số thứ tự
-                      ...newRowData,
-                    ],
+    if (activeTable !== null) {
+      setTables((prevTables) =>
+        prevTables.map((table) =>
+          table.id === activeTable
+            ? {
+                ...table,
+                rows: [
+                  ...table.rows,
+                  [
+                    (table.rows.length + 1).toString(), // Tự động thêm số thứ tự
+                    ...newRowData,
                   ],
-                }
-              : table
-          )
-        );
-        console.log('Additional Field:', additionalField); // Log trường bổ sung
-        setIsModalOpen(false);
-        setAdditionalField('');
-      }
-    };
+                ],
+              }
+            : table
+        )
+      );
+      console.log('Additional Field:', additionalField); // Log trường bổ sung
+      setIsModalOpen(false);
+      setAdditionalField('');
+    }
+  };
 
-    // Hàm xử lý khi nhấn "Có" trong hộp thoại
+  // Hàm xử lý khi nhấn "Có" trong hộp thoại đăng xuất
   const handleConfirmLogout = () => {
     setIsModalOpen(false);
     console.log('Đã đăng xuất');
   };
 
-  // Hàm xử lý khi nhấn "Không" trong hộp thoại
-  const handleCancelLogout = () => {
-    setActiveTable(0);
-    setIsModalOpen(false);
-  };
-
+  // Chỉnh sửa dữ liệu của một hàng
   const handleEdit = (rowIndex: number) => {
     setSelectedRowIndex(rowIndex);
     const selectedRow = tableToRender?.rows[rowIndex] || [];
@@ -193,6 +214,8 @@ const Table: React.FC = () => {
     setNewRowData(editableData);
     setIsModalOpen(true);
   };
+
+  // Xóa dữ liệu của một hàng
   const handleRemove = (rowIndex: number) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa dòng này?")) {
       if (activeTable !== null) {
@@ -214,6 +237,8 @@ const Table: React.FC = () => {
       }
     }
   };
+
+  // Lưu dữ liệu của hàng khi đã chỉnh sửa
   const saveEditedRow = () => {
     if (selectedRowIndex !== null && activeTable !== null) {
       setTables((prevTables) =>
@@ -239,67 +264,72 @@ const Table: React.FC = () => {
     }
   };
 
-      const tableToRender = tables.find((table) => table.id === activeTable);
+  // TÌm bảng đang được hiển thị
+  const tableToRender = tables.find((table) => table.id === activeTable);
 
-      return (
-      <div className='container'>
-        <div className='header'>
-          {tables.map((table) => activeTable == table.id ? (
-            <div key={table.id} className='title'>{table.title}</div>
-          ) : null)}
-          {tables.map((table) => (activeTable == table.id && [2, 3, 4, 5, 6].includes(activeTable)) ? (
-            <button
+  return (
+    <div className='container'>
+      <div className='header'>
+        {tables.map((table) => activeTable == table.id ? (
+          <div key={table.id} className='title'>{table.title}</div>
+        ) : null)}
+
+        {tables.map((table) => (activeTable == table.id && [2, 3, 4, 5, 6].includes(activeTable)) ? (
+          <button
             onClick={openModal}
             className="add-row-button"
             disabled={activeTable === null}
-            >
-            {table.button}
-            </button>
-          ) : null)}
-          {activeTable == 8 && (
-            <div className='title'>Đăng xuất</div>
-          )}
+          > {table.button}
+          </button>
+        ) : null)}
+
+        {activeTable == 8 && (
+          <div className='title'>Đăng xuất</div>
+        )}
+      </div>
+
+
+      {activeTable == 8  && (
+        <div className="confirm-dialog">
+          <p>Bạn có chắc muốn đăng xuất?</p>
+          <button onClick={handleConfirmLogout} className='confirm'>Có</button>
         </div>
-        {activeTable == 8  && (
-            <div className="confirm-dialog">
-              <p>Bạn có chắc muốn đăng xuất?</p>
-              <button onClick={handleConfirmLogout} className='confirm'>Có</button>
-            </div>
-          )}
-        {activeTable == 7 && (
-          <form onSubmit={handleSubmit} className='setting'>
-            <div>
-              <label htmlFor="systemName">Tên hệ thống:</label>
-              <input
-                type="text"
-                id="systemName"
-                name="systemName"
-                value={formData.systemName}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="Email">Email:</label>
-              <input
-                type="text"
-                id="Email"
-                name="Email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="phone">Số điện thoại:</label>
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-            <label htmlFor="avatar">Ảnh đại diện:</label>
+      )}
+
+      {activeTable == 7 && (
+        <form onSubmit={handleSubmit} className='setting'>
+          <div>
+            <label htmlFor="systemName">Tên hệ thống:</label>
+            <input
+              type="text"
+              id="systemName"
+              name="systemName"
+              value={formData.systemName}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="Email">Email:</label>
+            <input
+              type="text"
+              id="Email"
+              name="Email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="phone">Số điện thoại:</label>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="avatar">Ảnh hệ thống:</label>
             <input
               type="file"
               id="avatar"
@@ -314,113 +344,141 @@ const Table: React.FC = () => {
                   alt="Ảnh xem trước"
                   style={{ width: "200px", height: "200px", objectFit: "cover" }}
                 />
-                </div>
-              )}
-            </div>
-            <div className='button-container'><button type="submit">Lưu</button></div>
-          </form>
-        )}
-        {tables.map((table) => (activeTable == table.id && [1, 2, 3, 4, 5, 6].includes(activeTable)) ? (
-            <div className="controls">
-            <label>Xem</label>
-            <select id="limitSelect">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-            </select>
-            phần tử
-            <input type="text" id="searchInput" placeholder="Tìm kiếm..." />
-            </div>
-        ) : null)}
-        
-        <div className="Table">
-          <div className="table-container">
-            {tables.map((table) =>
-              (activeTable === table.id && [1, 2, 3, 4, 5, 6].includes(activeTable)) ? (
-                <div key={table.id} className="table">
-                  <table>
-                    <thead>
-                      <tr>
-                        {table.headers.map((header, index) => (
-                          <th key={index}>{header}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody id="flightTableBody">
-                      {table.rows.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
-                        {row.map((cell, cellIndex) =>
-                          cellIndex === row.length - 1 ? (
-                            <td key={cellIndex}>
-                              <div className="action-buttons">
-                                <img className='edit-btn' src={edit} onClick={() => handleEdit(rowIndex)}/>
-                                <img className='remove-btn' src={remove} onClick={() => handleRemove(rowIndex)}/>
-                              </div>
-                            </td>
+              </div>
+            )}
+          </div>
+          <div className='button-container'><button type="submit">Lưu</button></div>
+        </form>
+      )}
+
+      {tables.map((table) => (activeTable == table.id && [1, 2, 3, 4, 5, 6].includes(activeTable)) ? (
+        <div className="controls" key={table.id}>
+          <label>Xem</label>
+          <select id="limitSelect" value={limit} onChange={handleLimitChange}>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+          phần tử
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Tìm kiếm..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
+      ) : null)}
+    
+
+      <div className="Table">
+        <div className="table-container">
+          {tables.map((table) => (activeTable === table.id && [1, 2, 3, 4, 5, 6].includes(activeTable)) ? (
+            <div key={table.id} className="table">
+              <table>
+                <thead>
+                  <tr>
+                    {table.headers.map((header, index) => (
+                      <th key={index}>{header}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody id="flightTableBody">
+                  {getFilteredRows(table.rows)
+                    .slice(0, limit) // Apply limit to the rows displayed
+                    .map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        {row.map((cell, cellIndex) => cellIndex === row.length - 1 ? (
+                          <td key={cellIndex}>
+                            <div className="action-buttons">
+                              <img className='edit-btn' src={edit} onClick={() => handleEdit(rowIndex)} />
+                              <img className='remove-btn' src={remove} onClick={() => handleRemove(rowIndex)} />
+                            </div>
+                          </td>
                           ) : (
-                            <td key={cellIndex}>{cell}</td>
+                          <td key={cellIndex}>{cell}</td>
                           )
                         )}
                       </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : null
-            )}
-          </div>
-    
-          {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Add Row Data</h2>
-            {tables
-              .find((table) => table.id === activeTable)
-              ?.headers.slice(1, -1) // Loại bỏ cột số thứ tự khỏi header
-              .map((header, index) => (
-                <div key={index} className="form-group">
-                  <label>{header}</label>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+            ) : null
+          )}
+        </div>
+
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              {selectedRowIndex !== null ? (
+                <h2>Chỉnh sửa dữ liệu</h2>
+              ) : (
+                <h2>Thêm dữ liệu mới</h2>
+              )}
+
+              {tables.find((table) => table.id === activeTable)
+                ?.headers.slice(1, -1) // Loại bỏ cột số thứ tự khỏi header
+                .map((header, index) => (
+                  <div key={index} className="form-group">
+                    <label>{header}</label>
+                    <input
+                      type="text"
+                      value={newRowData[index] || ''}
+                      onChange={(e) => handleInputChange(index, e.target.value)}
+                    />
+                  </div>
+              ))}
+
+              {activeTable == 5 && (
+                <div className="form-group">
+                  <label>Mật khẩu</label>
                   <input
                     type="text"
-                    value={newRowData[index] || ''}
-                    onChange={(e) => handleInputChange(index, e.target.value)}
+                    onChange={(e) => setAdditionalField(e.target.value)}
                   />
                 </div>
-              ))}
-            {activeTable == 5 && (
-              <div className="form-group">
-                <label>Mật khẩu</label>
-                <input
-                  type="text"
-                  onChange={(e) => setAdditionalField(e.target.value)}
-                />
-              </div>)}
-              {activeTable == 6 && (
-              <div className="form-group">
-                <label>Nội dung</label>
-                <input
-                  type="text"
-                  onChange={(e) => setAdditionalField(e.target.value)}
-                />
-              </div>)}
-            <div className="modal-actions">
-              <button onClick={() => {setIsModalOpen(false); setSelectedRowIndex(null); }} className='cancel-button'>Hủy</button>
-              {selectedRowIndex !== null ? (
-                <button onClick={() => { saveEditedRow(); setSelectedRowIndex(null); }} className="confirm-button">
-                  Lưu
-                </button>
-              ) : (
-                <button onClick={confirmAddRow} className="confirm-button">
-                  Lưu
-                </button>
               )}
+
+              {activeTable == 6 && (
+                <div className="form-group">
+                  <label>Nội dung</label>
+                  <input
+                    type="text"
+                    onChange={(e) => setAdditionalField(e.target.value)}
+                  />
+                </div>
+              )}
+
+              <div className="modal-actions">
+                <button 
+                  onClick={() => {setIsModalOpen(false); setSelectedRowIndex(null); }}
+                  className='cancel-button'
+                >
+                  Hủy
+                </button>
+                {selectedRowIndex !== null ? (
+                  <button
+                    onClick={() => { saveEditedRow(); setSelectedRowIndex(null); }}
+                    className="confirm-button"
+                  >
+                    Lưu
+                  </button>
+                ) : (
+                  <button 
+                    onClick={confirmAddRow}
+                    className="confirm-button"
+                  >
+                    Lưu
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
-  </div>
   );
 };
     
-    export default Table;
+export default Table;

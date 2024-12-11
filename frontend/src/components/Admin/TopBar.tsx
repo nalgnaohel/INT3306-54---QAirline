@@ -10,10 +10,17 @@ import "../../css/Admin/TopBar.css";
 
 const TopBar: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [menuVisible, setMenuVisible] = useState(false);
 
     const toggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation(); // Ngăn sự kiện lan tới document
-    setIsDropdownOpen((prevState) => !prevState);
+    if (!isDropdownOpen) {
+        setMenuVisible(true); // Hiển thị menu trước
+        setTimeout(() => setIsDropdownOpen(true), 0); // Thêm class "open" sau khi render
+      } else {
+        setIsDropdownOpen(false);
+        setTimeout(() => setMenuVisible(false), 300); // Ẩn menu sau hiệu ứng
+      }
     };
       
     const handleClickOutside = (e: MouseEvent) => {
@@ -43,8 +50,8 @@ const TopBar: React.FC = () => {
         setIsDropdownOpen(false); // Đóng dropdown
     };
 
-    const handleNotificationClick = () => {
-        console.log("Clicked on Thông báo");
+    const handleAccountClick = () => {
+        console.log("Clicked on Account");
         setIsDropdownOpen(false); // Đóng dropdown
     };
 
@@ -57,16 +64,17 @@ const TopBar: React.FC = () => {
                         <img className="more" alt="More" src={more} />
                         <div className="username">Admin</div>
                         <div className="text-wrapper">Admin</div>
+                        <div className="avatar-background"></div>
                         <img className="man" alt="Man" src={man438081960720} />
-                        {isDropdownOpen && (
+                        {menuVisible  && (
                             <div
-                            className="dropdown-menu"
-                            onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
+                                className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}
+                                onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
                             >
-                            <ul>
+                                <ul>
                                 <li onClick={handleProfileClick}>Thông tin cá nhân</li>
-                                <li onClick={handleNotificationClick}>Thông báo</li>
-                            </ul>
+                                <li onClick={handleAccountClick}>Thông tin tài khoản</li>
+                                </ul>
                             </div>
                         )}
                     </div>

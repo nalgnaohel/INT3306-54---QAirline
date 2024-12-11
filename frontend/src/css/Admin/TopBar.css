@@ -1,202 +1,258 @@
-    .box {
-        height: 70px;
-        right: 0;
-    }
-    .box .top-bar {
-        height: 70px;
-        left: 0;
-        position: fixed;
-        top: 0;
-        right: 0;
-    }
-    .box .overlap {
-        background-color: #ffffff;
-        height: 70px;
-        left: 0px;
-        right: 0;
-        position: relative;
-        top: 0px;
-    }
-    .box .separator {
-        position: absolute;
-        top: 70px;
-        left: 280px;
-        height: 1px;
-        width: 1300px;
-        background-color: #E0E0E0;
-    }
-    .box .profile {
-        height: 50px;
-        left: 1300px;
-        position: absolute;
-        top: 10px;
-        width: 204px;
-        cursor: pointer;
-    }
-    .box .more {
-        height: 22px;
-        left: 178px;
-        position: absolute;
-        top: 15px;
-        width: 22px;
-    }
-    .box .username {
-        color: #404040;
-        font-family: "Nunito Sans-Bold", Helvetica;
-        font-size: 14px;
-        font-weight: 700;
-        left: 76px;
-        letter-spacing: 0;
-        line-height: normal;
-        position: absolute;
-        top: 4px;
-        width: 51px;
-    }
-    .box .text-wrapper {
-        color: #565656;
-        font-family: "Nunito Sans-SemiBold", Helvetica;
-        font-size: 12px;
-        font-weight: 600;
-        left: 76px;
-        letter-spacing: 0;
-        line-height: normal;
-        position: absolute;
-        top: 30px;
-        width: 44px;
-    }
-    .box .man {
-        height: 52px;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 52px;
-    }
-    .box .english {
-        height: 37px;
-        left: 1100px;
-        position: absolute;
-        top: 17px;
-        width: 172px;
-        cursor: pointer;
-    }
-    .box .div {
-        color: #646464;
-        font-family: "Nunito Sans-SemiBold", Helvetica;
-        font-size: 16px;
-        font-weight: 600;
-        left: 130px;
-        letter-spacing: 0;
-        line-height: normal;
-        position: absolute;
-        top: 10px;
-        width: 70px;
-    }
-    .box .drop-down {
-        height: 6px;
-        left: 159px;
-        position: absolute;
-        top: 13px;
-        width: 11px;
-    }
-    .box .flag {
-        height: 37px;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 55px;
-    }
-    .box .overlap-group {
-        height: 50px;
-        left: 1100px;
-        position: absolute;
-        top: 17px;
-        width: 50px;
-    }
-    .box .icon {
-        height: 42px;
-        left: 0;
-        position: absolute;
-        top: 2px;
-        width: 42px;
-    }
-    .box .overlap-group-2 {
-        height: 42px;
-        position: relative;
-        width: 40px;
-    }
-    .box .icon-2 {
-        height: 35px;
-        left: 0;
-        position: absolute;
-        top: 7px;
-        width: 33px;
-    }
-    .box .combined-shape {
-        height: 25px;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 33px;
-    }
-    .box .rectangle {
-        background-color: #ff0000;
-        border-radius: 2.25px;
-        height: 8px;
-        left: 12px;
-        opacity: 0.3;
-        position: absolute;
-        top: 27px;
-        width: 8px;
-    }
-    .box .oval {
-        height: 22px;
-        left: 18px;
-        position: absolute;
-        top: 0;
-        width: 22px;
-    }
-    .box .text-wrapper-2 {
-        color: #ffffff;
-        font-family: "Nunito Sans-Bold", Helvetica;
-        font-size: 12px;
-        font-weight: 700;
-        left: 25px;
-        letter-spacing: 0;
-        line-height: normal;
-        position: absolute;
-        top: 4px;
-        white-space: nowrap;
-        width: 8px;
-    }
-    .box .img {
-        height: 26px;
-        left: 16px;
-        position: absolute;
-        top: 0;
-        width: 26px;
-    }
-    .dropdown-menu {
-        position: absolute;
-        top: 100%; /* Hiển thị ngay dưới .profile */
-        left: 0;
-        background-color: white;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        z-index: 100;
-      }
-      
-      .dropdown-menu ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .dropdown-menu li {
-        padding: 16px 20px;
-        cursor: pointer;
-      }
-      
-      .dropdown-menu li:hover {
-        background-color: #f0f0f0;
-        border-radius: 8px;
-      }
+/* General Styles */
+.box {
+    position: relative;
+    height: 70px;
+    right: 0;
+}
+
+.box .top-bar,
+.box .overlap {
+    height: 70px;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.box .top-bar {
+    position: fixed;
+}
+
+.box .overlap {
+    position: relative;
+    background-color: #ffffff;
+}
+
+.box .separator {
+    position: absolute;
+    top: 70px;
+    left: 280px;
+    width: 1300px;
+    height: 1px;
+    background-color: #e0e0e0;
+}
+
+/* Profile Section */
+.box .profile {
+    position: absolute;
+    top: 10px;
+    left: 1300px;
+    width: 204px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.box .profile:hover {
+    background-color: #e0e0e0;
+}
+
+.box .man {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+}
+
+.avatar-background {
+    background-color: #e0e0e0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+}
+
+.box .more {
+    position: absolute;
+    top: 15px;
+    left: 170px;
+}
+
+.box .english {
+    position: absolute;
+    top: 17px;
+    left: 1200px;
+    width: 60px;
+    height: 37px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.box .english:hover {
+    background-color: #e0e0e0;
+}
+
+/* Text Styling */
+.box .username,
+.box .text-wrapper,
+.box .div {
+    position: absolute;
+    font-family: "Nunito Sans", Helvetica;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.box .username {
+    top: 4px;
+    left: 76px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #404040;
+    width: 51px;
+}
+
+.box .text-wrapper {
+    top: 30px;
+    left: 76px;
+    font-size: 12px;
+    color: #565656;
+    width: 44px;
+}
+
+.box .div {
+    top: 10px;
+    left: 10px;
+    font-size: 16px;
+    color: #646464;
+    width: 70px;
+}
+
+/* Dropdown */
+.box .drop-down {
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    width: 11px;
+    height: 6px;
+}
+
+/* Overlap Groups */
+.box .overlap-group,
+.box .overlap-group-2 {
+    position: absolute;
+    top: 17px;
+}
+
+.box .overlap-group {
+    left: 1100px;
+    width: 50px;
+    height: 50px;
+}
+
+.box .overlap-group-2 {
+    position: relative;
+    width: 40px;
+    height: 42px;
+}
+
+/* Icons */
+.box .icon,
+.box .icon-2 {
+    position: absolute;
+}
+
+.box .icon {
+    top: 2px;
+    left: 0;
+    width: 42px;
+    height: 42px;
+}
+
+.box .icon-2 {
+    top: 7px;
+    left: 0;
+    width: 33px;
+    height: 35px;
+}
+
+/* Shapes */
+.box .combined-shape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 33px;
+    height: 25px;
+}
+
+.box .rectangle {
+    position: absolute;
+    top: 27px;
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff0000;
+    border-radius: 2.25px;
+    opacity: 0.3;
+}
+
+.box .oval {
+    position: absolute;
+    top: 0;
+    left: 18px;
+    width: 22px;
+    height: 22px;
+}
+
+/* Text Wrapper */
+.box .text-wrapper-2 {
+    position: absolute;
+    top: 4px;
+    left: 25px;
+    font-family: "Nunito Sans-Bold", Helvetica;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+    width: 8px;
+}
+
+/* Image */
+.box .img {
+    position: absolute;
+    top: 0;
+    left: 16px;
+    width: 26px;
+    height: 26px;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+    opacity: 0; /* Bắt đầu ẩn */
+    transform: translateY(-10px); /* Dịch lên */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Trạng thái mở */
+.dropdown-menu.open {
+    opacity: 1; /* Hiển thị */
+    transform: translateY(0); /* Vị trí ban đầu */
+}
+
+.dropdown-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li {
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    transform: scale(1.05);
+}

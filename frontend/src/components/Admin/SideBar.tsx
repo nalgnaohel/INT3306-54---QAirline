@@ -34,11 +34,13 @@ return (
               className={`products ${selectedDiv === item.id ? 'active' : ''}`}
               onClick={() => handleClick(item.id, item.table)}
             >
+              <div className="background-products1"></div>
+              <div className="background-products2"></div>
               <div className={`text-wrapper-3 ${selectedDiv === item.id ? 'active' : ''}`}>{item.label}</div>
             </div>
           </div>
         ))}
-            <p className="bright-web">
+            <p className="bright-web" onClick={() =>handleClick('home', 0)}>
                 <span className="span">QARILINE </span>
                 <span className="text-wrapper-4">HỆ THỐNG ĐẶT CHỖ TRỰC TUYẾN</span>
             </p>
