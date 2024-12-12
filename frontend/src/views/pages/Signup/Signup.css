@@ -3,7 +3,6 @@
     background-image: url(../../../assets/images/signup.png);
     background-size: cover;
     background-position: center;
-    height: 90vh;
     padding: 2rem;
     
 }
@@ -13,9 +12,10 @@
     margin-left: 20%;
     margin-top: 15vh;
     border-radius: 20px;
+    background-color: #ffffff;
 }
 
-.signup-form {
+.signup-form, .toLogin {
     width: 100%;
 }
 
@@ -32,6 +32,96 @@
     width: 36%;
 }
 
+.welcome p {
+    font-family: Calibri;
+    font-size: 16px;
+    padding: none;
+}
+
+.welcome h2 {
+    font-family: Montserrat;
+    font-size: 30px;
+    padding-top: 0;
+    margin-top: 0;
+    background-color: aquamarine;
+}
+
+.form-col h3 {
+    font-family: Montserrat;
+    font-size: 28px;
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 2px;
+    padding-bottom: 5px;
+}
+
+.component {
+    margin-bottom: 5px;
+}
+
+.flex-here {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: top;
+   
+}
+
+.component.title {
+    margin-top: 0;
+}
+
+.component label {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Montserrat;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.component select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: block;
+    font-size: 16px;
+    height: 2em;
+    width: 100%;
+}
+
+.component input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    height: 2em;
+}
+
+.form-col.right {
+    position: relative;
+    /* background-color: blue; */
+}
+
+.form-col.right .component {
+    width: 100%;
+}
+
+.form-col.right .top {
+    width: 100%;
+    position: absolute;
+    /* background-color: aliceblue; */
+    top: -175px;
+}
+
+.phone {
+    position: absolute;
+    top: 82.5px;
+}
+
+.repass {
+    position: absolute;
+    top: 330px;
+}
 .check-box{
     margin-left: 8%;
 }
@@ -45,5 +135,47 @@
 }
 
 .hide {
-    display: none;
+    display: block;
+    margin-top: 5px;
+    padding: 0;
+    font-size: 15px;
+    color: white;
+}
+
+.signup-form button {
+    padding: 0.5rem;
+    background-color: #041BD7;
+    color: #f5f8ff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    height: 2em;
+    width: 70%;
+    margin: 10px 15%;
+}
+
+.signup-form button:hover {
+    background-color: #0056b3;
+}
+
+.toLogin {
+    text-align: center;
+    margin-top: 20px;
+    font-family: Montserrat;
+    font-size: 16px;
+    height: 8%;
+    border-radius: 0 0 20px 20px;
+    background-color: #A3F3FF;
+    padding: 10px 0;
+}
+
+.toLogin p {
+    display: inline;
+}
+
+.toLogin a {
+    color: #1F77CF;
+    display: inline;
+    text-decoration: none;
 }

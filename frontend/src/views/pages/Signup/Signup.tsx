@@ -8,11 +8,11 @@ const Signup: React.FC = () => {
     const token = localStorage.getItem('token');
 
     //Status for each field in the form
-    const [haveEmail, setEmail] = useState('');
+    const [haveEmail, setEmail] = useState('valid');
     const [havePassword, setPassword] = useState(true);
     const [title, setTitle] = useState('');
     const [haveLastName, setLastName] = useState(true);
-    const [haveDob, setDob] = useState('');
+    const [haveDob, setDob] = useState('valid');
     const [gender, setGender] = useState('');
     const [haveFirstName, setFirstName] = useState(true);
     const [havePhone, setPhone] = useState(true);
@@ -21,6 +21,15 @@ const Signup: React.FC = () => {
     const [haveNationality, setNationality] = useState(true);
     const [haveIdentityNo, setIdentityNo] = useState(true);
 
+    const lastNameInputRef = useRef<HTMLInputElement | null>(null);
+    const firstNameInputRef = useRef<HTMLInputElement | null>(null);
+    const phoneInputRef = useRef<HTMLInputElement | null>(null);
+    const passwordInputRef = useRef<HTMLInputElement | null>(null);
+    const repassInputRef = useRef<HTMLInputElement | null>(null);
+    const emailInputRef = useRef<HTMLInputElement | null>(null);
+    const dobInputRef = useRef<HTMLInputElement | null>(null);
+    const nationalityInputRef = useRef<HTMLInputElement | null>(null);
+    const identityNoInputRef = useRef<HTMLInputElement | null>(null);
     const dobRef = useRef<HTMLParagraphElement | null>(null);
     const emailRef = useRef<HTMLParagraphElement | null>(null);
 
@@ -50,21 +59,41 @@ const Signup: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //console.log(formData.identityNo);
+        lastNameInputRef.current?.blur();
+        firstNameInputRef.current?.blur();
+        phoneInputRef.current?.blur();
+        passwordInputRef.current?.blur();
+        repassInputRef.current?.blur();
+        emailInputRef.current?.blur();
+        dobInputRef.current?.blur();
+        nationalityInputRef.current?.blur();
+        identityNoInputRef.current?.blur();
+        emailRef.current?.blur();
+        dobRef.current?.blur();
 
         if (formData.lastName === '') {
             console.log("flastname");
-            setLastName(false); return;
-        } else setLastName(true);
+            setLastName(false);
+            lastNameInputRef.current?.focus();
+            return;
+        } else {
+            if (lastNameInputRef.current) {
+                lastNameInputRef.current.blur();
+            }
+            setLastName(true);
+        }
 
         if (formData.firstName === '') {
             console.log("ffname");
-            setFirstName(false); return;
+            setFirstName(false);
+            firstNameInputRef.current?.focus();
+            return;
         } else setFirstName(true);
 
         if (formData.dob === '') {
             console.log("dob");
             setDob("blank"); 
-
+            dobInputRef.current?.focus();
             if (dobRef.current) {
                 dobRef.current.textContent = "Vui lòng không bỏ trống";
             }
@@ -72,6 +101,7 @@ const Signup: React.FC = () => {
         } else if (!ValidateDOB(formData.dob)) {
             console.log(formData.dob);
             setDob("invalid");
+            dobInputRef.current?.focus();
             if (dobRef.current) {
                 dobRef.current.textContent = "Ngày tháng năm sinh không hợp lệ";
             }
@@ -161,9 +191,8 @@ const Signup: React.FC = () => {
                     body: JSON.stringify(postTo)
                 }
             );
-            //F
             const data = await response.json();
-            console.log(data.user);
+            //console.log(data.user);
             alert(`${data.status}: ${data.user}: ${data.err}`);
         } catch (error) {
             alert("Error: " + error);
@@ -183,6 +212,7 @@ const Signup: React.FC = () => {
                         </div>
 
                         <h3>Thông tin cá nhân</h3>
+                        <div className="flex-here">
                         <div className="component title">
                             <label htmlFor="title">Danh xưng</label>
                             <select defaultValue="mr" name="title" onChange={(e) => {
@@ -197,20 +227,21 @@ const Signup: React.FC = () => {
                         </div>
                         <div className="component last-name">
                             <label htmlFor="lastName">Họ</label>
-                            <input type="text" name="lastName" placeholder="Ho" onChange={handleChange} />
+                            <input ref={lastNameInputRef} type="text" name="lastName" placeholder="Ho" onChange={handleChange} />
                             <p className={`${haveLastName ? 'hide' : 'show'}`}>Vui lòng không bỏ trống</p>
                         </div>
-                        <div className="component first-name"> 
+                        </div>
+                        <div className="component dob"> 
                             <label htmlFor="dob">Ngày, Tháng, Năm sinh</label>
                             <input type="text" name="dob" placeholder="dd/mm/yyyy" onChange={handleChange} />   
-                            <p ref={dobRef} className={`${haveDob == "valid" ? 'hide' : 'show'}`}></p>
+                            <p ref={dobRef} className={`${haveDob == "valid" ? 'hide' : 'show'}`}>F</p>
                         </div>
 
                         <h3>Thông tin liên hệ</h3>
                         <div className="component email">
                             <label htmlFor="email">Email</label>
                             <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-                            <p ref={emailRef} className={`${haveEmail == "valid" ? 'hide' : 'show'}`}></p>
+                            <p ref={emailRef} className={`${haveEmail == "valid" ? 'hide' : 'show'}`}>F</p>
                             
                         </div>
                         <div className="component nationality">
@@ -232,7 +263,9 @@ const Signup: React.FC = () => {
                         </div>
                         
                     </div>
-                    <div className="form-col">
+                    <div className="form-col right">
+                        <div className="top">
+                        <h3></h3>
                         <div className="component first-name">
                             <label htmlFor="firstName">Tên</label>
                             <input type="text" name="firstName" placeholder="Ten" onChange={handleChange} />
@@ -247,6 +280,7 @@ const Signup: React.FC = () => {
                                 <option value="male">Nam</option>
                                 <option value="female">Nữ</option>
                             </select>
+                        </div>
                         </div>
                         <div className="component phone">
                             <label htmlFor="phone">Số điện thoại</label>
@@ -273,9 +307,9 @@ const Signup: React.FC = () => {
                     </div>
                     <button type="submit">Dang ky</button>
                 </form>
-                <div className="toSignup">
+                <div className="toLogin">
                     <p>Đã có tài khoản? </p>
-                    <a href="/signup">Đăng nhập</a>
+                    <a href="/login">Đăng nhập</a>
                 </div>
             </div>
         </div>
