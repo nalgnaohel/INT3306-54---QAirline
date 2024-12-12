@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "./components/Navbar";
 import SearchBox from "./components/SearchBox";
 import PopularFlights from "./components/PopularFlights";
 import FeaturedInfo from "./components/FeaturedInfo";

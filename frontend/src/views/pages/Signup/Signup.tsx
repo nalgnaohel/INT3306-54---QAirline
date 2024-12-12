@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import "./Signup.css";
 import moment from 'moment';
 import Footer from "../../../components/Footer";
+import TopNavBar from "../../../components/Navbar/TopNavBar";
 
 //Signup Page
 const Signup: React.FC = () => {
@@ -200,121 +201,122 @@ const Signup: React.FC = () => {
     }
 
     return (
+        <><TopNavBar />
         <div className="Signup">
             <div className="main-container">
-            <div className="form-container">
-                <form className="signup-form" action="POST" onSubmit={handleSubmit}>
-                    <div className="form-flex">
-                    <div className="form-col">
-                        <div className="welcome">
-                            <p >Chào mừng đến với QAirline</p>
-                            <h2>Đăng ky tài khoản</h2>
-                        </div>
+                <div className="form-container">
+                    <form className="signup-form" action="POST" onSubmit={handleSubmit}>
+                        <div className="form-flex">
+                            <div className="form-col">
+                                <div className="welcome">
+                                    <p>Chào mừng đến với QAirline</p>
+                                    <h2>Đăng ky tài khoản</h2>
+                                </div>
 
-                        <h3>Thông tin cá nhân</h3>
-                        <div className="flex-here">
-                        <div className="component title">
-                            <label htmlFor="title">Danh xưng</label>
-                            <select defaultValue="mr" name="title" onChange={(e) => {
-                                formData.title = e.target.value;
-                                setTitle(e.target.value);
-                            }}>
-                                <option value="mr">Ông</option>
-                                <option value="mrs">Bà</option>
-                                <option value="miss">Cô/Chị</option>
-                            </select>
-                            {/* <p className={`${}`}>Vui lòng chọn danh xưng</p> */}
-                        </div>
-                        <div className="component last-name">
-                            <label htmlFor="lastName">Họ</label>
-                            <input ref={lastNameInputRef} type="text" name="lastName" placeholder="Ho" onChange={handleChange} />
-                            <p className={`${haveLastName ? 'hide' : 'show'}`}>Vui lòng không bỏ trống</p>
-                        </div>
-                        </div>
-                        <div className="component dob"> 
-                            <label htmlFor="dob">Ngày, Tháng, Năm sinh</label>
-                            <input type="text" name="dob" placeholder="dd/mm/yyyy" onChange={handleChange} />   
-                            <p ref={dobRef} className={`${haveDob == "valid" ? 'hide' : 'show'}`}>F</p>
-                        </div>
+                                <h3>Thông tin cá nhân</h3>
+                                <div className="flex-here">
+                                    <div className="component title">
+                                        <label htmlFor="title">Danh xưng</label>
+                                        <select defaultValue="mr" name="title" onChange={(e) => {
+                                            formData.title = e.target.value;
+                                            setTitle(e.target.value);
+                                        } }>
+                                            <option value="mr">Ông</option>
+                                            <option value="mrs">Bà</option>
+                                            <option value="miss">Cô/Chị</option>
+                                        </select>
+                                        {/* <p className={`${}`}>Vui lòng chọn danh xưng</p> */}
+                                    </div>
+                                    <div className="component last-name">
+                                        <label htmlFor="lastName">Họ</label>
+                                        <input ref={lastNameInputRef} type="text" name="lastName" placeholder="Ho" onChange={handleChange} />
+                                        <p className={`${haveLastName ? 'hide' : 'show'}`}>Vui lòng không bỏ trống</p>
+                                    </div>
+                                </div>
+                                <div className="component dob">
+                                    <label htmlFor="dob">Ngày, Tháng, Năm sinh</label>
+                                    <input type="text" name="dob" placeholder="dd/mm/yyyy" onChange={handleChange} />
+                                    <p ref={dobRef} className={`${haveDob == "valid" ? 'hide' : 'show'}`}>F</p>
+                                </div>
 
-                        <h3>Thông tin liên hệ</h3>
-                        <div className="component email">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-                            <p ref={emailRef} className={`${haveEmail == "valid" ? 'hide' : 'show'}`}>F</p>
-                            
-                        </div>
-                        <div className="component nationality">
-                            <label htmlFor="nationality">Quốc tịch</label>
-                            <input type="text" name="nationality" placeholder="Quốc tich" onChange={handleChange} />
-                            <p className={`${haveNationality ? 'hide' : 'show'}`}>Vui long khong de trong</p>
-                        </div>
-                        <div className="component identity_no">
-                            <label htmlFor="identityNo">Số CMND</label>
-                            <input type="text" name="identityNo" placeholder="So CMND" onChange={handleChange} />
-                            <p className={`${haveIdentityNo ? 'hide' : 'show'}`}>Vui long khong de trong</p>
-                        </div>
+                                <h3>Thông tin liên hệ</h3>
+                                <div className="component email">
+                                    <label htmlFor="email">Email</label>
+                                    <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+                                    <p ref={emailRef} className={`${haveEmail == "valid" ? 'hide' : 'show'}`}>F</p>
 
-                        <h3>Thông tin tài khoản</h3>
-                        <div className="component password">
-                            <label htmlFor="password">Mật khẩu</label>
-                            <input type="password" name="password" placeholder="Mật khẩu" onChange={handleChange} />
-                            <p className={`${havePassword ? 'hide' : 'show'}`}>Vui long khong de trong</p>
-                        </div>
-                        
-                    </div>
-                    <div className="form-col right">
-                        <div className="top">
-                        <h3></h3>
-                        <div className="component first-name">
-                            <label htmlFor="firstName">Tên</label>
-                            <input type="text" name="firstName" placeholder="Ten" onChange={handleChange} />
-                            <p className={`${haveFirstName ? 'hide' : 'show'}`}>Vui long khong de trong</p>
-                        </div>
-                        <div className="component gender">
-                            <label htmlFor="gender">Gioi tinh</label>
-                            <select name="gender" id="gender" defaultValue="male" onChange={(e) => {
-                                formData.gender = e.target.value;
-                                setGender(e.target.value)
-                            }}>
-                                <option value="male">Nam</option>
-                                <option value="female">Nữ</option>
-                            </select>
-                        </div>
-                        </div>
-                        <div className="component phone">
-                            <label htmlFor="phone">Số điện thoại</label>
-                            <input type="text" name="phone" placeholder="So dien thoai" onChange={handleChange} />
-                            <p className={`${havePhone ? 'hide' : 'show'}`}>Vui long khong de trong</p>
-                        </div>
-                        <div className="component repass">
-                            <label htmlFor="repass">Xác nhận mật khẩu</label>
-                            <input type="password" name="repass" placeholder="Xác nhận mật khẩu" onChange={handleChange} />
-                            <p className={`${pswMatch ? 'hide' : 'show'}`}>Mật khẩu không khớp</p>
-                        </div>
-                    </div>
+                                </div>
+                                <div className="component nationality">
+                                    <label htmlFor="nationality">Quốc tịch</label>
+                                    <input type="text" name="nationality" placeholder="Quốc tich" onChange={handleChange} />
+                                    <p className={`${haveNationality ? 'hide' : 'show'}`}>Vui long khong de trong</p>
+                                </div>
+                                <div className="component identity_no">
+                                    <label htmlFor="identityNo">Số CMND</label>
+                                    <input type="text" name="identityNo" placeholder="So CMND" onChange={handleChange} />
+                                    <p className={`${haveIdentityNo ? 'hide' : 'show'}`}>Vui long khong de trong</p>
+                                </div>
 
-                    </div>
-                    <div className="check-boxes">
-                        <div className="check-box">
-                        <input type="checkbox" name="agree" required />
-                        <label htmlFor="agree">Tôi đồng ý với các điều khoản và điều kiện của QAirline</label>
+                                <h3>Thông tin tài khoản</h3>
+                                <div className="component password">
+                                    <label htmlFor="password">Mật khẩu</label>
+                                    <input type="password" name="password" placeholder="Mật khẩu" onChange={handleChange} />
+                                    <p className={`${havePassword ? 'hide' : 'show'}`}>Vui long khong de trong</p>
+                                </div>
+
+                            </div>
+                            <div className="form-col right">
+                                <div className="top">
+                                    <h3></h3>
+                                    <div className="component first-name">
+                                        <label htmlFor="firstName">Tên</label>
+                                        <input type="text" name="firstName" placeholder="Ten" onChange={handleChange} />
+                                        <p className={`${haveFirstName ? 'hide' : 'show'}`}>Vui long khong de trong</p>
+                                    </div>
+                                    <div className="component gender">
+                                        <label htmlFor="gender">Gioi tinh</label>
+                                        <select name="gender" id="gender" defaultValue="male" onChange={(e) => {
+                                            formData.gender = e.target.value;
+                                            setGender(e.target.value);
+                                        } }>
+                                            <option value="male">Nam</option>
+                                            <option value="female">Nữ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="component phone">
+                                    <label htmlFor="phone">Số điện thoại</label>
+                                    <input type="text" name="phone" placeholder="So dien thoai" onChange={handleChange} />
+                                    <p className={`${havePhone ? 'hide' : 'show'}`}>Vui long khong de trong</p>
+                                </div>
+                                <div className="component repass">
+                                    <label htmlFor="repass">Xác nhận mật khẩu</label>
+                                    <input type="password" name="repass" placeholder="Xác nhận mật khẩu" onChange={handleChange} />
+                                    <p className={`${pswMatch ? 'hide' : 'show'}`}>Mật khẩu không khớp</p>
+                                </div>
+                            </div>
+
                         </div>
-                        <div className="check-box">
-                        <input type="checkbox" name="qcao"/>
-                        <label htmlFor="qcao">Tôi đồng ý nhận thông tin quảng cáo từ QAirline</label>
+                        <div className="check-boxes">
+                            <div className="check-box">
+                                <input type="checkbox" name="agree" required />
+                                <label htmlFor="agree">Tôi đồng ý với các điều khoản và điều kiện của QAirline</label>
+                            </div>
+                            <div className="check-box">
+                                <input type="checkbox" name="qcao" />
+                                <label htmlFor="qcao">Tôi đồng ý nhận thông tin quảng cáo từ QAirline</label>
+                            </div>
                         </div>
+                        <button type="submit">Dang ky</button>
+                    </form>
+                    <div className="toLogin">
+                        <p>Đã có tài khoản? </p>
+                        <a href="/login">Đăng nhập</a>
                     </div>
-                    <button type="submit">Dang ky</button>
-                </form>
-                <div className="toLogin">
-                    <p>Đã có tài khoản? </p>
-                    <a href="/login">Đăng nhập</a>
                 </div>
             </div>
-        </div>
-        {/* <Footer /> */}
-        </div>
+            {/* <Footer /> */}
+        </div></>
         
     );
 }

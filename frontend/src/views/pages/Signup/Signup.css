@@ -10,7 +10,7 @@
 .form-container {
     width: 60%;
     margin-left: 20%;
-    margin-top: 15vh;
+    margin-top: 10vh;
     border-radius: 20px;
     background-color: #ffffff;
 }
@@ -110,17 +110,17 @@
     width: 100%;
     position: absolute;
     /* background-color: aliceblue; */
-    top: -175px;
+    top: -195px;
 }
 
 .phone {
     position: absolute;
-    top: 82.5px;
+    top: 56.5px;
 }
 
 .repass {
     position: absolute;
-    top: 330px;
+    top: 389px;
 }
 .check-box{
     margin-left: 8%;
