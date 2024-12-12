@@ -14,8 +14,9 @@ type authBusiness struct {
 }
 
 // NewAuthBusiness - creates a new auth business
-func NewAuthBusiness(authRepo auth.AuthRepository) auth.AuthBusiness {
+func NewAuthBusiness(cfg *config.Config, authRepo auth.AuthRepository) auth.AuthBusiness {
 	return &authBusiness{
+		cfg:      cfg,
 		authRepo: authRepo,
 	}
 }

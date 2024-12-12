@@ -23,7 +23,7 @@ redis:
   DB: 0
   
 mysql:
-  Host: docker.for.mac.localhost
+  Host: localhost
   Port: 3306
   User: root
   Password: abc12345

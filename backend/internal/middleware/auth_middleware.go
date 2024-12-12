@@ -18,7 +18,7 @@ import (
 )
 
 // JWTAuthMiddleware - authentication JWT using cookie session/ Auth header
-func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg config.Config) fiber.Handler {
+func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg *config.Config) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		authHeader := ctx.GetReqHeaders()["Authorization"][0]
 		log.Printf("Auth header: %v", ctx.GetReqHeaders()["Authorization"])
@@ -53,7 +53,7 @@ func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg confi
 	}
 }
 
-func (m *Middleware) validateJWTToken(tokenString string, authBusiness auth.AuthBusiness, ctx *fiber.Ctx, cfg config.Config) error {
+func (m *Middleware) validateJWTToken(tokenString string, authBusiness auth.AuthBusiness, ctx *fiber.Ctx, cfg *config.Config) error {
 	if tokenString == "" {
 		return errors.New("Empty token")
 	}
@@ -92,9 +92,9 @@ func (m *Middleware) validateJWTToken(tokenString string, authBusiness auth.Auth
 
 		ctx.Locals("user", user)
 
-		c := context.WithValue(ctx.Context(), utils.UserCtxKey{}, user)	
+		c := context.WithValue(ctx.Context(), utils.UserCtxKey{}, user)
 		ctx.SetUserContext(c)
-		
+
 	}
 	return nil
 }

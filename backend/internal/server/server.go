@@ -45,11 +45,12 @@ func (s *Server) Start() error {
 	s.fiber.Server().WriteTimeout = time.Second * s.cfg.Server.WriteTimeout
 
 	go func() {
-		log.Printf("Server is listening on PORT: %s", s.cfg.Server.Port)
+		log.Printf("Server is listening on PORT in server.go: %s", s.cfg.Server.Port)
 
 		if err := s.fiber.Listen("localhost:" + s.cfg.Server.Port); err != nil {
 			log.Fatalf("Error starting Server: %e", err)
 		}
+		log.Printf("Seems nothing wrong")
 	}()
 
 	quit := make(chan os.Signal, 1)

@@ -8,11 +8,13 @@ import (
 type Middleware struct {
 	authBusiness auth.AuthBusiness
 	cfg          config.Config
+	origins      []string
 }
 
-func NewMiddleware(authBusiness auth.AuthBusiness, cfg config.Config) *Middleware {
+func NewMiddleware(authBusiness auth.AuthBusiness, cfg config.Config, origins []string) *Middleware {
 	return &Middleware{
 		authBusiness: authBusiness,
 		cfg:          cfg,
+		origins:      origins,
 	}
 }

@@ -23,7 +23,8 @@ COPY --from=builder ./app ./app
 WORKDIR /app
 ENV config=docker
 
-EXPOSE 8080
-
+EXPOSE 5000
+EXPOSE 5050
+EXPOSE 7070
 #Entrypoint commnad to run the server for CompileDaemon
-ENTRYPOINT CompileDaemon --build="go build -o cmd/main.go" --command=./main 
+ENTRYPOINT CompileDaemon --build="go build -o cmd/api/main.go" --command=./main 
