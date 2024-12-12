@@ -5,7 +5,7 @@ DROP TABLE if EXISTS airports;
 
 -- UP
 CREATE TABLE IF NOT EXISTS users (
-    user_id BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY,
+    user_id VARCHAR(36) NOT NULL DEFAULT (UUID()) PRIMARY KEY,
     title TEXT NOT NULL,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
@@ -19,14 +19,13 @@ CREATE TABLE IF NOT EXISTS users (
     type TEXT NOT NULL,
     identity_no VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    login_date TIMESTAMP default CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 INSERT INTO users (user_id, title, first_name, last_name, dob, gender, email,
- password, phone_number, avatar, nationality, type, identity_no, created_at, updated_at, login_date) 
+ password, phone_number, avatar, nationality, type, identity_no, created_at, updated_at) 
 VALUES (default, 'Miss', 'Hoang Lan', 'Le', '2004-01-08 00:00:00.000000', 'Female', 'lanlehoang8124@gmail.com',
-'$2a$10$h7A2gZQhDur0.DWme0Jdv./6PIuIVZwcLWNdgIpESFjFGy.LgLGNi', '0987654321', 'https://www.google.com', 'Vietnamese', 'admin', '001123456789', '2021-08-01 11:04:47.737661', '2021-08-01 11:04:47.737661', '2021-08-01 11:04:47.737661');
+'$2a$10$h7A2gZQhDur0.DWme0Jdv./6PIuIVZwcLWNdgIpESFjFGy.LgLGNi', '0987654321', 'https://www.google.com', 'Vietnamese', 'admin', '001123456789', '2021-08-01 11:04:47.737661', '2021-08-01 11:04:47.737661');
 -- CREATE TABLE IF NOT EXISTS flights (
 --     flight_id UUID PRIMARY KEY,
 --     airline_id UUID NOT NULL,
