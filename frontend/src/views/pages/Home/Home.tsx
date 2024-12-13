@@ -4,7 +4,7 @@ import PopularFlights from "../../../components/PopularFlights";
 import FeaturedInfo from "../../../components/FeaturedInfo";
 import Footer from "../../../components/Footer";
 import FlightResults from "../../../components/FlightResults";
-import "./css/Home.css";
+import "./Home.css";
 
 import { Flight } from "../../../components/FlightResults";
 

