@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import SearchBox from "./components/SearchBox";
-import PopularFlights from "./components/PopularFlights";
-import FeaturedInfo from "./components/FeaturedInfo";
-import Footer from "./components/Footer";
-import FlightResults from "./components/FlightResults";
+import SearchBox from "../../../components/SearchBox";
+import PopularFlights from "../../../components/PopularFlights";
+import FeaturedInfo from "../../../components/FeaturedInfo";
+import Footer from "../../../components/Footer";
+import FlightResults from "../../../components/FlightResults";
 import "./css/Home.css";
 
-import { Flight } from "./components/FlightResults";
+import { Flight } from "../../../components/FlightResults";
 
 const Home: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
