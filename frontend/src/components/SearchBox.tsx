@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Navbar from "./Navbar";
 import "../css/SearchBox.css";
 import flightsData from "./Flights.json";
+import AutoCompleteInput from "./AutoCompleteInput";
 
 const tabs = document.querySelectorAll(".tab");
 
@@ -92,10 +93,10 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   const handleSearch = () => {
     const filtered = flights.filter((flight) => {
       const isDepartureMatch = departure
-        ? flight.departure.includes(departure)
+        ? flight.departure.includes(departure.split(" (")[0])
         : true;
       const isDestinationMatch = destination
-        ? flight.destination.includes(destination)
+        ? flight.destination.includes(destination.split(" (")[0])
         : true;
       // const isDateMatch = departureDate
       //   ? flight.departureTime.startsWith(departureDate)
@@ -178,46 +179,18 @@ const SearchBox: React.FC<SearchBoxProps> = ({
               </label>
             </div>
             <div className="inputs">
-              <div>
-                <label>Từ</label>
-                <input
-                  type="text"
-                  placeholder="Chọn điểm khởi hành"
-                  value={departure}
-                  onChange={(e) => setDeparture(e.target.value)}
-                  list="departure-options"
-                />
-                <datalist id="departure-options">
-                  <option value="Hà Nội" />
-                  <option value="Sài Gòn" />
-                  <option value="Đà Nẵng" />
-                  <option value="Nha Trang" />
-                  <option value="Hải Phòng" />
-                  <option value="Quy Nhơn" />
-                  <option value="Quy Nhơn" />
-                  <option value="Quy Nhơn" />
-                  <option value="Quy Nhơn" />
-                  <option value="Quy Nhơn" />
-                </datalist>
-              </div>
-              <div>
-                <label>Đến</label>
-                <input
-                  type="text"
-                  placeholder="Chọn điểm đến"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  list="destination-options"
-                />
-                <datalist id="destination-options">
-                  <option value="Hà Nội" />
-                  <option value="Sài Gòn" />
-                  <option value="Đà Nẵng" />
-                  <option value="Nha Trang" />
-                  <option value="Hải Phòng" />
-                  <option value="Quy Nhơn" />
-                </datalist>
-              </div>
+              <AutoCompleteInput
+                label="Từ"
+                placeholder="Chọn điểm khởi hành ..."
+                value={departure}
+                onChange={setDeparture}
+              />
+              <AutoCompleteInput
+                label="Đến"
+                placeholder="Chọn điểm đến ..."
+                value={destination}
+                onChange={setDestination}
+              />
               {tripType === "one-way" && (
                 <div>
                   <label>Ngày khởi hành</label>
@@ -248,16 +221,20 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                 </div>
               )}
               {tripType === "multi-city" && (
-                <div>
-                  <label>Từ</label>
-                  <input type="text" placeholder="Chọn điểm khởi hành" />
-                </div>
+                <AutoCompleteInput
+                  label="Từ"
+                  placeholder="Chọn điểm khởi hành ..."
+                  value={departure}
+                  onChange={setDeparture}
+                />
               )}
               {tripType === "multi-city" && (
-                <div>
-                  <label>Đến</label>
-                  <input type="text" placeholder="Chọn điểm đến" />
-                </div>
+                <AutoCompleteInput
+                  label="Đến"
+                  placeholder="Chọn điểm đến ..."
+                  value={destination}
+                  onChange={setDestination}
+                />
               )}
               {tripType === "multi-city" && (
                 <div>
@@ -329,6 +306,21 @@ const SearchBox: React.FC<SearchBoxProps> = ({
         )}
 
         {activeTab === "Quản lý đặt chỗ" && (
+          <div className="manage-tab">
+            <form>
+              <div className="form-group-2">
+                <label>Mã đặt chỗ / Số vé điện tử</label>
+                <input type="text" placeholder="Mã đặt chỗ / Số vé điện tử" />
+              </div>
+              <div className="form-group-2">
+                <label>Họ</label>
+                <input type="text" placeholder="Họ" />
+              </div>
+              <button type="submit">Tìm kiếm</button>
+            </form>
+          </div>
+        )}
+        {activeTab === "Làm thủ tục" && (
           <div className="manage-tab">
             <form>
               <div className="form-group-2">

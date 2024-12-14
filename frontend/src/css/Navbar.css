@@ -24,3 +24,17 @@
 .navbar ul li {
   margin: 10px 0;
 }
+
+.navbar-ul li.active {
+  color: #007bff;
+}
+
+.navbar-ul li.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #007bff;
+}

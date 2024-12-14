@@ -1,0 +1,138 @@
+/* General container styling */
+.seat-selection-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 700px;
+  color: #333;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+/* Legend styling */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.legend-item .seat {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+/* Seat colors in the legend */
+.legend-item .selected {
+  background-color: #ffb822;
+}
+.legend-item .available {
+  background-color: #6c757d;
+}
+.legend-item .blocked {
+  background-color: #dc3545;
+}
+
+/* Seat map grid styling */
+.seat-map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.seat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.row-number {
+  width: 25px;
+  font-weight: bold;
+}
+
+/* Seat styling */
+.seat {
+  width: 35px;
+  height: 35px;
+  background-color: #6c757d;
+  color: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  font-size: 0.9rem;
+}
+
+/* Hover and click effects for seats */
+.seat:hover {
+  background-color: #007bff;
+  transform: scale(1.1);
+}
+
+.seat.selected {
+  background-color: #ffb822;
+  color: #222;
+  font-weight: bold;
+}
+
+.seat.blocked {
+  background-color: #dc3545;
+  cursor: not-allowed;
+}
+
+/* Actions button styling */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.back-btn {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.back-btn:hover {
+  background-color: #5a6268;
+}
+
+.continue-btn {
+  background-color: #ff5e3a;
+  color: #fff;
+}
+
+.continue-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.continue-btn:hover:not(:disabled) {
+  background-color: #e04e2c;
+}

@@ -23,10 +23,12 @@ const FlightResults: React.FC<FlightResultsProps> = ({ flights }) => {
   const [expandedFlightId, setExpandedFlightId] = useState<number | null>(null);
   const [selectedFare, setSelectedFare] = useState<string | null>(null);
 
+  // Hiện thị thông tin các vé
   const toggleDetails = (id: number) => {
     setExpandedFlightId(expandedFlightId === id ? null : id);
   };
 
+  //Chọn vé phổ thông/ thương gia.
   const handleFareSelect = (fare: string) => {
     setSelectedFare(fare);
   };

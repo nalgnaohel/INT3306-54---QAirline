@@ -65,6 +65,7 @@
 .tabs .tab.active {
   color: #00aaff;
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .tabs .tab::after {
@@ -109,7 +110,6 @@
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px;
   width: 100%;
-  padding-right: 20px;
 }
 
 .inputs > div {
@@ -179,7 +179,7 @@
 }
 .passenger-section {
   position: relative;
-  width: 108%;
+  width: 100%;
 }
 
 .passenger-label {
