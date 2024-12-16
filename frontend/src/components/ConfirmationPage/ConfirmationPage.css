@@ -1,0 +1,94 @@
+/* Container styling */
+.confirmation-container {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 20px auto;
+  text-align: center;
+  padding: 20px;
+  max-width: 900px;
+}
+
+.confirmation-card {
+  border: 1px solid #ddd;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+/* Details section */
+.confirmation-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.detail-section {
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.detail-section h3 {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.detail-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-section li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #444;
+}
+
+.detail-section li strong {
+  color: #000;
+}
+
+/* Button actions */
+.confirmation-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-btn {
+  background-color: #6c757d;
+}
+
+.edit-btn:hover {
+  background-color: #5a6268;
+}
+
+.confirm-btn {
+  background-color: #00aaff;
+}
+
+.confirm-btn:hover {
+  background-color: #00aaff;
+}

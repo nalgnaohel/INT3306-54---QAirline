@@ -4,57 +4,60 @@
   text-align: center;
   margin: 2rem auto;
   width: 90%;
-  max-width: 700px;
+  max-width: 900px;
   color: #333;
 }
 
 h2 {
   font-size: 1.8rem;
   color: #222;
-  margin-bottom: 1rem;
-}
-
-/* Legend styling */
-.legend {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.legend-item {
+/*Seat card layout*/
+.seat-card {
+  border: 1px solid #ddd;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Seat selection content layout */
+.seat-selection-content {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.legend-item .seat {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-}
-
-/* Seat colors in the legend */
-.legend-item .selected {
-  background-color: #ffb822;
-}
-.legend-item .available {
-  background-color: #6c757d;
-}
-.legend-item .blocked {
-  background-color: #dc3545;
-}
-
-/* Seat map grid styling */
-.seat-map {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
   margin-bottom: 2rem;
 }
 
+/* Seat map styling */
+.seat-map {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Header row for columns */
+.seat-map-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.seat-placeholder {
+  width: 25px;
+}
+
+.seat-header {
+  width: 35px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Seat row styling */
 .seat-row {
   display: flex;
   align-items: center;
@@ -81,10 +84,9 @@ h2 {
   font-size: 0.9rem;
 }
 
-/* Hover and click effects for seats */
-.seat:hover {
-  background-color: #007bff;
-  transform: scale(1.1);
+/* Seat status colors */
+.seat.available {
+  background-color: #6c757d;
 }
 
 .seat.selected {
@@ -96,6 +98,33 @@ h2 {
 .seat.blocked {
   background-color: #dc3545;
   cursor: not-allowed;
+}
+
+/* Hover effect for available seats */
+.seat.available:hover {
+  background-color: #007bff;
+  transform: scale(1.1);
+}
+
+/* Legend styling */
+.legend {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-item .seat {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
 }
 
 /* Actions button styling */
@@ -124,7 +153,7 @@ button {
 }
 
 .continue-btn {
-  background-color: #ff5e3a;
+  background-color: #00aaff;
   color: #fff;
 }
 
@@ -134,5 +163,5 @@ button {
 }
 
 .continue-btn:hover:not(:disabled) {
-  background-color: #e04e2c;
+  background-color: #00aaff;
 }

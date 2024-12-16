@@ -17,3 +17,33 @@ body {
   background-color: #1e90ff;
   color: white;
 }
+
+@media (max-width: 768px) {
+  .Home {
+    padding: 10px;
+  }
+}
+
+/* Ensure the components used within Home are also responsive */
+.SearchBox,
+.FlightResults,
+.PopularFlights,
+.FeaturedInfo,
+.FeedbackCarousel,
+.CruisePartners,
+.Footer {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .SearchBox,
+  .FlightResults,
+  .PopularFlights,
+  .FeaturedInfo,
+  .FeedbackCarousel,
+  .CruisePartners,
+  .Footer {
+    padding: 10px;
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/FeaturedInfo.css";
+import "./FeaturedInfo.css";
 
 const FeaturedInfo: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const FeaturedInfo: React.FC = () => {
       <div className="info-grid">
         <div className="info-card">
           <img
-            src={require("../assets/images/sinhnhat.jpg")}
+            src={require("../../assets/images/sinhnhat.jpg")}
             alt="Giảm giá lên đến 30%"
             className="info-card-image"
           />
@@ -16,7 +16,7 @@ const FeaturedInfo: React.FC = () => {
         </div>
         <div className="info-card">
           <img
-            src={require("../assets/images/doan.jpg")}
+            src={require("../../assets/images/doan.jpg")}
             alt="Ẩm thực hạng thương gia"
             className="info-card-image"
           />
@@ -24,7 +24,7 @@ const FeaturedInfo: React.FC = () => {
         </div>
         <div className="info-card">
           <img
-            src={require("../assets/images/hanhli.jpg")}
+            src={require("../../assets/images/hanhli.jpg")}
             alt="Trải nghiệm khách sạn 5 sao"
             className="info-card-image"
           />

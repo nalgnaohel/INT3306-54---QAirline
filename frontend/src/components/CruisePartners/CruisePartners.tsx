@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/CruisePartners.css";
+import "./CruisePartners.css";
 
 const cruisePartners = [
   {

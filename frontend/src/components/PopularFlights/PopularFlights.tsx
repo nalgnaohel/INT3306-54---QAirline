@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/PopularFlights.css";
+import "./PopularFlights.css";
 
 const flights = [
   {
@@ -9,7 +9,7 @@ const flights = [
     rank: "Phổ thông",
     date: "20/11/2024",
     time: "12:00 AM",
-    image: require("../assets/images/danang.png"),
+    image: require("../../assets/images/danang.png"),
   },
   {
     location: "Hà Nội đến Sài Gòn",
@@ -18,7 +18,7 @@ const flights = [
     rank: "Phổ thông",
     date: "25/11/2024",
     time: "04:00 PM",
-    image: require("../assets/images/tphcm.png"),
+    image: require("../../assets/images/tphcm.png"),
   },
   {
     location: "Huế đến Hà Nội",
@@ -27,7 +27,7 @@ const flights = [
     rank: "Phổ thông",
     date: "29/11/2024",
     time: "12:00 PM",
-    image: require("../assets/images/hanoi.png"),
+    image: require("../../assets/images/hanoi.png"),
   },
   {
     location: "TP Hồ Chí Minh đến Huế",
@@ -36,7 +36,7 @@ const flights = [
     rank: "Phổ thông",
     date: "22/11/2024",
     time: "09:00 AM",
-    image: require("../assets/images/hue.png"),
+    image: require("../../assets/images/hue.png"),
   },
 ];
 

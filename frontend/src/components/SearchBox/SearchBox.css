@@ -7,15 +7,9 @@
   position: relative;
   text-align: left;
   padding: 150px 0px;
-  background-image: url("../assets/images/bg_home.png");
+  background-image: url("../../assets/images/bg_home.png");
   background-size: cover;
   background-position: center;
-}
-
-.hero-section .topnav {
-  position: absolute;
-  top: 0;
-  right: 390px;
 }
 
 .hero-section .infor {

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Navbar from "../../../components/Navbar";
-import SearchBox from "../../../components/SearchBox";
-import PopularFlights from "../../../components/PopularFlights";
-import FeaturedInfo from "../../../components/FeaturedInfo";
-import Footer from "../../../components/Footer";
-import FlightResults from "../../../components/FlightResults";
-import CruisePartners from "../../../components/CruisePartners";
-import FeedbackCarousel from "../../../components/FeedbackCarousel";
+import TopNavBar from "../../../components/Navbar/TopNavBar";
+import SearchBox from "../../../components/SearchBox/SearchBox";
+import PopularFlights from "../../../components/PopularFlights/PopularFlights";
+import FeaturedInfo from "../../../components/FeaturedInfo/FeaturedInfo";
+import Footer from "../../../components/Footer/Footer";
+import FlightResults from "../../../components/FlightResults/FlightResults";
+import CruisePartners from "../../../components/CruisePartners/CruisePartners";
+import FeedbackCarousel from "../../../components/FeedbackCarousel/FeedbackCarousel";
 import "./Home.css";
 
-import { Flight } from "../../../components/FlightResults";
+import { Flight } from "../../../components/FlightResults/FlightResults";
 
 const Home: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);

@@ -65,3 +65,60 @@
   transform: translateY(-5px);
   transition: all 0.3s ease-in-out;
 }
+
+@media (max-width: 768px) {
+  .flights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-card {
+    flex-direction: column;
+  }
+
+  .flight-image-container {
+    width: 100%;
+    max-width: 780px;
+  }
+
+  .flight-details {
+    width: 100%;
+  }
+
+  .location {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .price {
+    color: #d9534f;
+    font-size: 1em;
+  }
+
+  .destination,
+  .rank,
+  .date,
+  .time {
+    font-size: 0.8em;
+    color: #555;
+  }
+}
+
+@media (max-width: 480px) {
+  .location {
+    font-size: 1em;
+    font-weight: bold;
+  }
+
+  .price {
+    color: #d9534f;
+    font-size: 0.9em;
+  }
+
+  .destination,
+  .rank,
+  .date,
+  .time {
+    font-size: 0.7em;
+    color: #555;
+  }
+}

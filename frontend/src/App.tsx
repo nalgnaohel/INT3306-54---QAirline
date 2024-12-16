@@ -1,19 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import SearchBox from "./components/SearchBox";
+import logo from "./logo.svg";
+import TopNavBar from "./components/Navbar/TopNavBar";
+import Login from "./views/pages/Login/Login";
 import Home from "./views/pages/Home/Home";
-import FlightProcedure from "./views/pages/FlightProcedure/FlightProcedure";
 
-const App = () => {
+function App() {
   return (
-    // Đảm bảo BrowserRouter bọc toàn bộ ứng dụng
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <div className="App">
+      <Home />
+    </div>
   );
-};
+}
 
 export default App;

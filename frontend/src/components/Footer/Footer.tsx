@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/Footer.css";
+import "./Footer.css";
 import { FaFacebook } from "react-icons/fa";
 import { SiZalando } from "react-icons/si";
 import { AiFillInstagram } from "react-icons/ai";

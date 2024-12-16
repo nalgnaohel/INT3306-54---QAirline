@@ -12,7 +12,7 @@ h2 {
 .flight-item {
   display: grid;
   grid-template-columns: 2fr 1fr; /* Phần thông tin chuyến bay và hạng vé */
-  background-color: #f5faff;
+  background-color: #f8fcff;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 20px;
@@ -33,23 +33,54 @@ h2 {
   border-right: 2px solid #fff;
 }
 
-.flight-info .time-details {
+.flight-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  background-color: #e0f2fe;
+  padding: 20px;
+  border-radius: 8px;
   text-align: center;
+  gap: 10px;
 }
 
-.flight-info .time-details strong {
-  font-size: 32px;
-  color: #424242;
+.flight-info .time-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.flight-info p {
-  margin: 5px 0;
-  color: #424242;
-  font-size: 15px;
+.flight-info .time-details .location {
+  font-size: 24px; /* Larger font for location names */
+  font-weight: bold;
+  color: #333333;
+}
+
+.flight-info .time-details .datetime {
+  font-size: 14px;
+  color: #555555;
+  margin-top: 5px;
+}
+
+.flight-info .duration {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #555555;
 }
 
 .flight-info .duration #muiten {
-  font-size: 50px;
+  font-size: 50px; /* Larger arrow */
+  color: #424242;
+  margin: 0px 0;
+}
+
+.flight-info .duration .flight-time {
+  font-size: 14px;
+  color: #555555;
+  margin-top: 5px;
 }
 
 .flight-item .fare-options {
