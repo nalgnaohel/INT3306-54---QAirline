@@ -4,11 +4,12 @@ import './App.css';
 import TopNavBar from './components/Navbar/TopNavBar';
 import Login from './views/pages/Login/Login';
 import Home from './views/pages/Home/Home';
+import Admin from './Admin';
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      <Admin />
     </div>
   );
 }

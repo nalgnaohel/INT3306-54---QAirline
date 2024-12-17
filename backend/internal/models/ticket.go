@@ -15,4 +15,5 @@ type Ticket struct {
 	DepartureTime time.Time `json:"departure_time"`
 	ArrivalTime   time.Time `json:"arrival_time"`
 	BookedAt      time.Time `json:"booked_at"`
+	TicketClass   string    `json:"class"`
 }
