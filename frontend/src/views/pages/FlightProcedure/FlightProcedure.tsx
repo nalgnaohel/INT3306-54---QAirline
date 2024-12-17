@@ -4,6 +4,7 @@ import PassengerList from "../../../components/PassengerList/PassengerList";
 import SeatSelection from "../../../components/SeatSelection/SeatSelection";
 import ConfirmationPage from "../../../components/ConfirmationPage/ConfirmationPage";
 import Footer from "../../../components/Footer/Footer";
+import TopNavBar from "../../../components/Navbar/TopNavBar";
 
 // Mock data for testing
 const mockFlightDetails = {
@@ -34,6 +35,7 @@ const FlightProcedure: React.FC = () => {
 
   return (
     <>
+      <TopNavBar />
       <div>
         {currentStep === 1 && <FlightDetails onContinue={goToNextStep} />}
         {currentStep === 2 && (

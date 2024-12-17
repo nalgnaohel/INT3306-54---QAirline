@@ -86,7 +86,7 @@
   align-items: center;
 }
 
-.form-group {
+.form-group-1 {
   color: black;
   width: 100%;
   display: flex;
@@ -94,7 +94,7 @@
   margin-bottom: 20px;
 }
 
-.form-group > label {
+.form-group-1 > label {
   padding-left: 20px;
   padding-right: 40px;
 }

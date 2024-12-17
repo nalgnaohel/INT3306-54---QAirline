@@ -39,17 +39,6 @@ const SeatSelection: React.FC<SeatSelectionProps> = ({
 
   return (
     <div className="seat-selection-container">
-      <header className="header">
-        <div className="logo">✈️ Airline</div>
-        <nav>
-          <ul className="nav-links">
-            <li>Trang chủ</li>
-            <li>Chuyến bay</li>
-            <li>Tin tức</li>
-            <li>Liên hệ</li>
-          </ul>
-        </nav>
-      </header>
       <div className="progress-steps">
         <div className="step completed">✔ Chi tiết chuyến bay</div>
         <div className="step completed">✔ Hành khách</div>

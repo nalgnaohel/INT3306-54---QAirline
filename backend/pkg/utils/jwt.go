@@ -20,7 +20,7 @@ func GenerateJWTToken(user *models.User, secret string) (string, error) {
 	//Create claims
 	claims := JWTCustomClaims{
 		Email: user.Email,
-		ID:    user.UserID.String(),
+		ID:    user.UserID,
 		Type:  user.Type,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24))},

@@ -8,18 +8,6 @@ interface FlightDetailsProps {
 const FlightDetails: React.FC<FlightDetailsProps> = ({ onContinue }) => {
   return (
     <div className="flight-details-container">
-      <header className="header">
-        <div className="logo">✈️ Airline</div>
-        <nav>
-          <ul className="nav-links">
-            <li>Trang chủ</li>
-            <li>Chuyến bay</li>
-            <li>Tin tức</li>
-            <li>Liên hệ</li>
-          </ul>
-        </nav>
-      </header>
-
       <div className="progress-steps">
         <div className="step active">1 Chi tiết chuyến bay</div>
         <div className="step">2 Hành khách</div>

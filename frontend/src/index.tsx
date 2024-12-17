@@ -7,7 +7,9 @@ import App from "./App";
 import Login from "./views/pages/Login/Login";
 import Signup from "./views/pages/Signup/Signup";
 import FlightProcedure from "./views/pages/FlightProcedure/FlightProcedure";
-import FlightResults from "./components/FlightResults/FlightResults";
+import BookingConfirmation from "./components/BookingConfirmation/BookingConfirmation";
+import PaymentPage from "./components/PaymentPage/PaymentPage";
+import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,18 @@ const router = createBrowserRouter([
   {
     path: "/flight",
     element: <FlightProcedure />,
+  },
+  {
+    path: "/payment",
+    element: <PaymentPage />,
+  },
+  {
+    path: "/confirmation",
+    element: <BookingConfirmation />,
+  },
+  {
+    path: "/passenger-info",
+    element: <PassengerInfoForm />,
   },
 ]);
 

@@ -10,7 +10,7 @@ const TopNavBar: React.FC = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo" onClick={() => navigate("/")}>
-        ✈️ Airline
+        <img src="logo.png" height={"50px"} alt="" />
       </div>
       <ul className="navbar-ul">
         <li

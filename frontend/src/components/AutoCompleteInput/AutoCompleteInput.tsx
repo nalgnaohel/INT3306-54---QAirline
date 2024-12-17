@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import airportsData from "../FlightPlaces.json"; // Import dữ liệu sân bay
+import airportsData from "./FlightPlaces.json"; // Import dữ liệu sân bay
 import "./AutoCompleteInput.css";
 
 interface Airport {

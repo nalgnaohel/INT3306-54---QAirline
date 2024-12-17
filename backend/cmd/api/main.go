@@ -12,7 +12,7 @@ import (
 
 func main() {
 	//Start the server
-	log.Println("Start")
+	log.Println("Start!")
 
 	//Load config file
 	configPath := "config/config-docker"
@@ -29,6 +29,7 @@ func main() {
 	}
 
 	//Initialize database
+	log.Println("Initialize database")
 	mySQLDB, err := mysql.Connect(cfg)
 	if err != nil {
 		log.Fatalf("Error connecting to database: %v", err)
@@ -45,6 +46,7 @@ func main() {
 	}
 
 	s := server.NewServer(cfg, mySQLDB)
+	log.Printf("Server is starting in main.go: %s", cfg.Server.Port)
 	err = s.Start()
 	if err != nil {
 		log.Fatalf("Error starting server: %v", err)

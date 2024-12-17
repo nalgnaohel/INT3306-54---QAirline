@@ -147,7 +147,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
 
           {activeTab === "Mua vé" && (
             <div className="form">
-              <div className="form-group">
+              <div className="form-group-1">
                 <label>
                   <input
                     type="radio"

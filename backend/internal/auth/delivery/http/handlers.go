@@ -23,20 +23,25 @@ func NewAuthHandlers(authBusiness auth.AuthBusiness) auth.Handlers {
 // Register - creates a new user Handler
 func (authHandlers *authHandlers) Register() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		user := &models.User{}
+		userId := uuid.New().String()
+
+		user := &models.User{
+			UserID: userId,
+			Type:   "client",
+		}
 
 		if err := c.BodyParser(user); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"status": "Bad Request",
-				"error":  err.Error(),
+				"error":  "!!!!!!Cannot parse - " + err.Error(),
 			})
 		}
 
 		err := utils.NewValidator().Validate(user)
 		if err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status":  "Bad Request",
-				"message": err.Error(),
+				"status": "Bad Request",
+				"error":  "Invalid -- " + err.Error(),
 			})
 		}
 
@@ -44,14 +49,15 @@ func (authHandlers *authHandlers) Register() fiber.Handler {
 		if err != nil {
 			log.Error("authHandlers.Register %e", err)
 			return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
-				"status":  "Internal Server Error",
-				"message": err.Error(),
+				"status": "Internal Server Error",
+				"error":  "QQ gi k biet -- " + err.Error(),
 			})
 		}
 
 		return c.Status(fiber.StatusCreated).JSON(&fiber.Map{
 			"status": "Created",
-			"user":   newTokenedUser,
+			"user":   &newTokenedUser,
+			"err":    err,
 		})
 	}
 }
@@ -103,92 +109,94 @@ func (authHandlers *authHandlers) Logout() fiber.Handler {
 
 // Update - updates a user Handler
 func (authHandlers *authHandlers) Update() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		userID, err := uuid.Parse(c.Params("user_id"))
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status":  "Bad Request. UserID is not valid!",
-				"message": err.Error(),
-			})
-		}
+	// return func(c *fiber.Ctx) error {
+	// 	//userID, err := uuid.Parse(c.Params("user_id"))
+	// 	if err != nil {
+	// 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+	// 			"status":  "Bad Request. UserID is not valid!",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		user := &models.User{}
-		user.UserID = userID
+	// 	user := &models.User{}
+	// 	//user.UserID = userID
 
-		if err := c.BodyParser(user); err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status":  "Bad Request",
-				"message": err.Error(),
-			})
-		}
+	// 	if err := c.BodyParser(user); err != nil {
+	// 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+	// 			"status":  "Bad Request",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		userLocals := c.Locals("user").(*models.User)
-		if *&userLocals.Type != "admin" {
-			if *&userLocals.Type == *&user.Type {
-				log.Error("authHandlers.Update.Query", err)
-				return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-					"status":  "Bad Request. Can't update staff role by user",
-					"message": err.Error(),
-				})
-			}
-		}
+	// 	// userLocals := c.Locals("user").(*models.User)
+	// 	// if &userLocals.Type != "admin" {
+	// 	// 	if *&userLocals.Type == *&user.Type {
+	// 	// 		log.Error("authHandlers.Update.Query", err)
+	// 	// 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+	// 	// 			"status":  "Bad Request. Can't update staff role by user",
+	// 	// 			"message": err.Error(),
+	// 	// 		})
+	// 	// 	}
+	// 	// }
 
-		updatedUser, err := authHandlers.authBusiness.Update(user)
-		if err != nil {
-			log.Error("authHandlers.Update.Query", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
-				"status":  "Internal Server Error",
-				"message": err.Error(),
-			})
-		}
+	// 	updatedUser, err := authHandlers.authBusiness.Update(user)
+	// 	if err != nil {
+	// 		log.Error("authHandlers.Update.Query", err)
+	// 		return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
+	// 			"status":  "Internal Server Error",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
-			"status": "success",
-			"data":   &updatedUser,
-		})
-	}
+	// 	return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+	// 		"status": "success",
+	// 		"data":   &updatedUser,
+	// 	})
+	// }
+	panic("implement me")
 }
 
 // Delete - deletes a user Handler
 func (authHandlers *authHandlers) Delete() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		userID, err := uuid.Parse(c.Params("user_id"))
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status":  "Bad Request. UserID is not valid!",
-				"message": err.Error(),
-			})
-		}
+	// return func(c *fiber.Ctx) error {
+	// 	userID, err := uuid.Parse(c.Params("user_id"))
+	// 	if err != nil {
+	// 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+	// 			"status":  "Bad Request. UserID is not valid!",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		user := &models.User{}
-		user.UserID = userID
+	// 	user := &models.User{}
+	// 	user.UserID = userIDE
 
-		userLocals := c.Locals("user").(*models.User)
-		if *&userLocals.Type != "admin" {
-			if *&userLocals.Type == *&user.Type {
-				log.Error("authHandlers.Delete.Query", err)
-				return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-					"status":  "Bad Request. Can't delete staff role by user",
-					"message": err.Error(),
-				})
-			}
-		}
+	// 	//userLocals := c.Locals("user").(*models.User)
+	// 	// if *&userLocals.Type != "admin" {
+	// 	// 	if *&userLocals.Type == *&user.Type {
+	// 	// 		log.Error("authHandlers.Delete.Query", err)
+	// 	// 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+	// 	// 			"status":  "Bad Request. Can't delete staff role by user",
+	// 	// 			"message": err.Error(),
+	// 	// 		})
+	// 	// 	}
+	// 	// }
 
-		err = authHandlers.authBusiness.Delete(user.UserID)
-		if err != nil {
-			log.Error("authHandlers.Delete.Query", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
-				"status":  "Internal Server Error",
-				"message": err.Error(),
-			})
-		}
+	// 	err = authHandlers.authBusiness.Delete(user.UserID)
+	// 	if err != nil {
+	// 		log.Error("authHandlers.Delete.Query", err)
+	// 		return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
+	// 			"status":  "Internal Server Error",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
-			"status": "success",
-			"data":   "User deleted",
-		})
+	// 	return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+	// 		"status": "success",
+	// 		"data":   "User deleted",
+	// 	})
 
-	}
+	// }
+	panic("implement me")
 }
 
 // GetByID - gets a user by ID Handler
@@ -246,52 +254,53 @@ func (authHandlers *authHandlers) GetByEmail() fiber.Handler {
 
 // ChangePassword - changes a user's password Handler
 func (authHandlers *authHandlers) ChangePassword() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		userID, err := uuid.Parse(c.Params("user_id"))
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status":  "Bad Request. UserID is not valid!",
-				"message": err.Error(),
-			})
-		}
+	// return func(c *fiber.Ctx) error {
+	// 	userID, err := uuid.Parse(c.Params("user_id"))
+	// 	if err != nil {
+	// 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+	// 			"status":  "Bad Request. UserID is not valid!",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		type Password struct {
-			OldPassword string `json:"old_password" validate:"required"`
-			NewPassword string `json:"new_password" validate:"required"`
-		}
+	// 	type Password struct {
+	// 		OldPassword string `json:"old_password" validate:"required"`
+	// 		NewPassword string `json:"new_password" validate:"required"`
+	// 	}
 
-		user := &models.User{}
-		user.UserID = userID
+	// 	user := &models.User{}
+	// 	user.UserID = userID
 
-		password := &Password{}
+	// 	password := &Password{}
 
-		if err := c.BodyParser(password); err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status":  "Bad Request",
-				"message": err.Error(),
-			})
-		}
+	// 	if err := c.BodyParser(password); err != nil {
+	// 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+	// 			"status":  "Bad Request",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		err = utils.NewValidator().Validate(password)
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status":  "Bad Request - Validation Error",
-				"message": err.Error(),
-			})
-		}
+	// 	err = utils.NewValidator().Validate(password)
+	// 	if err != nil {
+	// 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+	// 			"status":  "Bad Request - Validation Error",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		updatedUser, err := authHandlers.authBusiness.ChangePassword(userID, password.OldPassword, password.NewPassword)
-		if err != nil {
-			log.Error("authHandlers.ChangePassword.Query", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
-				"status":  "Internal Server Error",
-				"message": err.Error(),
-			})
-		}
+	// 	updatedUser, err := authHandlers.authBusiness.ChangePassword(userID, password.OldPassword, password.NewPassword)
+	// 	if err != nil {
+	// 		log.Error("authHandlers.ChangePassword.Query", err)
+	// 		return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
+	// 			"status":  "Internal Server Error",
+	// 			"message": err.Error(),
+	// 		})
+	// 	}
 
-		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
-			"status": "success",
-			"data":   &updatedUser,
-		})
-	}
+	// 	return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+	// 		"status": "success",
+	// 		"data":   &updatedUser,
+	// 	})
+	// }
+	panic("implement me")
 }

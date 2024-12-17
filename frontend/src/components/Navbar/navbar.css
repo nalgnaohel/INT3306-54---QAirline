@@ -1,7 +1,8 @@
 .navbar {
-  background-color: #c8ebff;
+  background-color: #e0f3fe;
   overflow: hidden;
-  padding: 10px 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 5px 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,10 +13,9 @@
 
 .navbar-logo {
   color: #000000;
-  font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
-  margin-left: 100px;
+  margin-left: 70px;
 }
 
 .navbar-ul {

@@ -1,5 +1,7 @@
 import React from "react";
 import "./PassengerList.css";
+import TopNavBar from "../Navbar/TopNavBar";
+import Footer from "../Footer/Footer";
 
 interface PassengerListProps {
   onBack: () => void;
@@ -12,17 +14,6 @@ const PassengerList: React.FC<PassengerListProps> = ({
 }) => {
   return (
     <div className="passenger-list-container">
-      <header className="header">
-        <div className="logo">✈️ Airline</div>
-        <nav>
-          <ul className="nav-links">
-            <li>Trang chủ</li>
-            <li>Chuyến bay</li>
-            <li>Tin tức</li>
-            <li>Liên hệ</li>
-          </ul>
-        </nav>
-      </header>
       <div className="progress-steps">
         <div className="step completed">✔ Chi tiết chuyến bay</div>
         <div className="step active">2 Hành khách</div>

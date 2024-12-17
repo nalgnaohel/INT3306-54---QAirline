@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./FlightResults.css";
 
 export interface Flight {
@@ -32,6 +33,22 @@ const FlightResults: React.FC<FlightResultsProps> = ({ flights }) => {
   // Hiện thị thông tin các vé
   const toggleDetails = (id: number) => {
     setExpandedFlightId(expandedFlightId === id ? null : id);
+  };
+
+  // Chuyển hướng đến trang thanh toán
+  const navigate = useNavigate();
+
+  const handleConfirmBooking = () => {
+    if (selectedFare && expandedFlightId !== null) {
+      const selectedFlight = flights.find(
+        (flight) => flight.id === expandedFlightId
+      );
+      if (selectedFlight) {
+        navigate("/confirmation", {
+          state: { flight: selectedFlight, fareType: selectedFare },
+        });
+      }
+    }
   };
 
   //Chọn vé phổ thông/ thương gia.
@@ -222,7 +239,9 @@ const FlightResults: React.FC<FlightResultsProps> = ({ flights }) => {
                 </>
               )}
               <div className="button-container">
-                <button>Xác nhận và đặt vé</button>
+                <button onClick={handleConfirmBooking}>
+                  Xác nhận và đặt vé
+                </button>
               </div>
             </div>
           )}

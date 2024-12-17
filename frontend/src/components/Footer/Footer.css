@@ -3,8 +3,9 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-  background-color: #6bb5ff;
-  color: #000000;
+  background-image: url("../../assets/images/bg-map-2.png");
+  background-repeat: inherit;
+  background-color: #2a2935 !important;
 }
 
 .footer-sections {
@@ -12,6 +13,10 @@
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+}
+
+.footer-section h3 {
+  color: rgb(30, 188, 246);
 }
 
 .footer-section {
@@ -31,12 +36,12 @@
 
 .footer-section p {
   font-size: 16px;
-  color: #000000;
+  color: #ffffff;
 }
 
 .footer-section p:hover {
   cursor: pointer;
-  color: #000000;
+  color: #87c3ff;
 }
 
 .connect-us {
@@ -52,6 +57,7 @@
 
 .connect-us h2 {
   text-align: center;
+  color: rgb(30, 188, 246);
 }
 
 .social-icons {
@@ -63,6 +69,7 @@
 .social-icons a {
   display: block;
   font-size: x-large;
+  color: rgb(30, 188, 246);
 }
 
 @media (max-width: 768px) {
