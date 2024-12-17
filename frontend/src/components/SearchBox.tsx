@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/TopNavBar";
 import "../css/SearchBox.css";
 import "./Flights.json";
+import TopNavBar from "./Navbar/TopNavBar";
 
 const tabs = document.querySelectorAll(".tab");
 
@@ -123,7 +124,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     <div className="search-box">
       <div className="hero-section">
         <div className="topnav">
-          <Navbar />
+          <TopNavBar />
         </div>
         <div className="infor">
           <h1>WELCOME TO QAIRLINE</h1>

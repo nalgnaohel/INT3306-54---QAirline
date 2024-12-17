@@ -1,5 +1,6 @@
 server:
-  Port: 8080
+  Port: 5000
+  PprofPort: 5555
   AppVersion: 1.0.0 #Debug + tracking
   JwtSecretKey: secretkey
   CookieName: jwt-token
@@ -10,8 +11,19 @@ server:
   CSRF: true
   Debug: false
 
+redis:
+  RedisAddr: redis:6379
+  RedisPassword:
+  RedisDb: 0
+  RedisDefaultdb: 0
+  MinIdleConns: 200
+  PoolSize: 12000
+  PoolTimeout: 240
+  Password: ""
+  DB: 0
+  
 mysql:
-  Host: mysql
+  Host: localhost
   Port: 3306
   User: root
   Password: abc12345

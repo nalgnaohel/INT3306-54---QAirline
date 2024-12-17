@@ -4,26 +4,26 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	UserID      uuid.UUID `json:"user_id"`
+	UserID      string    `json:"user_id" db:"user_id" gorm:"primaryKey;type:string;"`
+	Title       string    `json:"title"`
 	FirstName   string    `json:"first_name"`
 	LastName    string    `json:"last_name"`
 	DOB         time.Time `json:"dob"`
-	Gender      string    `json:"gendee"`
+	Gender      string    `json:"gender"`
 	Email       string    `json:"email"`
 	Password    string    `json:"password"`
 	PhoneNumber string    `json:"phone_number"`
 	Avatar      string    `json:"avatar"`
 	Nationality string    `json:"nationality"`
 	Type        string    `json:"type"` // admin, client
-	IdentityNo  string    `json:"identity_id"`
+	IdentityNo  string    `json:"identity_no"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
-	LoginDate   time.Time `json:"login_date"`
+	//LoginDate   time.Time `json:"login_date"`
 }
 
 // HashPassword hashes the password of the user with bcrypt
@@ -50,8 +50,9 @@ func (u *User) SanitizePassword() {
 	u.Password = ""
 }
 
-// PrepareCreate Before user for register
-func (u *User) PrepareCreate() error {
+// PreRegister Before user for register
+func (u *User) PreRegister() error {
+
 	u.Password = strings.TrimSpace(u.Password)
 
 	err := u.HashPassword()
@@ -62,7 +63,7 @@ func (u *User) PrepareCreate() error {
 	return nil
 }
 
-type UserWithToken struct {
+type TokenedUser struct {
 	User  *User  `json:"user"`
 	Token string `json:"token"`
 }
