@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+<<<<<<< HEAD
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import path from "path";
@@ -9,10 +10,21 @@ import App from "./App";
 import Login from "./views/pages/Login/Login";
 import Signup from "./views/pages/Signup/Signup";
 
+=======
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import Login from "./views/pages/Login/Login";
+import Signup from "./views/pages/Signup/Signup";
+import FlightProcedure from "./views/pages/FlightProcedure/FlightProcedure";
+import BookingConfirmation from "./components/BookingConfirmation/BookingConfirmation";
+import PaymentPage from "./components/PaymentPage/PaymentPage";
+import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm";
+>>>>>>> dev_luan
 
 const router = createBrowserRouter([
   {
     path: "/",
+<<<<<<< HEAD
     element: <App/>,
   },
   {
@@ -24,6 +36,34 @@ const router = createBrowserRouter([
     element: <Signup/>,
   },
 
+=======
+    element: <App />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/flight",
+    element: <FlightProcedure />,
+  },
+  {
+    path: "/payment",
+    element: <PaymentPage />,
+  },
+  {
+    path: "/confirmation",
+    element: <BookingConfirmation />,
+  },
+  {
+    path: "/passenger-info",
+    element: <PassengerInfoForm />,
+  },
+>>>>>>> dev_luan
 ]);
 
 const root = ReactDOM.createRoot(
@@ -35,7 +75,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

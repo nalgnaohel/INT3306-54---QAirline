@@ -1,0 +1,34 @@
+/*Thiết kế mục lục cho điểm đi điểm đến */
+.autocomplete-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.suggestions {
+  color: black;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.suggestions div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background-color: #f0f0f0;
+}
