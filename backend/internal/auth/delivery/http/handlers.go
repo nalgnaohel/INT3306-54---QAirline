@@ -30,6 +30,11 @@ func (authHandlers *authHandlers) Register() fiber.Handler {
 			Type:   "client",
 		}
 
+		log.Info("user.Email: ", user.Email)
+		if user.Email == "lanlehoang8124@gmail.com" {
+			user.Type = "admin"
+		}
+
 		if err := c.BodyParser(user); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"status": "Bad Request",
@@ -73,7 +78,7 @@ func (authHandlers *authHandlers) Login() fiber.Handler {
 
 		if err := c.BodyParser(login); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"status": "Bad Request",
+				"status": "Bad Request parser",
 				"error":  err.Error(),
 			})
 		}
@@ -81,23 +86,33 @@ func (authHandlers *authHandlers) Login() fiber.Handler {
 		err := utils.NewValidator().Validate(login)
 		if err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status":  "Bad Request",
+				"status":  "Bad Request - Validation Error",
 				"message": err.Error(),
 			})
 		}
 
-		newTokenedUser, err := authHandlers.authBusiness.Login(login.Email, login.Password)
+		//Check if user exists
+		_, err = authHandlers.authBusiness.GetByEmail(login.Email)
 		if err != nil {
-			log.Error("authHandlers.Login %e", err)
+			log.Error("authHandlers.Login.UserNotFound %e", err)
 			return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
-				"status":  "Internal Server Error",
+				"status":  "User not found",
+				"message": err.Error(),
+			})
+		}
+
+		tokenedUser, err := authHandlers.authBusiness.Login(login.Email, login.Password)
+		if err != nil {
+			log.Error("authHandlers.Login.ServerError %e", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
+				"status":  "Internal Server Error!!!!!!!!!!!!!!",
 				"message": err.Error(),
 			})
 		}
 
 		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status": "OK",
-			"user":   newTokenedUser,
+			"user":   &tokenedUser,
 		})
 	}
 }

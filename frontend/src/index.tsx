@@ -2,6 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+<<<<<<< HEAD
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import path from "path";
+import App from "./App";
+import Login from "./views/pages/Login/Login";
+import Signup from "./views/pages/Signup/Signup";
+
+=======
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Login from "./views/pages/Login/Login";
@@ -10,10 +19,24 @@ import FlightProcedure from "./views/pages/FlightProcedure/FlightProcedure";
 import BookingConfirmation from "./components/BookingConfirmation/BookingConfirmation";
 import PaymentPage from "./components/PaymentPage/PaymentPage";
 import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm";
+>>>>>>> dev_luan
 
 const router = createBrowserRouter([
   {
     path: "/",
+<<<<<<< HEAD
+    element: <App/>,
+  },
+  {
+    path: "/login",
+    element: <Login/>,
+  },
+  {
+    path: "/signup",
+    element: <Signup/>,
+  },
+
+=======
     element: <App />,
   },
   {
@@ -40,6 +63,7 @@ const router = createBrowserRouter([
     path: "/passenger-info",
     element: <PassengerInfoForm />,
   },
+>>>>>>> dev_luan
 ]);
 
 const root = ReactDOM.createRoot(
