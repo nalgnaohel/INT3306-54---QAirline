@@ -3,9 +3,15 @@
     background-image: url(../../../assets/images/login.png);
     background-size: cover;
     background-position: center;
-    height: 90vh;
-    padding: 2rem;
-    
+    padding-top: 7vh;
+}
+
+.form-container {
+    width: 30%;
+    margin-left: 60%;
+    margin-top: 5vh;
+    background-color: #ffffff;
+    border-radius: 20px;
 }
 
 .show {
@@ -16,16 +22,13 @@
 }
 
 .hide {
-    display: none;
+    margin: 0 10% 5px;
+    font-size: 15px;
+    padding-bottom: 10px;
+    color: white;
 }
 
-.form-container {
-    width: 30%;
-    margin-left: 60%;
-    margin-top: 15vh;
-    background-color: #ffffff;
-    border-radius: 20px;
-}
+
 
 .login-form, .toSignup{
     width: 100%;

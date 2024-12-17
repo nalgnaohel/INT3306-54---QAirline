@@ -1,6 +1,9 @@
 package business
 
 import (
+	//"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
+
 	"github.com/google/uuid"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/config"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth"
@@ -38,6 +41,7 @@ func (auth *authBusiness) Register(user *models.User) (*models.TokenedUser, erro
 		return nil, err
 	}
 
+	log.Info("newUser.Password: ", newUser.Password)
 	//Make sure that user's password is not exposed in API responses or logs
 	newUser.SanitizePassword()
 
