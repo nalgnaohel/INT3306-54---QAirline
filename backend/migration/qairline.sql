@@ -72,6 +72,9 @@ CREATE TABLE if not exists flights (
 );
 INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (1, 'VN 7237', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-18 18:45:00', '2024-12-18 20:50:00', 2, 2955000, 160, 'on-time');
 INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (2, 'VN 219', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-18 19:00:00', '2024-12-18 21:10:00', 2, 3000000, 100, 'on-time');
+INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `status`) VALUES (3, 'VN 205', 'HAN', 'SGN', '2024-12-21 05:00:00', '2024-12-21 07:10:00', 1, 2728000, 'on-time');
+INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `status`) VALUES (4, 'VN 7243', 'HAN', 'SGN', '2024-12-21 05:10:00', '2024-12-21 07:20:00', 1, 2728000, 'on-time');
+INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (5, 'VN 243', 'HAN', 'SGN', '2024-12-21 06:00:00', '2024-12-21 08:15:00', 1, 2955000, 150, 'on-time');
 
 CREATE TABLE IF NOT EXISTS aircrafts (
     aircraft_id INT AUTO_INCREMENT PRIMARY KEY,
