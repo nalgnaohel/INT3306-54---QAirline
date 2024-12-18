@@ -32,7 +32,7 @@ func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 	var flight models.Flight
 	err := f.db.Where("flight_id = ?", flightID).First(&flight).Error
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "flightRepo.GetByFlightID.First")
 	}
 	return &flight, nil
 }
@@ -51,7 +51,16 @@ func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
 	err := f.db.Where("flight_id = ?", flight.FlightID).Updates(&flight).Error
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "flightRepo.Update.Updates")
 	}
 	return flight, nil
+}
+
+// DB Delete flight
+func (f *flightRepo) Delete(flightID string) error {
+	err := f.db.Where("flight_id = ?", flightID).Delete(&models.Flight{}).Error
+	if err != nil {
+		return errors.Wrap(err, "flightRepo.Delete.Delete")
+	}
+	return nil
 }

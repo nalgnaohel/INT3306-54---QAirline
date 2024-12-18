@@ -10,4 +10,5 @@ type FlightRepository interface {
 	GetByFlightID(flightID string) (*models.Flight, error)
 	//GetAll() ([]*models.Flight, error)
 	Update(flight *models.Flight) (*models.Flight, error)
+	Delete(flightID string) error
 }
