@@ -1,0 +1,84 @@
+.chart-container {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    height: 300px;
+  }
+  
+  .chart-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .chart-total {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .total-number {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .percentage-change {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .sources-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  
+  .source-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .source-item .source-name {
+    color: #555;
+  }
+  
+  .source-item .source-value {
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Source-specific colors */
+  .google {
+    border-left: 4px solid #4285f4;
+  }
+  
+  .instagram {
+    border-left: 4px solid #e4405f;
+  }
+  
+  .bookmarks {
+    border-left: 4px solid #a85cf9;
+  }
+  
+  .facebook {
+    border-left: 4px solid #1877f2;
+  }
+  
+  .yahoo {
+    border-left: 4px solid #6001d2;
+  }
+  
+  .others {
+    border-left: 4px solid #b8b8b8;
+  }
+  
