@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useTableContext } from './TableContext';
-import "../../css/Admin/SideBar.css";
+import "./SideBar.css";
 const SideBar: React.FC = () => {
     const { setActiveTable } = useTableContext();
     const [selectedDiv, setSelectedDiv] = useState<string | null>(null);

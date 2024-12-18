@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTableContext } from './TableContext';
 import edit from "../../assets/images/Admin/edit.png";
 import remove from "../../assets/images/Admin/trash-can.png";
-import "../../css/Admin/Table.css";
+import "./Table.css";
 
 const Table: React.FC = () => {
   const { setActiveTable } = useTableContext(); // Link với TableContext component
