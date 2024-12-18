@@ -42,6 +42,33 @@ func (fb *flightBusiness) Update(flight *models.Flight) (*models.Flight, error) 
 	return updatedFlight, nil
 }
 
+// Delete flight
+func (fb *flightBusiness) Delete(flightID string) error {
+	err := fb.flightRepo.Delete(flightID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Get flight one way
+func (fb *flightBusiness) GetFlightOneWay(departure string, arrival string, departureDate string) ([]*models.Flight, error) {
+	flights, err := fb.flightRepo.GetFlightOneWay(departure, arrival, departureDate)
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}
+
+// Get flight round trip
+func (fb *flightBusiness) GetFlightRoundTrip(departure string, arrival string, departureDate string, returnDate string) ([]*models.Flight, error) {
+	flights, err := fb.flightRepo.GetFlightRoundTrip(departure, arrival, departureDate, returnDate)
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}
+
 // func (fb *flightBusiness) GetAll() ([]*models.Flight, error) {
 // 	flights, err := fb.flightRepo.GetAll()
 // 	if err != nil {

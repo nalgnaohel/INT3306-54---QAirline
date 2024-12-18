@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"strings"
+
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
 	"github.com/pkg/errors"
@@ -64,3 +66,55 @@ func (f *flightRepo) Delete(flightID string) error {
 	}
 	return nil
 }
+
+// DB Find flights - case one way
+func (f *flightRepo) GetFlightOneWay(departure string, arrival string, departureDate string) ([]*models.Flight, error) {
+	// departureName := strings.Split(departure, "(")[0]
+	// arrivalName := strings.Split(arrival, "(")[0]
+	departureCode := strings.Split(departure, "(")[1][:3]
+	arrivalCode := strings.Split(arrival, "(")[1][:3]
+
+	var flights []*models.Flight
+	err := f.db.
+		Where("departure_code = ? AND arrival_code = ? AND DATE(departure_time) = ?", departureCode, arrivalCode, departureDate).
+		Order("departure_time asc").
+		Find(&flights).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "flightRepo.GetFlightOneWay.Find")
+	}
+	return flights, nil
+}
+
+// DB Find flights - case round trip
+func (f *flightRepo) GetFlightRoundTrip(departure string, arrival string, departureDate string, returnDate string) ([]*models.Flight, error) {
+	departureCode := strings.Split(departure, "(")[1][:3]
+	arrivalCode := strings.Split(arrival, "(")[1][:3]
+
+	var flights []*models.Flight
+	err := f.db.
+		Where("departure_code = ? AND arrival_code = ? AND DATE(departure_time) = ?", departureCode, arrivalCode, departureDate).
+		Order("departure_time asc").
+		Find(&flights).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "flightRepo.GetFlightRoundTrip.Find")
+	}
+	return flights, nil
+}
+
+//DB Find flights - case multi city
+// func (f *flightRepo) GetFlightMultiCity(departure string, arrival string, departureDate string) ([]*models.Flight, error) {
+// 	// departureName := strings.Split(departure, "(")[0]
+// 	// arrivalName := strings.Split(arrival, "(")[0]
+// 	departureCode := strings.Split(departure, "(")[1][:3]
+// 	arrivalCode := strings.Split(arrival, "(")[1][:3]
+
+// 	var flights []*models.Flight
+// 	err := f.db.
+// 		Where("departure_code = ? AND arrival_code = ? AND DATE(departure_time) = ?", departureCode, arrivalCode, departureDate).
+// 		Order("departure_time asc").
+// 		Find(&flights).Error
+// 	if err != nil {
+// 		return nil, errors.Wrap(err, "flightRepo.GetFlightMultiCity.Find")
+// 	}
+// 	return flights, nil
+// }

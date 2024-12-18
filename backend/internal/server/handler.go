@@ -8,6 +8,9 @@ import (
 	authBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/business"
 	authDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/delivery/http"
 	authRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/repository"
+	flightBusiness "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/business"
+	flightDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/delivery/http"
+	flightRepository "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/repository"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/middleware"
 )
 
@@ -17,7 +20,14 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	authRepository := authRepo.NewAuthRepo(s.dtb)
 	authBusiness := authBiz.NewAuthBusiness(s.cfg, authRepository)
 	authHandlers := authDelivery.NewAuthHandlers(authBusiness)
-	authMiddleware := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
+
+	//Init flight
+	flightRepository := flightRepository.NewFlightRepo(s.dtb)
+	flightBusiness := flightBusiness.NewFlightBusiness(s.cfg, flightRepository)
+	flightHandlers := flightDelivery.NewFlightHandlers(flightBusiness)
+
+	//Middleware init
+	mw := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
 
 	//fiber default middleware
 	fib.Use(requestid.New())
@@ -33,8 +43,13 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	fib.Use(cors.New())
 
 	api := fib.Group("/api")
+
 	authGroup := api.Group("/auth")
-	authDelivery.MapAuthRoutes(authGroup, authMiddleware, authHandlers, authBusiness, s.cfg)
+	authDelivery.MapAuthRoutes(authGroup, mw, authHandlers, authBusiness, s.cfg)
+
+	flightGroup := api.Group("/flight")
+	flightDelivery.MapFlightRoutes(flightGroup, mw, flightHandlers, authBusiness, s.cfg)
+
 	fib.Get("", func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status":  "success",

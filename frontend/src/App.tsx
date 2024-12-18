@@ -9,7 +9,8 @@ import Admin from './Admin';
 function App() {
   return (
     <div className="App">
-      <Admin />
+      {/* <Admin /> */}
+      <Home/>
     </div>
   );
 }
