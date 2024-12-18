@@ -5,6 +5,7 @@ import (
 
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/pkg/utils"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 )
@@ -118,3 +119,36 @@ func (f *flightRepo) GetFlightRoundTrip(departure string, arrival string, depart
 // 	}
 // 	return flights, nil
 // }
+
+// DB Get all flights
+func (f *flightRepo) GetAll(query *utils.PagingQuery) (*models.FlightList, error) {
+	results := f.db.First(&models.Flight{})
+
+	if results.Error != nil {
+		return nil, errors.Wrap(results.Error, "flightRepo.GetAll.First")
+	}
+
+	totalCount := int(results.RowsAffected)
+
+	if totalCount == 0 {
+		return &models.FlightList{
+			TotalCount: 0,
+			TotalPages: utils.GetTotalPages(0, query.GetQuerySize()),
+			Page:       query.GetPage(),
+			Size:       query.GetQuerySize(),
+			HasMore:    false,
+			Flights:    make([]*models.Flight, 0),
+		}, nil
+	}
+
+	flights := make([]*models.Flight, 0, query.GetQuerySize())
+
+	return &models.FlightList{
+		TotalCount: totalCount,
+		TotalPages: utils.GetTotalPages(totalCount, query.GetQuerySize()),
+		Page:       query.GetPage(),
+		Size:       query.GetQuerySize(),
+		HasMore:    query.GetPage() < utils.GetTotalPages(totalCount, query.GetQuerySize()),
+		Flights:    flights,
+	}, nil
+}

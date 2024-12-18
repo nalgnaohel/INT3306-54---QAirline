@@ -8,15 +8,15 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// PaginationQuery Pagination query params
-type PaginationQuery struct {
+// Display by paging size
+type PagingQuery struct {
 	Size    int    `json:"size,omitempty"`
 	Page    int    `json:"page,omitempty"`
 	OrderBy string `json:"orderBy,omitempty"`
 }
 
 // SetSize Set page size
-func (q *PaginationQuery) SetSize(sizeQuery string) error {
+func (q *PagingQuery) SetQuerySize(sizeQuery string) error {
 	if sizeQuery == "" {
 		q.Size = 5
 		return nil
@@ -31,7 +31,7 @@ func (q *PaginationQuery) SetSize(sizeQuery string) error {
 }
 
 // SetPage Set page number
-func (q *PaginationQuery) SetPage(pageQuery string) error {
+func (q *PagingQuery) SetPage(pageQuery string) error {
 	if pageQuery == "" {
 		q.Size = 0
 		return nil
@@ -46,12 +46,12 @@ func (q *PaginationQuery) SetPage(pageQuery string) error {
 }
 
 // SetOrderBy Set order by
-func (q *PaginationQuery) SetOrderBy(orderByQuery string) {
+func (q *PagingQuery) SetOrderBy(orderByQuery string) {
 	q.OrderBy = orderByQuery
 }
 
 // GetOffset Get offset
-func (q *PaginationQuery) GetOffset() int {
+func (q *PagingQuery) GetOffset() int {
 	if q.Page == 0 {
 		return 0
 	}
@@ -59,36 +59,31 @@ func (q *PaginationQuery) GetOffset() int {
 }
 
 // GetLimit Get limit
-func (q *PaginationQuery) GetLimit() int {
+func (q *PagingQuery) GetQuerySize() int {
 	return q.Size
 }
 
 // GetOrderBy Get OrderBy
-func (q *PaginationQuery) GetOrderBy() string {
+func (q *PagingQuery) GetOrderBy() string {
 	return q.OrderBy
 }
 
 // GetPage Get OrderBy
-func (q *PaginationQuery) GetPage() int {
+func (q *PagingQuery) GetPage() int {
 	return q.Page
 }
 
-// GetSize Get OrderBy
-func (q *PaginationQuery) GetSize() int {
-	return q.Size
-}
-
-func (q *PaginationQuery) GetQueryString() string {
-	return fmt.Sprintf("page=%v&size=%v&orderBy=%s", q.GetPage(), q.GetSize(), q.GetOrderBy())
+func (q *PagingQuery) GetQueryString() string {
+	return fmt.Sprintf("page=%v&size=%v&orderBy=%s", q.GetPage(), q.GetQuerySize(), q.GetOrderBy())
 }
 
 // GetPaginationFromCtx Get pagination query struct from
-func GetPaginationFromCtx(c *fiber.Ctx) (*PaginationQuery, error) {
-	q := &PaginationQuery{}
+func GetPaginationFromCtx(c *fiber.Ctx) (*PagingQuery, error) {
+	q := &PagingQuery{}
 	if err := q.SetPage(c.Query("page")); err != nil {
 		return nil, err
 	}
-	if err := q.SetSize(c.Query("size")); err != nil {
+	if err := q.SetQuerySize(c.Query("size")); err != nil {
 		return nil, err
 	}
 	q.SetOrderBy(c.Query("orderBy"))
