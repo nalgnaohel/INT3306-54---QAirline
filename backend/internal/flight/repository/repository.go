@@ -28,7 +28,7 @@ func (f *flightRepo) Create(flight *models.Flight) (*models.Flight, error) {
 }
 
 // DB Find flight by id
-func (f *flightRepo) GetByFlightID(flight *models.Flight) (*models.Flight, error) {
+func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 	var flight models.Flight
 	err := f.db.Where("flight_id = ?", flightID).First(&flight).Error
 	if err != nil {
@@ -38,14 +38,14 @@ func (f *flightRepo) GetByFlightID(flight *models.Flight) (*models.Flight, error
 }
 
 // DB Find all flights
-func (f *flightRepo) GetAll() ([]*flight.Flight, error) {
-	var flights []*models.Flight
-	err := f.db.Find(&flights).Error
-	if err != nil {
-		return nil, err
-	}
-	return flights, nil
-}
+// func (f *flightRepo) GetAll() ([]*flight.Flight, error) {
+// 	var flights []*models.Flight
+// 	err := f.db.Find(&flights).Error
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return flights, nil
+// }
 
 // DB Update flight
 func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
