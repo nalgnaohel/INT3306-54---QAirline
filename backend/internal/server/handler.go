@@ -8,18 +8,25 @@ import (
 	authBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/business"
 	authDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/delivery/http"
 	authRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/repository"
+	ticketBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/business"
+	ticketDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/delivery/http"
+	ticketRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/repository"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/middleware"
 )
 
 func (s *Server) MapHandlers(fib *fiber.App) error {
-
-	//Init auth
+	// Init auth
 	authRepository := authRepo.NewAuthRepo(s.dtb)
 	authBusiness := authBiz.NewAuthBusiness(s.cfg, authRepository)
 	authHandlers := authDelivery.NewAuthHandlers(authBusiness)
 	authMiddleware := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
 
-	//fiber default middleware
+	// Init ticket
+	ticketRepository := ticketRepo.NewTicketRepo(s.dtb)
+	ticketBusiness := ticketBiz.NewTicketUsecase(ticketRepository)
+	ticketHandlers := ticketDelivery.NewTicketHandlers(ticketBusiness)
+
+	// Fiber default middleware
 	fib.Use(requestid.New())
 	fib.Use(limiter.New(limiter.Config{
 		Max: 1000,
@@ -32,9 +39,16 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	}))
 	fib.Use(cors.New())
 
+	// Setup API groups
 	api := fib.Group("/api")
 	authGroup := api.Group("/auth")
 	authDelivery.MapAuthRoutes(authGroup, authMiddleware, authHandlers, authBusiness, s.cfg)
+
+	// Setup Ticket routes
+	ticketGroup := api.Group("/tickets")
+	ticketDelivery.SetupRouter(ticketGroup, authMiddleware, ticketHandlers, ticketBusiness, s.cfg)
+
+	// Test route
 	fib.Get("", func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status":  "success",
@@ -43,9 +57,6 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	})
 
 	fib.Get("/hi", func(ctx *fiber.Ctx) error {
-		// span, _ := opentracing.StartSpanFromContext(ctx.Context(), "num.end")
-		// defer span.Finish()
-
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status": "success",
 			"data":   "hello from hi get",
