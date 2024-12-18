@@ -1,7 +1,7 @@
 /* Login.css */
 .main-container {
     width: 100%;
-    background-image: url(../../../assets/images/signin-signout-bg.png);
+    background-image: url(../../../assets/images/login.png);
     background-size: cover;
     background-position: center;
     height: 90vh;
