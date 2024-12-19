@@ -1,0 +1,72 @@
+.chart4-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 670px;
+    height: 300px;
+  }
+  
+  .chart4-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+  }
+  
+  .chart4-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  .chart4-button {
+    background-color: #fbc02d;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chart4-button:hover {
+    background-color: #e0a800;
+  }
+  
+  .tooltip-custom {
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+  
+  /* Custom Legend */
+.chart4-legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .chart4-legend-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chart4-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .chart4-legend-text {
+    font-size: 14px;
+    color: #666;
+  }
