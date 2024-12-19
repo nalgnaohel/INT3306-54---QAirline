@@ -53,6 +53,48 @@ func (th *ticketHandler) GetTicketByID(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(ticket)
 }
 
+// DeleteTicket deletes a ticket by ID
+func (th *ticketHandler) DeleteTicket(c *fiber.Ctx) error {
+	ticketID := c.Params("ticketID")
+
+	err := th.ticketBusi.Delete(ticketID)
+	if err != nil {
+		log.Error("ticketHandler.DeleteTicket %e", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status": "Internal Server Error",
+			"error":  "Cannot delete ticket - " + err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"status": "Success",
+		"message": "Ticket deleted successfully",
+	})
+}
+
+// UpdateTicket updates a ticket
+func (th *ticketHandler) UpdateTicket(c *fiber.Ctx) error {
+	ticket := &models.Ticket{}
+
+	if err := c.BodyParser(ticket); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status": "Bad Request",
+			"error":  "Cannot parse - " + err.Error(),
+		})
+	}
+
+	updatedTicket, err := th.ticketBusi.Update(ticket)
+	if err != nil {
+		log.Error("ticketHandler.UpdateTicket %e", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status": "Internal Server Error",
+			"error":  "Cannot update ticket - " + err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(updatedTicket)
+}
+
 // NewTicketHandlers creates new ticket handlers
 func NewTicketHandlers(ticketBusi ticket.TicketBusi) ticket.Handlers {
 	return &ticketHandler{

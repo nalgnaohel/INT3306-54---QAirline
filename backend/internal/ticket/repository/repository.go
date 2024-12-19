@@ -98,3 +98,4 @@ func (repo *ticketRepo) Exists(ticketID string) (bool, error) {
 	}
 	return count > 0, nil
 }
+

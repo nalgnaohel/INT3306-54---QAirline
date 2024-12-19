@@ -42,10 +42,18 @@ func (fb *flightBusiness) Update(flight *models.Flight) (*models.Flight, error) 
 	return updatedFlight, nil
 }
 
-// func (fb *flightBusiness) GetAll() ([]*models.Flight, error) {
-// 	flights, err := fb.flightRepo.GetAll()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return flights, nil
-// }
+func (fb *flightBusiness) GetAll() ([]*models.Flight, error) {
+	flights, err := fb.flightRepo.GetAll()
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}
+
+func (fb *flightBusiness) Delete(flightID string) error {
+	err := fb.flightRepo.Delete(flightID)
+	if err != nil {
+		return err
+	}
+	return nil
+}

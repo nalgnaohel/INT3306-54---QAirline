@@ -10,6 +10,8 @@ import FlightProcedure from "./views/pages/FlightProcedure/FlightProcedure";
 import BookingConfirmation from "./components/BookingConfirmation/BookingConfirmation";
 import PaymentPage from "./components/PaymentPage/PaymentPage";
 import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm";
+import ReturnPage from "./components/ReturnPage/ReturnPage";
+import PageNews from "./views/pages/PageNews/PageNews";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +41,14 @@ const router = createBrowserRouter([
   {
     path: "/passenger-info",
     element: <PassengerInfoForm />,
+  },
+  {
+    path: "/returnflight",
+    element: <ReturnPage />,
+  },
+  {
+    path: "/news",
+    element: <PageNews />,
   },
 ]);
 

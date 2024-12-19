@@ -37,15 +37,15 @@ func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 	return &flight, nil
 }
 
-// DB Find all flights
-// func (f *flightRepo) GetAll() ([]*flight.Flight, error) {
-// 	var flights []*models.Flight
-// 	err := f.db.Find(&flights).Error
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return flights, nil
-// }
+//DB Find all flights
+func (f *flightRepo) GetAll() ([]*models.Flight, error) {
+	var flights []*models.Flight
+	err := f.db.Find(&flights).Error
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}
 
 // DB Update flight
 func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
@@ -54,4 +54,16 @@ func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
 		return nil, err
 	}
 	return flight, nil
+}
+
+// DB Delete flight by ID
+func (f *flightRepo) Delete(flightID string) error {
+	result := f.db.Where("flight_id = ?", flightID).Delete(&models.Flight{})
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected == 0 {
+		return gorm.ErrRecordNotFound
+	}
+	return nil
 }

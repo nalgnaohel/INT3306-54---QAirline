@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.119",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.468.0",
     "moment": "^2.30.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

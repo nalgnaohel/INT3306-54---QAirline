@@ -8,10 +8,13 @@ import (
 	authBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/business"
 	authDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/delivery/http"
 	authRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/repository"
+	flightBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/business"
+	flightDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/delivery/http"
+	flightRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/repository"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/middleware"
 	ticketBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/business"
 	ticketDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/delivery/http"
 	ticketRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/repository"
-	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/middleware"
 )
 
 func (s *Server) MapHandlers(fib *fiber.App) error {
@@ -25,6 +28,11 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	ticketRepository := ticketRepo.NewTicketRepo(s.dtb)
 	ticketBusiness := ticketBiz.NewTicketUsecase(ticketRepository)
 	ticketHandlers := ticketDelivery.NewTicketHandlers(ticketBusiness)
+
+	// Init flight
+	flightRepository := flightRepo.NewFlightRepo(s.dtb)
+	flightBusiness := flightBiz.NewFlightBusiness(s.cfg, flightRepository)
+	flightHandlers := flightDelivery.NewFlightHandlers(flightBusiness)
 
 	// Fiber default middleware
 	fib.Use(requestid.New())
@@ -45,8 +53,12 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	authDelivery.MapAuthRoutes(authGroup, authMiddleware, authHandlers, authBusiness, s.cfg)
 
 	// Setup Ticket routes
-	ticketGroup := api.Group("/tickets")
+	ticketGroup := api.Group("/ticket")
 	ticketDelivery.SetupRouter(ticketGroup, authMiddleware, ticketHandlers, ticketBusiness, s.cfg)
+
+	//Setup Flight routes
+	flightGroup := api.Group("/flight")
+	flightDelivery.MapFlightRoutes(flightGroup, authMiddleware, flightHandlers, flightBusiness, s.cfg)
 
 	// Test route
 	fib.Get("", func(ctx *fiber.Ctx) error {
