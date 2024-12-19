@@ -62,16 +62,24 @@ func (fb *flightBusiness) GetFlightOneWay(departure string, arrival string, depa
 }
 
 // Get flight round trip
-func (fb *flightBusiness) GetFlightRoundTrip(departure string, arrival string, departureDate string, returnDate string) ([]*models.Flight, error) {
-	flights, err := fb.flightRepo.GetFlightRoundTrip(departure, arrival, departureDate, returnDate)
+// func (fb *flightBusiness) GetFlightRoundTrip(departure string, arrival string, departureDate string, returnDate string) ([]*models.Flight, error) {
+// 	flights, err := fb.flightRepo.GetFlightRoundTrip(departure, arrival, departureDate, returnDate)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return flights, nil
+// }
+
+func (fb *flightBusiness) GetAll(query *utils.PagingQuery) (*models.FlightList, error) {
+	flights, err := fb.flightRepo.GetAll(query)
 	if err != nil {
 		return nil, err
 	}
 	return flights, nil
 }
 
-func (fb *flightBusiness) GetAll(query *utils.PagingQuery) (*models.FlightList, error) {
-	flights, err := fb.flightRepo.GetAll(query)
+func (fb *flightBusiness) GetCancelledFlights(query *utils.PagingQuery) (*models.FlightList, error) {
+	flights, err := fb.flightRepo.GetCancelledFlights(query)
 	if err != nil {
 		return nil, err
 	}

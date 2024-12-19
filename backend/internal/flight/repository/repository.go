@@ -34,8 +34,8 @@ func (f *flightRepo) Create(flight *models.Flight) (*models.Flight, error) {
 // DB Find flight by id
 func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 	var flight models.Flight
-	fquery := strings.Replace(flightID, "%20", " ", -1)
-	err := f.db.Where("flight_id = ?", fquery).First(&flight).Error
+
+	err := f.db.Where("flight_id = ?", flightID).First(&flight).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "flightRepo.GetByFlightID.First")
 	}
@@ -44,9 +44,9 @@ func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 
 // DB Update flight
 func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
-	fquery := strings.Replace(flight.FlightID, "%20", " ", -1)
-	log.Println("repo-----", fquery)
-	err := f.db.Where("flight_id = ?", fquery).Updates(&flight).Error
+	// fquery := strings.Replace(flight.FlightID, "%20", " ", -1)
+	// log.Println("repo-----", fquery)
+	err := f.db.Where("flight_id = ?", flight.FlightID).Updates(&flight).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "flightRepo.Update.Updates")
 	}
@@ -55,8 +55,8 @@ func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
 
 // DB Delete flight
 func (f *flightRepo) Delete(flightID string) error {
-	fquery := strings.Replace(flightID, "%20", " ", -1)
-	err := f.db.Where("flight_id = ?", fquery).Delete(&models.Flight{}).Error
+	//fquery := strings.Replace(flightID, "%20", " ", -1)
+	err := f.db.Where("flight_id = ?", flightID).Delete(&models.Flight{}).Error
 	if err != nil {
 		return errors.Wrap(err, "flightRepo.Delete.Delete")
 	}
@@ -148,6 +148,46 @@ func (f *flightRepo) GetAll(query *utils.PagingQuery) (*models.FlightList, error
 		FROM flights`).Scan(&flights).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "inspectionRepo.GetAll.Query")
+	}
+
+	return &models.FlightList{
+		TotalCount: totalCount,
+		TotalPages: utils.GetTotalPages(totalCount, query.GetQuerySize()),
+		Page:       query.GetPage(),
+		Size:       query.GetQuerySize(),
+		HasMore:    query.GetPage() < utils.GetTotalPages(totalCount, query.GetQuerySize()),
+		Flights:    flights,
+	}, nil
+}
+
+// Get cancelled flights
+func (f *flightRepo) GetCancelledFlights(query *utils.PagingQuery) (*models.FlightList, error) {
+	//Co record nao dang Flight khom
+	results := f.db.First(&models.Flight{})
+
+	//loi khi query
+	if results.Error != nil {
+		return nil, errors.Wrap(results.Error, "flightRepo.GetCancelledFlights.First")
+	}
+
+	totalCount := int(results.RowsAffected)
+
+	//khong co record
+	if totalCount == 0 {
+		return &models.FlightList{
+			TotalCount: 0,
+			TotalPages: utils.GetTotalPages(0, query.GetQuerySize()),
+			Page:       query.GetPage(),
+			Size:       query.GetQuerySize(),
+			HasMore:    false,
+			Flights:    make([]*models.Flight, 0),
+		}, nil
+	}
+
+	flights := make([]*models.Flight, 0, query.GetQuerySize())
+	err := f.db.Raw(`SELECT * from flights WHERE status = 'cancelled'`).Scan(&flights).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "flightRepo.GetCancelledFlights.Query")
 	}
 
 	return &models.FlightList{

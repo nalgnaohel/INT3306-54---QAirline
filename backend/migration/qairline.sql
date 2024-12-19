@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS airports (
 );
 
 CREATE TABLE IF NOT EXISTS aircrafts (
-    aircraft_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    aircraft_id VARCHAR(255) NOT NULL default 'VN-A588',
     model VARCHAR(255) NOT NULL DEFAULT 'Boeing 787',
     manufacturer VARCHAR(255) NOT NULL ,
     economy_class_seats INT NOT NULL DEFAULT 50,
@@ -43,7 +44,8 @@ CREATE TABLE IF NOT EXISTS aircrafts (
     premium_class_seats INT NOT NULL DEFAULT 50,
     total_seats INT NOT NULL DEFAULT 200,
     range_in_km INT NOT NULL DEFAULT 1000,
-    description TEXT CHARACTER SET utf8mb4
+    description TEXT CHARACTER SET utf8mb4,
+    unique key (aircraft_id)
 );
 
 
@@ -55,13 +57,14 @@ CREATE TABLE if not exists flights (
     arrival_code VARCHAR(255) NOT NULL default 'SGN',
     departure_time TIMESTAMP NOT NULL default current_timestamp,
     arrival_time TIMESTAMP NOT NULL default '2024-12-31 00:00:00',
-    aircraft_id int NOT NULL default 0,
+    aircraft_id VARCHAR(255) NOT NULL default 'VN-A588',
     price DECIMAL NOT NULL default 1000000,
     available_seats int NOT NULL default 100,
     status VARCHAR(255) NOT NULL default 'on-time',
     FOREIGN KEY (departure_code) REFERENCES airports(iata_code),
     FOREIGN KEY (arrival_code) REFERENCES airports(iata_code),
-    FOREIGN KEY (aircraft_id) REFERENCES aircrafts(aircraft_id)
+    FOREIGN KEY (aircraft_id) REFERENCES aircrafts(aircraft_id),
+    UNIQUE KEY (flight_id)
 );
 
 -- ALTER TABLE `qairline-dtb`.`flights` ADD FOREIGN KEY (`aircraft_id`) REFERENCES `qairline-dtb`.`aircrafts` (`aircraft_id`);
@@ -81,19 +84,173 @@ INSERT INTO airports (id, name, city, country, created_at, updated_at, iata_code
 VALUES (3, N'Sân bay Quốc tế Đà Nẵng', N'Đà Nẵng', N'Việt Nam', '2021-08-01 11:04:47.737661', '2021-08-01 11:04:47.737661', 'DAD');
 INSERT INTO airports (id, name, city, country, created_at, updated_at, iata_code)
 VALUES (4, N'Sân bay Quốc tế Cam Ranh', N'Khánh Hòa', N'Việt Nam', '2021-08-01 11:04:47.737661', '2021-08-01 11:04:47.737661', 'CXR');
+INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (5, N'Sân bay Quốc tế Cần Thơ', N'Cần Thơ', N'Việt Nam', 'VCA');
+INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (6, N'Sân bay Quốc tế Vinh', N'Vinh', N'Việt Nam', 'VII');
+INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (7, N'Sân bay Paris Charles de Gaulle', 'Paris', N'Pháp', 'CDG');
+INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (8, N'Sân bay Amsterdam, Hà Lan', 'Amsterdam', N'Hà Lan', 'AMS');
+INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (9, N'Sân bay London - Heathrow', 'London', 'Anh', 'LHR');
+INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (10, N'Sân bay Frankfurt', 'Frankfurt', N'Đức', 'FRA');
 
 INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
-VALUES (1, 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
+VALUES ('VN-A324', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
+
 INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
-VALUES (2, 'Boeing 787', 'Boeing', 150, 50, 50, 50, 300, 10000, N'Máy bay Boeing 787 là dòng máy bay thân rộng có sức chứa trên 270 ghế ngồi.');
+VALUES ('VN-A325', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
+
 INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
-VALUES (3, 'Airbus 350', 'Airbus', 231, 45, 29, 0, 305, 14350, N'Airbus A350 là loại máy đầu tiên sử dụng sợi carbon cường polymer cho thiết kế cả thân và máy bay để tăng độ cường chịu lực va chạm.');
+VALUES ('VN-A326', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
 
-INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (1, 'VN 7237', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-18 18:45:00', '2024-12-18 20:50:00', 2, 2955000, 160, 'on-time');
-INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (2, 'VN 219', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-18 19:00:00', '2024-12-18 21:10:00', 2, 3000000, 100, 'on-time');
-INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `status`) VALUES (3, 'VN 205', 'HAN', 'SGN', '2024-12-21 05:00:00', '2024-12-21 07:10:00', 1, 2728000, 'on-time');
-INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `status`) VALUES (4, 'VN 7243', 'HAN', 'SGN', '2024-12-21 05:10:00', '2024-12-21 07:20:00', 1, 2728000, 'on-time');
-INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (5, 'VN 243', 'HAN', 'SGN', '2024-12-21 06:00:00', '2024-12-21 08:15:00', 1, 2955000, 150, 'on-time');
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A327', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
 
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A328', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
 
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A329', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
 
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A330', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A331', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A886', 'Airbus 350', 'Airbus', 231, 45, 29, 0, 305, 14350, N'Airbus A350 là loại máy đầu tiên sử dụng sợi carbon cường polymer cho thiết kế cả thân và máy bay để tăng độ cường chịu lực va chạm.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A887', 'Airbus 350', 'Airbus', 231, 45, 29, 0, 305, 14350, N'Airbus A350 là loại máy đầu tiên sử dụng sợi carbon cường polymer cho thiết kế cả thân và máy bay để tăng độ cường chịu lực va chạm.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A888', 'Airbus 350', 'Airbus', 231, 45, 29, 0, 305, 14350, N'Airbus A350 là loại máy đầu tiên sử dụng sợi carbon cường polymer cho thiết kế cả thân và máy bay để tăng độ cường chịu lực va chạm.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A889', 'Airbus 350', 'Airbus', 231, 45, 29, 0, 305, 14350, N'Airbus A350 là loại máy đầu tiên sử dụng sợi carbon cường polymer cho thiết kế cả thân và máy bay để tăng độ cường chịu lực va chạm.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A890', 'Airbus 350', 'Airbus', 231, 45, 29, 0, 305, 14350, N'Airbus A350 là loại máy đầu tiên sử dụng sợi carbon cường polymer cho thiết kế cả thân và máy bay để tăng độ cường chịu lực va chạm.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A891', 'Airbus 350', 'Airbus', 231, 45, 29, 0, 305, 14350, N'Airbus A350 là loại máy đầu tiên sử dụng sợi carbon cường polymer cho thiết kế cả thân và máy bay để tăng độ cường chịu lực va chạm.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A892', 'Airbus 350', 'Airbus', 231, 45, 29, 0, 305, 14350, N'Airbus A350 là loại máy đầu tiên sử dụng sợi carbon cường polymer cho thiết kế cả thân và máy bay để tăng độ cường chịu lực va chạm.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A861', 'Boeing 787', 'Boeing', 150, 50, 50, 50, 300, 10000, N'Máy bay Boeing 787 là dòng máy bay thân rộng có sức chứa trên 270 ghế ngồi.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A862', 'Boeing 787', 'Boeing', 150, 50, 50, 50, 300, 10000, N'Máy bay Boeing 787 là dòng máy bay thân rộng có sức chứa trên 270 ghế ngồi.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A863', 'Boeing 787', 'Boeing', 150, 50, 50, 50, 300, 10000, N'Máy bay Boeing 787 là dòng máy bay thân rộng có sức chứa trên 270 ghế ngồi.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A864', 'Boeing 787', 'Boeing', 150, 50, 50, 50, 300, 10000, N'Máy bay Boeing 787 là dòng máy bay thân rộng có sức chứa trên 270 ghế ngồi.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A865', 'Boeing 787', 'Boeing', 150, 50, 50, 50, 300, 10000, N'Máy bay Boeing 787 là dòng máy bay thân rộng có sức chứa trên 270 ghế ngồi.');
+
+INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
+VALUES ('VN-A866', 'Boeing 787', 'Boeing', 150, 50, 50, 50, 300, 10000, N'Máy bay Boeing 787 là dòng máy bay thân rộng có sức chứa trên 270 ghế ngồi.');
+
+INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (1, 'VN7237', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-18 18:45:00', '2024-12-18 20:50:00', 'VN-A861', 2955000, 160, 'on-time');
+INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (2, 'VN219', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-18 19:00:00', '2024-12-18 21:10:00', 'VN-A862', 3000000, 100, 'on-time');
+INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `status`) VALUES (3, 'VN205', 'HAN', 'SGN', '2024-12-21 05:00:00', '2024-12-21 07:10:00', 'VN-A861', 2728000, 'on-time');
+INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `status`) VALUES (4, 'VN7243', 'HAN', 'SGN', '2024-12-21 05:10:00', '2024-12-21 07:20:00', 'VN-A891', 2728000, 'on-time');
+INSERT INTO `qairline-dtb`.`flights` (`id`, `flight_id`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`) VALUES (5, 'VN243', 'HAN', 'SGN', '2024-12-21 06:00:00', '2024-12-21 08:15:00', 'VN-A864', 2955000, 150, 'on-time');
+
+-- Insert 5 delayed flights
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN1016', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-24 10:00:00', '2024-12-24 12:00:00', 'VN-A863', 3000000, 100, 'delayed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN1017', 'Vietnam Airlines', 'SGN', 'HAN', '2024-12-24 13:00:00', '2024-12-24 15:00:00', 'VN-A864', 3000000, 100, 'delayed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN1018', 'Vietnam Airlines', 'DAD', 'SGN', '2024-12-24 16:00:00', '2024-12-24 18:00:00', 'VN-A865', 3000000, 100, 'delayed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN1019', 'Vietnam Airlines', 'CXR', 'HAN', '2024-12-24 19:00:00', '2024-12-24 21:00:00', 'VN-A866', 3000000, 100, 'delayed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN1020', 'Vietnam Airlines', 'VCA', 'VII', '2024-12-24 22:00:00', '2024-12-25 00:00:00', 'VN-A861', 3000000, 100, 'delayed');
+
+-- Insert 5 cancelled flights
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN2021', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-25 10:00:00', '2024-12-25 12:00:00', 'VN-A862', 3000000, 100, 'cancelled');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN2022', 'Vietnam Airlines', 'SGN', 'HAN', '2024-12-25 13:00:00', '2024-12-25 15:00:00', 'VN-A863', 3000000, 100, 'cancelled');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN2023', 'Vietnam Airlines', 'DAD', 'SGN', '2024-12-25 16:00:00', '2024-12-25 18:00:00', 'VN-A864', 3000000, 100, 'cancelled');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN2024', 'Vietnam Airlines', 'CXR', 'HAN', '2024-12-25 19:00:00', '2024-12-25 21:00:00', 'VN-A865', 3000000, 100, 'cancelled');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN2025', 'Vietnam Airlines', 'VCA', 'VII', '2024-12-25 22:00:00', '2024-12-26 00:00:00', 'VN-A866', 3000000, 100, 'cancelled');
+
+-- Insert 5 completed flights
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3021', 'Vietnam Airlines', 'HAN', 'SGN', '2024-11-01 10:00:00', '2024-11-01 12:00:00', 'VN-A862', 3000000, 100, 'completed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3022', 'Vietnam Airlines', 'SGN', 'HAN', '2024-11-02 13:00:00', '2024-11-02 15:00:00', 'VN-A863', 3000000, 100, 'completed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3023', 'Vietnam Airlines', 'DAD', 'SGN', '2024-11-03 16:00:00', '2024-11-03 18:00:00', 'VN-A864', 3000000, 100, 'completed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3024', 'Vietnam Airlines', 'CXR', 'HAN', '2024-11-04 19:00:00', '2024-11-04 21:00:00', 'VN-A865', 3000000, 100, 'completed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3025', 'Vietnam Airlines', 'VCA', 'VII', '2024-11-05 22:00:00', '2024-11-06 00:00:00', 'VN-A866', 3000000, 100, 'completed');
+
+-- Insert 5 more completed flights
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3036', 'Vietnam Airlines', 'HAN', 'SGN', '2024-11-12 10:00:00', '2024-11-12 12:00:00', 'VN-A886', 3000000, 100, 'completed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3037', 'Vietnam Airlines', 'SGN', 'HAN', '2024-11-13 13:00:00', '2024-11-13 15:00:00', 'VN-A887', 3000000, 100, 'completed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3038', 'Vietnam Airlines', 'DAD', 'SGN', '2024-11-14 16:00:00', '2024-11-14 18:00:00', 'VN-A888', 3000000, 100, 'completed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3039', 'Vietnam Airlines', 'CXR', 'HAN', '2024-11-15 19:00:00', '2024-11-15 21:00:00', 'VN-A889', 3000000, 100, 'completed');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3040', 'Vietnam Airlines', 'VCA', 'VII', '2024-11-16 22:00:00', '2024-11-17 00:00:00', 'VN-A890', 3000000, 100, 'completed');
+
+-- Insert 10 on-time flights
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3041', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-01 10:00:00', '2024-12-01 12:00:00', 'VN-A886', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3042', 'Vietnam Airlines', 'SGN', 'HAN', '2024-12-02 13:00:00', '2024-12-02 15:00:00', 'VN-A887', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3043', 'Vietnam Airlines', 'DAD', 'SGN', '2024-12-03 16:00:00', '2024-12-03 18:00:00', 'VN-A888', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3044', 'Vietnam Airlines', 'CXR', 'HAN', '2024-12-04 19:00:00', '2024-12-04 21:00:00', 'VN-A889', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3045', 'Vietnam Airlines', 'VCA', 'VII', '2024-12-05 22:00:00', '2024-12-06 00:00:00', 'VN-A890', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3046', 'Vietnam Airlines', 'HAN', 'SGN', '2024-12-06 10:00:00', '2024-12-06 12:00:00', 'VN-A325', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3047', 'Vietnam Airlines', 'SGN', 'HAN', '2024-12-07 13:00:00', '2024-12-07 15:00:00', 'VN-A326', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3048', 'Vietnam Airlines', 'DAD', 'SGN', '2024-12-08 16:00:00', '2024-12-08 18:00:00', 'VN-A327', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3049', 'Vietnam Airlines', 'CXR', 'HAN', '2024-12-09 19:00:00', '2024-12-09 21:00:00', 'VN-A328', 3000000, 100, 'on-time');
+
+INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
+VALUES ('VN3050', 'Vietnam Airlines', 'VCA', 'VII', '2024-12-10 22:00:00', '2024-12-11 00:00:00', 'VN-A329', 3000000, 100, 'on-time');
