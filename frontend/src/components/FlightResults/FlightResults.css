@@ -1,0 +1,193 @@
+.flight-results {
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.flight-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Phần thông tin chuyến bay và hạng vé */
+  background-color: #f8fcff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.flight-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.flight-item .flight-info {
+  background-color: #e0f2fe;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  border-right: 2px solid #fff;
+}
+
+.flight-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  background-color: #e0f2fe;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  gap: 10px;
+}
+
+.flight-info .time-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flight-info .time-details .location {
+  font-size: 24px; /* Larger font for location names */
+  font-weight: bold;
+  color: #333333;
+}
+
+.flight-info .time-details .datetime {
+  font-size: 14px;
+  color: #555555;
+  margin-top: 5px;
+}
+
+.flight-info .duration {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #555555;
+}
+
+.flight-info .duration #muiten {
+  font-size: 50px; /* Larger arrow */
+  color: #424242;
+  margin: 0px 0;
+}
+
+.flight-info .duration .flight-time {
+  font-size: 14px;
+  color: #555555;
+  margin-top: 5px;
+}
+
+.flight-item .fare-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fare-option {
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #64b5f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.fare-option.business {
+  background-color: #ff9800;
+}
+
+.fare-option p {
+  margin: 5px 0;
+}
+
+.fare-option span {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.fare-option .dropdown {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.fare-selection {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-row: 2;
+  gap: 10px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  grid-column: span 2;
+}
+
+.fare-box {
+  background-color: #c2e4ff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 20px;
+}
+
+.fare-box.selected {
+  background-color: #64b5f6;
+  border-color: #007bff;
+}
+
+.fare-box h3 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+.fare-details p {
+  margin: 5px 0;
+  text-align: left;
+}
+
+.button-container {
+  grid-row: 3;
+  position: relative;
+  left: 360px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.fare-option.selected.business {
+  border: 2px solid #fa7900;
+  box-shadow: 0 4px 15px rgba(245, 170, 66, 0.4);
+  color: white;
+}
+
+.fare-option:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

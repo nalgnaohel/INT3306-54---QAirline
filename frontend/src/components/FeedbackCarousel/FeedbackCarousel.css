@@ -1,0 +1,84 @@
+.feedback-carousel {
+  width: 70%;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+  margin: auto;
+}
+
+.title-feedback {
+  display: flex;
+  flex-grow: 1;
+  gap: 50px;
+}
+
+.title {
+  flex: 1 0;
+}
+
+.lab-feed {
+  width: 488px;
+  color: var(--gray-600, #475467);
+  flex-shrink: 0;
+  margin-top: 30px;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 500;
+}
+
+.feedback-content {
+  margin: 20px auto;
+  max-width: 1000px;
+  font-size: 18px;
+  color: #333;
+}
+
+h2 {
+  font-size: 2rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.quote {
+  font-style: italic;
+  color: #00796b;
+  margin-bottom: 40px;
+}
+
+.author {
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.feedback-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.feedback-navigation .dot {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Hiệu ứng hover */
+}
+
+.feedback-navigation .dot.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.feedback-navigation .dot:hover {
+  background-color: #65acfe;
+}
+
+.feedback-navigation .dot:focus {
+  outline: none;
+}

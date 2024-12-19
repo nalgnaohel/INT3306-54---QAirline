@@ -1,0 +1,71 @@
+.booking-confirmation {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.booking-confirmation h2 {
+  text-align: center;
+  color: #0077cc;
+  margin-bottom: 1rem;
+}
+
+.alert-box {
+  display: flex;
+  align-items: center;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1rem;
+  border: 1px solid #ffeeba;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.alert-box span {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.flight-details1 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.flight-time1,
+.flight-info1 {
+  width: 48%;
+}
+
+.flight-time1 p,
+.flight-info1 p {
+  margin: 0.5rem 0;
+}
+
+.total-price {
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.confirm-button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #00aaff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.confirm-button:hover {
+  background-color: #00aaff;
+}

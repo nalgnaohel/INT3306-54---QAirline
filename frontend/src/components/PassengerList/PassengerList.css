@@ -1,0 +1,108 @@
+.passenger-list-container {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 900px;
+}
+
+/* Progress steps */
+.progress-steps {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.step {
+  font-size: 16px;
+  color: #aaa;
+  position: relative;
+}
+
+.step.active {
+  color: #00aaff;
+  font-weight: bold;
+}
+
+.step.completed {
+  color: #00aaff;
+  font-weight: bold;
+}
+
+.step.completed::before {
+  content: "✔";
+  position: absolute;
+  left: -15px;
+  color: #00aaff;
+}
+
+/* Passenger card */
+.passenger-card {
+  border: 1px solid #ddd;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.passenger-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.passenger-name {
+  font-size: 18px;
+}
+
+.passenger-type {
+  display: block;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.back-btn,
+.continue-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-btn {
+  background-color: #ddd;
+  color: #555;
+}
+
+.back-btn:hover {
+  background-color: #ccc;
+}
+
+.continue-btn {
+  background-color: #00aaff;
+  color: white;
+}
+
+.continue-btn:hover {
+  background-color: #00aaff;
+}

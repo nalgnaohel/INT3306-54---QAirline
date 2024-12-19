@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
 
@@ -16,4 +16,34 @@ body {
   padding: 20px;
   background-color: #1e90ff;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .Home {
+    padding: 10px;
+  }
+}
+
+/* Ensure the components used within Home are also responsive */
+.SearchBox,
+.FlightResults,
+.PopularFlights,
+.FeaturedInfo,
+.FeedbackCarousel,
+.CruisePartners,
+.Footer {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .SearchBox,
+  .FlightResults,
+  .PopularFlights,
+  .FeaturedInfo,
+  .FeedbackCarousel,
+  .CruisePartners,
+  .Footer {
+    padding: 10px;
+  }
 }

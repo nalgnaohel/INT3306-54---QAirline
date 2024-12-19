@@ -51,5 +51,6 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 			"data":   "hello from hi get",
 		})
 	})
+
 	return nil
 }

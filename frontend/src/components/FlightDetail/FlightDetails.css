@@ -1,0 +1,210 @@
+/* Container styling */
+.flight-details-container {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 900px;
+}
+
+/* Header styling */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00aaff;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  font-size: 16px;
+}
+
+.nav-links li {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-links li:hover {
+  color: #00aaff;
+}
+
+/* Progress steps styling */
+.progress-steps {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.step {
+  font-size: 16px;
+  color: #aaa;
+  position: relative;
+  text-align: center;
+}
+
+.step.active {
+  color: #00aaff;
+  font-weight: bold;
+}
+
+.step.active::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #00aaff;
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+}
+
+/* Card container */
+.details-card {
+  border: 1px solid #ddd;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Card title */
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #00aaff;
+  text-align: center;
+}
+
+/* Flight time and location styling */
+.time-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.time,
+.location {
+  margin: 0 10px;
+}
+
+.arrow {
+  margin: 0 10px;
+  font-size: 24px;
+}
+
+/* Flight info section */
+.flight-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 16px;
+  color: #555;
+  margin: 20px 0;
+}
+
+.flight-info div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Prohibited items section */
+.prohibited-items {
+  margin-top: 30px;
+}
+
+.prohibited-items h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #00aaff;
+  text-align: center;
+}
+
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 60px;
+  border: 1px solid #00aaff;
+  border-radius: 8px;
+  color: #00aaff;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.cancel-btn,
+.continue-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn {
+  background-color: #ddd;
+  color: #555;
+}
+
+.cancel-btn:hover {
+  background-color: #ccc;
+}
+
+.continue-btn {
+  background-color: #00aaff;
+  color: white;
+}
+
+.continue-btn:hover {
+  background-color: #00aaff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .icons {
+    flex-direction: column;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
