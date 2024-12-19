@@ -9,7 +9,8 @@ import Admin from './views/pages/Admin/Admin';
 function App() {
   return (
     <div className="App">
-      <Admin />
+      {/* <Admin /> */}
+      <Home/>
     </div>
   );
 }

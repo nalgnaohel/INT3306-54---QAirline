@@ -4,6 +4,7 @@ import (
 	config "github.com/nalgnaohel/INT3306-54---QAirline/backend/config"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/pkg/utils"
 )
 
 type flightBusiness struct {
@@ -42,10 +43,37 @@ func (fb *flightBusiness) Update(flight *models.Flight) (*models.Flight, error) 
 	return updatedFlight, nil
 }
 
-// func (fb *flightBusiness) GetAll() ([]*models.Flight, error) {
-// 	flights, err := fb.flightRepo.GetAll()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return flights, nil
-// }
+// Delete flight
+func (fb *flightBusiness) Delete(flightID string) error {
+	err := fb.flightRepo.Delete(flightID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Get flight one way
+func (fb *flightBusiness) GetFlightOneWay(departure string, arrival string, departureDate string) ([]*models.Flight, error) {
+	flights, err := fb.flightRepo.GetFlightOneWay(departure, arrival, departureDate)
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}
+
+// Get flight round trip
+func (fb *flightBusiness) GetFlightRoundTrip(departure string, arrival string, departureDate string, returnDate string) ([]*models.Flight, error) {
+	flights, err := fb.flightRepo.GetFlightRoundTrip(departure, arrival, departureDate, returnDate)
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}
+
+func (fb *flightBusiness) GetAll(query *utils.PagingQuery) (*models.FlightList, error) {
+	flights, err := fb.flightRepo.GetAll(query)
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}

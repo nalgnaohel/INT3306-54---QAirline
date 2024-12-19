@@ -55,7 +55,11 @@ const Login: React.FC = () => {
                 console.log('Current User:', currentUser);
 
                 //redirect to home page
-                navigator('/');
+                if (currentUser.type === 'admin') {
+                    navigator('/admin');
+                } else {
+                    navigator('/');
+                }
             }
             catch (error) {
                 setEmailErr(true);
@@ -71,7 +75,7 @@ const Login: React.FC = () => {
     return (
         <><TopNavBar />
         <div className="main-container" background-image>
-            <div className="form-container">
+            <div className="login-form-container">
                 <form className="login-form" action="POST" onSubmit={handleSubmit}>
                     <h2>Đăng nhập QAirline</h2>
                     {/* Email */}
