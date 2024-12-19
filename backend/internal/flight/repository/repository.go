@@ -160,42 +160,29 @@ func (f *flightRepo) GetAll(query *utils.PagingQuery) (*models.FlightList, error
 	}, nil
 }
 
-// Get cancelled flights
-func (f *flightRepo) GetCancelledFlights(query *utils.PagingQuery) (*models.FlightList, error) {
-	//Co record nao dang Flight khom
-	results := f.db.First(&models.Flight{})
+// Get flights by statistics
+func (f *flightRepo) GetStatusFlightsStatistics() ([]models.FlightStatus, error) {
+	var flightStatus []models.FlightStatus
+	rows, err := f.db.Table("flights").
+		Select("status, count(*) as count").
+		Group("status").Rows()
 
-	//loi khi query
-	if results.Error != nil {
-		return nil, errors.Wrap(results.Error, "flightRepo.GetCancelledFlights.First")
-	}
-
-	totalCount := int(results.RowsAffected)
-
-	//khong co record
-	if totalCount == 0 {
-		return &models.FlightList{
-			TotalCount: 0,
-			TotalPages: utils.GetTotalPages(0, query.GetQuerySize()),
-			Page:       query.GetPage(),
-			Size:       query.GetQuerySize(),
-			HasMore:    false,
-			Flights:    make([]*models.Flight, 0),
-		}, nil
-	}
-
-	flights := make([]*models.Flight, 0, query.GetQuerySize())
-	err := f.db.Raw(`SELECT * from flights WHERE status = 'cancelled'`).Scan(&flights).Error
 	if err != nil {
-		return nil, errors.Wrap(err, "flightRepo.GetCancelledFlights.Query")
+		return nil, errors.Wrap(err, "flightRepo.GetStatusFlightsStatistics.Query")
 	}
 
-	return &models.FlightList{
-		TotalCount: totalCount,
-		TotalPages: utils.GetTotalPages(totalCount, query.GetQuerySize()),
-		Page:       query.GetPage(),
-		Size:       query.GetQuerySize(),
-		HasMore:    query.GetPage() < utils.GetTotalPages(totalCount, query.GetQuerySize()),
-		Flights:    flights,
-	}, nil
+	for rows.Next() {
+		var status string
+		var count int
+		err = rows.Scan(&status, &count)
+		if err != nil {
+			return nil, errors.Wrap(err, "flightRepo.GetStatusFlightsStatistics.Scan")
+		}
+
+		flightStatus = append(flightStatus, models.FlightStatus{
+			Status: status,
+			Count:  count,
+		})
+	}
+	return flightStatus, nil
 }

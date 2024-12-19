@@ -24,3 +24,8 @@ type FlightList struct {
 	HasMore    bool      `json:"has_more"`
 	Flights    []*Flight `json:"flights"`
 }
+
+type FlightStatus struct {
+	Status string `json:"status"`
+	Count  int    `json:"count"`
+}

@@ -78,8 +78,8 @@ func (fb *flightBusiness) GetAll(query *utils.PagingQuery) (*models.FlightList, 
 	return flights, nil
 }
 
-func (fb *flightBusiness) GetCancelledFlights(query *utils.PagingQuery) (*models.FlightList, error) {
-	flights, err := fb.flightRepo.GetCancelledFlights(query)
+func (fb *flightBusiness) GetStatusFlightsStatistics() ([]models.FlightStatus, error) {
+	flights, err := fb.flightRepo.GetStatusFlightsStatistics()
 	if err != nil {
 		return nil, err
 	}

@@ -171,3 +171,23 @@ func (fh *flightHandler) GetAll() fiber.Handler {
 		})
 	}
 }
+
+// GetCancelledFlights - get all cancelled flights
+func (fh *flightHandler) GetStatusFlightsStatistics() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		var flightStatus []models.FlightStatus
+		flightStatus, err := fh.flightBusiness.GetStatusFlightsStatistics()
+
+		if err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"status": "Internal Server Error",
+				"error":  "flights status - " + err.Error(),
+			})
+		}
+
+		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+			"status":        "Success",
+			"flightsStatus": flightStatus,
+		})
+	}
+}

@@ -14,5 +14,5 @@ type FlightRepository interface {
 	GetFlightOneWay(departure string, arrival string, departureDate string) ([]*models.Flight, error)
 	//GetFlightRoundTrip(departure string, arrival string, departureDate string, returnDate string) ([]*models.Flight, error)
 	GetAll(query *utils.PagingQuery) (*models.FlightList, error)
-	GetCancelledFlights(query *utils.PagingQuery) (*models.FlightList, error)
+	GetStatusFlightsStatistics() ([]models.FlightStatus, error)
 }
