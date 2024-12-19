@@ -55,7 +55,11 @@ const Login: React.FC = () => {
                 console.log('Current User:', currentUser);
 
                 //redirect to home page
-                navigator('/');
+                if (currentUser.type === 'admin') {
+                    navigator('/admin');
+                } else {
+                    navigator('/');
+                }
             }
             catch (error) {
                 setEmailErr(true);
