@@ -279,9 +279,9 @@ const Table: React.FC = () => {
       )}
       {activeTable != 0 && (
         <div className='container-admin-table'>
-          <div className='header'>
+          <div className='header-admin-table'>
             {tables.map((table) => activeTable == table.id ? (
-              <div key={table.id} className='title'>{table.title}</div>
+              <div key={table.id} className='title-admin-table'>{table.title}</div>
             ) : null)}
 
             {tables.map((table) => (activeTable == table.id && [2, 3, 4, 5, 6, 7].includes(activeTable)) ? (
@@ -294,7 +294,7 @@ const Table: React.FC = () => {
             ) : null)}
 
             {activeTable == 9 && (
-              <div className='title'>Đăng xuất</div>
+              <div className='title-admin-table'>Đăng xuất</div>
             )}
           </div>
 
@@ -383,113 +383,110 @@ const Table: React.FC = () => {
           ) : null)}
         
 
-          <div className="Table">
-            <div className="table-container">
-              {tables.map((table) => (activeTable === table.id && [1, 2, 3, 4, 5, 6, 7].includes(activeTable)) ? (
-                <div key={table.id} className="table">
-                  <table>
-                    <thead>
-                      <tr>
-                        {table.headers.map((header, index) => (
-                          <th key={index}>{header}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody id="flightTableBody">
-                      {getFilteredRows(table.rows)
-                        .slice(0, limit) // Apply limit to the rows displayed
-                        .map((row, rowIndex) => (
-                          <tr key={rowIndex}>
-                            {row.map((cell, cellIndex) => cellIndex === row.length - 1 ? (
-                              <td key={cellIndex}>
-                                <div className="action-buttons">
-                                  <img className='edit-btn' src={edit} onClick={() => handleEdit(rowIndex)} />
-                                  <img className='remove-btn' src={remove} onClick={() => handleRemove(rowIndex)} />
-                                </div>
-                              </td>
-                              ) : (
-                              <td key={cellIndex}>{cell}</td>
-                              )
-                            )}
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                </div>
-                ) : null
-              )}
-            </div>
-
-            {isModalOpen && (
-              <div className="modal">
-                <div className="modal-content">
-                  {selectedRowIndex !== null ? (
-                    <h2>Chỉnh sửa dữ liệu</h2>
-                  ) : (
-                    <h2>Thêm dữ liệu mới</h2>
-                  )}
-
-                  {tables.find((table) => table.id === activeTable)
-                    ?.headers.slice(1, -1) // Loại bỏ cột số thứ tự khỏi header
-                    .map((header, index) => (
-                      <div key={index} className="form-group">
-                        <label>{header}</label>
-                        <input
-                          type="text"
-                          value={newRowData[index] || ''}
-                          onChange={(e) => handleInputChange(index, e.target.value)}
-                        />
-                      </div>
-                  ))}
-
-                  {activeTable == 5 && (
-                    <div className="form-group">
-                      <label>Mật khẩu</label>
-                      <input
-                        type="text"
-                        onChange={(e) => setAdditionalField(e.target.value)}
-                      />
-                    </div>
-                  )}
-
-                  {activeTable == 6 && (
-                    <div className="form-group">
-                      <label>Nội dung</label>
-                      <input
-                        type="text"
-                        onChange={(e) => setAdditionalField(e.target.value)}
-                      />
-                    </div>
-                  )}
-
-                  <div className="modal-actions">
-                    <button 
-                      onClick={() => {setIsModalOpen(false); setSelectedRowIndex(null); }}
-                      className='cancel-button'
-                    >
-                      Hủy
-                    </button>
-                    {selectedRowIndex !== null ? (
-                      <button
-                        onClick={() => { saveEditedRow(); setSelectedRowIndex(null); }}
-                        className="confirm-button"
-                      >
-                        Lưu
-                      </button>
-                    ) : (
-                      <button 
-                        onClick={confirmAddRow}
-                        className="confirm-button"
-                      >
-                        Lưu
-                      </button>
-                    )}
-                  </div>
-                </div>
+          <div className="table-container">
+            {tables.map((table) => (activeTable === table.id && [1, 2, 3, 4, 5, 6, 7].includes(activeTable)) ? (
+              <div key={table.id} className="table">
+                <table>
+                  <thead>
+                    <tr>
+                      {table.headers.map((header, index) => (
+                        <th key={index}>{header}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody id="flightTableBody">
+                    {getFilteredRows(table.rows)
+                      .slice(0, limit) // Apply limit to the rows displayed
+                      .map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                          {row.map((cell, cellIndex) => cellIndex === row.length - 1 ? (
+                            <td key={cellIndex}>
+                              <div className="action-buttons">
+                                <img className='edit-btn-admin-table' src={edit} onClick={() => handleEdit(rowIndex)} />
+                                <img className='remove-btn-admin-table' src={remove} onClick={() => handleRemove(rowIndex)} />
+                              </div>
+                            </td>
+                            ) : (
+                            <td key={cellIndex}>{cell}</td>
+                            )
+                          )}
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
               </div>
+              ) : null
             )}
           </div>
         </div>
+      )}
+      {isModalOpen && (
+  <div className="modal-admin">
+    <div className="modal-content">
+      {selectedRowIndex !== null ? (
+        <h2>Chỉnh sửa dữ liệu</h2>
+      ) : (
+        <h2>Thêm dữ liệu mới</h2>
+      )}
+
+      {tables.find((table) => table.id === activeTable)
+        ?.headers.slice(1, -1) // Loại bỏ cột số thứ tự khỏi header
+        .map((header, index) => (
+          <div key={index} className="form-group">
+            <label>{header}</label>
+            <input
+              type="text"
+              value={newRowData[index] || ''}
+              onChange={(e) => handleInputChange(index, e.target.value)}
+            />
+          </div>
+      ))}
+
+      {activeTable == 5 && (
+        <div className="form-group">
+          <label>Mật khẩu</label>
+          <input
+            type="text"
+            onChange={(e) => setAdditionalField(e.target.value)}
+          />
+        </div>
+      )}
+
+      {activeTable == 6 && (
+        <div className="form-group">
+          <label>Nội dung</label>
+          <input
+            type="text"
+            onChange={(e) => setAdditionalField(e.target.value)}
+          />
+        </div>
+      )}
+
+      <div className="modal-actions">
+        <button 
+          onClick={() => {setIsModalOpen(false); setSelectedRowIndex(null); }}
+          className='cancel-button-admin-modal'
+        >
+          Hủy
+        </button>
+        {selectedRowIndex !== null ? (
+          <button
+            onClick={() => { saveEditedRow(); setSelectedRowIndex(null); }}
+            className="confirm-button-admin-modal"
+          >
+            Lưu
+          </button>
+        ) : (
+          <button 
+            onClick={confirmAddRow}
+            className="confirm-button-admin-modal"
+          >
+            Lưu
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
       )}
     </div>
   );

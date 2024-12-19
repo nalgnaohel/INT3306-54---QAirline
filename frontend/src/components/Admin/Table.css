@@ -37,7 +37,7 @@
 }
 
 /* Header */
-.header {
+.header-admin-table {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,7 +54,7 @@
   border-top-right-radius: 10px;
 }
 
-.title {
+.title-admin-table {
   color: #fff;
   font-size: 22px;
   font-weight: 500;
@@ -102,8 +102,8 @@ table tr:nth-child(even) {
   justify-content: center;
 }
 
-.action-buttons .edit-btn,
-.action-buttons .remove-btn {
+.action-buttons .edit-btn-admin-table,
+.action-buttons .remove-btn-admin-table {
   width: 30px;
   height: 30px;
   padding: 5px;
@@ -111,7 +111,7 @@ table tr:nth-child(even) {
 }
 
 /* Modal styles */
-.modal {
+.modal-admin {
   position: fixed;
   top: 0;
   left: 0;
@@ -147,7 +147,7 @@ input {
   text-align: right;
 }
 
-button.confirm-button,
+button.confirm-button-admin-modal,
 .confirm-dialog .confirm {
   width: 80px;
   margin-right: 20px;
@@ -158,12 +158,12 @@ button.confirm-button,
   border-radius: 5px;
 }
 
-button.confirm-button:hover,
+button.confirm-button-admin-modal:hover,
 .confirm-dialog .confirm:hover {
   background-color: #007bff;
 }
 
-button.cancel-button {
+button.cancel-button-admin-modal {
   width: 80px;
   background-color: #fff;
   color: #474747;
@@ -175,7 +175,7 @@ button.cancel-button {
   margin-right: 20px;
 }
 
-button.cancel-button:hover {
+button.cancel-button-admin-modal:hover {
   background-color: #e0e0e0;
 }
   
