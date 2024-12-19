@@ -10,7 +10,7 @@ import (
 func MapFlightRoutes(flightRouter fiber.Router, mw *middleware.Middleware, handlers *flightHandler, authBusiness auth.AuthBusiness, cfg *config.Config) {
 	flightRouter.Get("/onewayflight", handlers.GetFlightOneWay())
 	//flightRouter.Get("/roundtripflight", handlers.GetFlightRoundTrip())
-	flightRouter.Use(mw.JWTAuthMiddleware(authBusiness, cfg))
+	flightRouter.Use(mw.JWTAuthMiddleware(authBusiness, cfg)) // middleware for jwt
 	flightRouter.Post("/create", handlers.Create())
 	flightRouter.Get("/:flightID", handlers.GetByFlightID())
 	flightRouter.Delete("/:flightID", handlers.Delete())
