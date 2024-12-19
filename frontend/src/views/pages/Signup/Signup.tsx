@@ -206,13 +206,13 @@ const Signup: React.FC = () => {
       <TopNavBar />
       <div className="Signup">
         <div className="main-container">
-          <div className="form-container">
+          <div className="signup-form-container">
             <form className="signup-form" action="POST" onSubmit={handleSubmit}>
               <div className="form-flex">
                 <div className="form-col">
                   <div className="welcome">
                     <p>Chào mừng đến với QAirline</p>
-                    <h2>Đăng ky tài khoản</h2>
+                    <h2>Đăng ký tài khoản</h2>
                   </div>
 
                   <h3>Thông tin cá nhân</h3>

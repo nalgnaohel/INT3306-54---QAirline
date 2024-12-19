@@ -52,63 +52,54 @@ const Login: React.FC = () => {
         console.log("Token:", token);
         console.log("Current User:", currentUser);
 
-        //redirect to home page
-        navigator("/");
-      } catch (error) {
-        setEmailErr(true);
-        if (emailMsgRef.current) {
-          emailMsgRef.current.innerText = "Email hoặc mật khẩu không đúng";
+                //redirect to home page
+                if (currentUser.type === 'admin') {
+                    navigator('/admin');
+                } else {
+                    navigator('/');
+                }
+            }
+            catch (error) {
+                setEmailErr(true);
+                if (emailMsgRef.current) {
+                    emailMsgRef.current.innerText = 'Email hoặc mật khẩu không đúng';
+                }
+                console.error('Unexpected Error:', error);
+            }
         }
         console.error("Unexpected Error:", error);
       }
     }
-  };
-
-  return (
-    <>
-      <TopNavBar />
-      <div className="main-container" background-image>
-        <div className="form-container">
-          <form className="login-form" action="POST" onSubmit={handleSubmit}>
-            <h2>Đăng nhập QAirline</h2>
-            {/* Email */}
-            <label htmlFor="username">E-Mail</label>
-            <input
-              ref={emailInputRef}
-              type="email"
-              name="username"
-              placeholder="Email của bạn"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <p ref={emailMsgRef} className={` ${emailErr ? "show" : "hide"}`}>
-              Email khong duoc de trong
-            </p>
-            {/* Password */}
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <p className={` ${passwordErr ? "show" : "hide"}`}>
-              Mat khau khong duoc de trong
-            </p>
-            <button type="submit">Đăng nhập</button>
-          </form>
-          <div className="login-options">
-            <a href="/forgot-password">Quên mật khẩu?</a>
-          </div>
-          <div className="toSignup">
-            <p>Bạn chưa có tài khoản? </p>
-            <a href="/signup">Đăng ký ngay</a>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+      
+    return (
+        <><TopNavBar />
+        <div className="main-container" background-image>
+            <div className="login-form-container">
+                <form className="login-form" action="POST" onSubmit={handleSubmit}>
+                    <h2>Đăng nhập QAirline</h2>
+                    {/* Email */}
+                    <label htmlFor="username">E-Mail</label>
+                    <input ref={emailInputRef} type="email" name="username" placeholder="Email của bạn"
+                        value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <p ref={emailMsgRef}
+                        className={` ${emailErr ? 'show' : 'hide'}`}>Email khong duoc de trong</p>
+                    {/* Password */}
+                    <label htmlFor="password">Password</label>
+                    <input type="password" name="password" placeholder="Password"
+                        value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <p className={` ${passwordErr ? 'show' : 'hide'}`}>Mat khau khong duoc de trong</p>
+                    <button type="submit">Đăng nhập</button>
+                </form>
+                <div className="login-options">
+                    <a href="/forgot-password">Quên mật khẩu?</a>
+                </div>
+                <div className="toSignup">
+                    <p>Bạn chưa có tài khoản? </p>
+                    <a href="/signup">Đăng ký ngay</a>
+                </div>
+            </div>
+        </div></>
+    );
+}
 
 export default Login;

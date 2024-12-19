@@ -12,6 +12,7 @@ import PaymentPage from "./components/PaymentPage/PaymentPage";
 import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm";
 import ReturnPage from "./components/ReturnPage/ReturnPage";
 import PageNews from "./views/pages/PageNews/PageNews";
+import Admin from "./views/pages/Admin/Admin";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/news",
     element: <PageNews />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
 ]);
 

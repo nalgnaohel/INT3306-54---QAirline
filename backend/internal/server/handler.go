@@ -8,9 +8,9 @@ import (
 	authBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/business"
 	authDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/delivery/http"
 	authRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/repository"
-	flightBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/business"
+	flightBusiness "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/business"
 	flightDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/delivery/http"
-	flightRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/repository"
+	flightRepository "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/repository"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/middleware"
 	ticketBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/business"
 	ticketDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/delivery/http"
@@ -22,7 +22,9 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	authRepository := authRepo.NewAuthRepo(s.dtb)
 	authBusiness := authBiz.NewAuthBusiness(s.cfg, authRepository)
 	authHandlers := authDelivery.NewAuthHandlers(authBusiness)
-	authMiddleware := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
+
+	//Middleware init
+	mw := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
 
 	// Init ticket
 	ticketRepository := ticketRepo.NewTicketRepo(s.dtb)
@@ -30,8 +32,8 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	ticketHandlers := ticketDelivery.NewTicketHandlers(ticketBusiness)
 
 	// Init flight
-	flightRepository := flightRepo.NewFlightRepo(s.dtb)
-	flightBusiness := flightBiz.NewFlightBusiness(s.cfg, flightRepository)
+	flightRepository := flightRepository.NewFlightRepo(s.dtb)
+	flightBusiness := flightBusiness.NewFlightBusiness(s.cfg, flightRepository)
 	flightHandlers := flightDelivery.NewFlightHandlers(flightBusiness)
 
 	// Fiber default middleware
@@ -49,18 +51,17 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 
 	// Setup API groups
 	api := fib.Group("/api")
+
 	authGroup := api.Group("/auth")
-	authDelivery.MapAuthRoutes(authGroup, authMiddleware, authHandlers, authBusiness, s.cfg)
+	authDelivery.MapAuthRoutes(authGroup, mw, authHandlers, authBusiness, s.cfg)
 
-	// Setup Ticket routes
-	ticketGroup := api.Group("/ticket")
-	ticketDelivery.SetupRouter(ticketGroup, authMiddleware, ticketHandlers, ticketBusiness, s.cfg)
+	flightGroup := api.Group("/flights")
+	flightDelivery.MapFlightRoutes(flightGroup, mw, flightHandlers, authBusiness, s.cfg)
 
-	//Setup Flight routes
-	flightGroup := api.Group("/flight")
-	flightDelivery.MapFlightRoutes(flightGroup, authMiddleware, flightHandlers, flightBusiness, s.cfg)
+// Setup Ticket routes
+ticketGroup := api.Group("/ticket")
+ticketDelivery.SetupRouter(ticketGroup, mw, ticketHandlers, ticketBusiness, s.cfg)
 
-	// Test route
 	fib.Get("", func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status":  "success",
@@ -69,6 +70,9 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	})
 
 	fib.Get("/hi", func(ctx *fiber.Ctx) error {
+		// span, _ := opentracing.StartSpanFromContext(ctx.Context(), "num.end")
+		// defer span.Finish()
+
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status": "success",
 			"data":   "hello from hi get",
