@@ -10,4 +10,5 @@ type Handlers interface {
 	Delete() fiber.Handler
 	GetByFlightID() fiber.Handler
 	GetFlightOneWay() fiber.Handler
+	GetAll() fiber.Handler
 }

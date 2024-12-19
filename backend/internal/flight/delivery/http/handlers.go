@@ -1,9 +1,13 @@
 package http
 
 import (
+	"log"
+	"strings"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/pkg/utils"
 )
 
 type flightHandler struct {
@@ -63,7 +67,19 @@ func (fh *flightHandler) GetByFlightID() fiber.Handler {
 // Update - update flight
 func (fh *flightHandler) Update() fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		flightID := c.Params("flightID")
+		flightID = strings.Replace(flightID, "%20", " ", -1)
+		log.Println("handler-----", flightID)
+		if flightID == "" {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"status": "Bad Request",
+				"error":  "Flight ID is required",
+			})
+		}
+
 		flight := &models.Flight{}
+		flight.FlightID = flightID
+
 		if err := c.BodyParser(flight); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"status": "Bad Request",
@@ -126,6 +142,32 @@ func (fh *flightHandler) GetFlightOneWay() fiber.Handler {
 			"departureDate": departureDate,
 			"departure":     departure,
 			"arrival":       arrival,
+		})
+	}
+}
+
+// GetAll - get all flights
+func (fh *flightHandler) GetAll() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		pagingQuery, err := utils.GetPaginationFromCtx(c)
+		if err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"status": "Internal Server Error",
+				"error":  "Query error - " + err.Error(),
+			})
+		}
+
+		flights, err := fh.flightBusiness.GetAll(pagingQuery)
+		if err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"status": "Not Found",
+				"error":  "Cannot find flights - " + err.Error(),
+			})
+		}
+
+		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+			"status":  "Success",
+			"flights": flights,
 		})
 	}
 }

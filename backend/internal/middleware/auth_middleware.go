@@ -20,8 +20,9 @@ import (
 // JWTAuthMiddleware - authentication JWT using cookie session/ Auth header
 func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg *config.Config) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
-		authHeader := ctx.GetReqHeaders()["Authorization"][0]
 		log.Printf("Auth header: %v", ctx.GetReqHeaders()["Authorization"])
+		authHeader := ctx.GetReqHeaders()["Authorization"][0]
+		//log.Printf("Auth header: %v", ctx.GetReqHeaders()["Authorization"])
 
 		if authHeader != "" {
 			headerParts := strings.Split(authHeader, " ")

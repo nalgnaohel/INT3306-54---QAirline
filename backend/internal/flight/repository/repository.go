@@ -42,19 +42,11 @@ func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 	return &flight, nil
 }
 
-// DB Find all flights
-// func (f *flightRepo) GetAll() ([]*flight.Flight, error) {
-// 	var flights []*models.Flight
-// 	err := f.db.Find(&flights).Error
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return flights, nil
-// }
-
 // DB Update flight
 func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
-	err := f.db.Where("flight_id = ?", flight.FlightID).Updates(&flight).Error
+	fquery := strings.Replace(flight.FlightID, "%20", " ", -1)
+	log.Println("repo-----", fquery)
+	err := f.db.Where("flight_id = ?", fquery).Updates(&flight).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "flightRepo.Update.Updates")
 	}
@@ -63,7 +55,8 @@ func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
 
 // DB Delete flight
 func (f *flightRepo) Delete(flightID string) error {
-	err := f.db.Where("flight_id = ?", flightID).Delete(&models.Flight{}).Error
+	fquery := strings.Replace(flightID, "%20", " ", -1)
+	err := f.db.Where("flight_id = ?", fquery).Delete(&models.Flight{}).Error
 	if err != nil {
 		return errors.Wrap(err, "flightRepo.Delete.Delete")
 	}
@@ -127,14 +120,17 @@ func (f *flightRepo) GetFlightRoundTrip(departure string, arrival string, depart
 
 // DB Get all flights
 func (f *flightRepo) GetAll(query *utils.PagingQuery) (*models.FlightList, error) {
+	//Co record nao dang Flight khom
 	results := f.db.First(&models.Flight{})
 
+	//loi khi query
 	if results.Error != nil {
 		return nil, errors.Wrap(results.Error, "flightRepo.GetAll.First")
 	}
 
 	totalCount := int(results.RowsAffected)
 
+	//khong co record nao thoa man
 	if totalCount == 0 {
 		return &models.FlightList{
 			TotalCount: 0,
@@ -147,6 +143,12 @@ func (f *flightRepo) GetAll(query *utils.PagingQuery) (*models.FlightList, error
 	}
 
 	flights := make([]*models.Flight, 0, query.GetQuerySize())
+	err := f.db.Raw(`
+		SELECT *
+		FROM flights`).Scan(&flights).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "inspectionRepo.GetAll.Query")
+	}
 
 	return &models.FlightList{
 		TotalCount: totalCount,

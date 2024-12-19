@@ -47,7 +47,7 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	authGroup := api.Group("/auth")
 	authDelivery.MapAuthRoutes(authGroup, mw, authHandlers, authBusiness, s.cfg)
 
-	flightGroup := api.Group("/flight")
+	flightGroup := api.Group("/flights")
 	flightDelivery.MapFlightRoutes(flightGroup, mw, flightHandlers, authBusiness, s.cfg)
 
 	fib.Get("", func(ctx *fiber.Ctx) error {

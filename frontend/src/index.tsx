@@ -10,6 +10,7 @@ import FlightProcedure from "./views/pages/FlightProcedure/FlightProcedure";
 import BookingConfirmation from "./components/BookingConfirmation/BookingConfirmation";
 import PaymentPage from "./components/PaymentPage/PaymentPage";
 import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm";
+import Admin from "./views/pages/Admin/Admin";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
     path: "/passenger-info",
     element: <PassengerInfoForm />,
   },
+  {
+    path: "/admin",
+    element: <Admin />,
+  }
 ]);
 
 const root = ReactDOM.createRoot(

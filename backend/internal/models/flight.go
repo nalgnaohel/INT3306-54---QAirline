@@ -6,7 +6,7 @@ type Flight struct {
 	FlightID      string    `json:"flight_id"`
 	Brand         string    `json:"brand"`
 	DepartureCode string    `json:"departure_code"`
-	ArrivalCode   string    `json:"arrival_"`
+	ArrivalCode   string    `json:"arrival_code"`
 	DepartureTime time.Time `json:"departure_time"`
 	ArrivalTime   time.Time `json:"arrival_time"`
 	Price         float64   `json:"price"`

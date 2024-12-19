@@ -2,6 +2,7 @@ package flight
 
 import (
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/pkg/utils"
 )
 
 type FlightBusiness interface {
@@ -12,4 +13,5 @@ type FlightBusiness interface {
 	Delete(flightID string) error
 	GetFlightOneWay(departure string, arrival string, departureDate string) ([]*models.Flight, error)
 	GetFlightRoundTrip(departure string, arrival string, departureDate string, returnDate string) ([]*models.Flight, error)
+	GetAll(query *utils.PagingQuery) (*models.FlightList, error)
 }

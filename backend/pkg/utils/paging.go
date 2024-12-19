@@ -18,7 +18,7 @@ type PagingQuery struct {
 // SetSize Set page size
 func (q *PagingQuery) SetQuerySize(sizeQuery string) error {
 	if sizeQuery == "" {
-		q.Size = 5
+		q.Size = 2
 		return nil
 	}
 	n, err := strconv.Atoi(sizeQuery)

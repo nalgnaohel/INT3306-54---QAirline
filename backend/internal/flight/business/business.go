@@ -4,6 +4,7 @@ import (
 	config "github.com/nalgnaohel/INT3306-54---QAirline/backend/config"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/pkg/utils"
 )
 
 type flightBusiness struct {
@@ -69,10 +70,10 @@ func (fb *flightBusiness) GetFlightRoundTrip(departure string, arrival string, d
 	return flights, nil
 }
 
-// func (fb *flightBusiness) GetAll() ([]*models.Flight, error) {
-// 	flights, err := fb.flightRepo.GetAll()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return flights, nil
-// }
+func (fb *flightBusiness) GetAll(query *utils.PagingQuery) (*models.FlightList, error) {
+	flights, err := fb.flightRepo.GetAll(query)
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}
