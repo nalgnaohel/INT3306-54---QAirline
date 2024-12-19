@@ -27,6 +27,7 @@
 .box-2 .user,
 .box-2 .airlines,
 .box-2 .airport,
+.box-2 .planes,
 .box-2 .flights,
 .box-2 .booked,
 .box-2 .home {
@@ -58,12 +59,13 @@
     transition: all 0.3s ease;
 }
 
-.box-2 .logout { top: 563px; }
-.box-2 .settings { top: 503px; }
-.box-2 .blog { top: 443px; }
-.box-2 .user { top: 383px; }
-.box-2 .airlines { top: 323px; }
-.box-2 .airport { top: 263px; }
+.box-2 .logout { top: 623px; }
+.box-2 .settings { top: 563px; }
+.box-2 .blog { top: 503px; }
+.box-2 .user { top: 443px; }
+.box-2 .airlines { top: 383px; }
+.box-2 .airport { top: 323px; }
+.box-2 .planes { top: 263px;}
 .box-2 .flights { top: 203px; }
 .box-2 .booked { top: 143px; }
 .box-2 .home { top: 83px; }
@@ -129,7 +131,7 @@
 /* Divider and Separator */
 .box-2 .divider {
     position: absolute;
-    top: 503px;
+    top: 563px;
     width: 280px;
     height: 1px;
     background-color: #e0e0e0;

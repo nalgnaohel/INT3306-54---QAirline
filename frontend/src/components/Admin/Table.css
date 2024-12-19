@@ -164,11 +164,20 @@ button.cancel-button:hover {
 }
   
 /* Controls */
-.controls {
+.controls-table-admin{
   color: #474747;
   align-items: center;
   margin-bottom: 20px;
   gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.limitSelect-admin-table {
+  display: flex;
+  gap: 5px;
+  padding-left: 5px;
+  align-items: center;
 }
 
 #searchInput {
@@ -194,6 +203,11 @@ button.cancel-button:hover {
   padding-right: 36px;
   padding-left: 8px;
 }
+
+.setting-input {
+  text-align: left;
+}
+
 .setting button {
   font-size: 16px;
   background-color: #80bcff;

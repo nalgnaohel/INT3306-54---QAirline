@@ -28,24 +28,34 @@ const Table: React.FC = () => {
     id: 1,
     title: ['Danh sách đặt chỗ'],
     button: [''],
-    headers: ['STT', 'Id', 'Thông tin người đặt', 'Thông tin chuyến bay', 'Hành động'],
+    headers: ['STT', 'Id', 'Thông tin người đặt', 'Số hiệu chuyến bay', 'Hành động'],
     rows: [
-        ['1', 'QH-12ULK165', 'Tên: NGUYEN VAN A SĐT: 0123456789 Địa chỉ: 123 ABC', 'Hãng bay: Bamboo Airway Plane: QH 171 Airbus A321 Chuyến bay: Hà Nội - TP. Hồ Chí Minh Khởi hành: 02 Thg 12 2024 - 15:10 Đến nơi: 02 Thg 12 2024 - 17:10', ''],
-        ['2', 'QH-12ULK166', 'Tên: NGUYEN VAN A SĐT: 0123456789 Địa chỉ: 123 ABC', 'Hãng bay: Bamboo Airway Plane: QH 153 Airbus A321 Chuyến bay: TP.Hồ Chí Minh - Hà Nội Khởi hành: 05 Thg 12 2024 - 15:10 Đến nơi: 05 Thg 12 2024 - 17:10', ''],
+        ['1', 'QH-12ULK165', 'Tên: NGUYEN VAN A SĐT: 0123456789 Địa chỉ: 123 ABC', 'QH171', ''],
+        ['2', 'QH-12ULK166', 'Tên: NGUYEN VAN A SĐT: 0123456789 Địa chỉ: 123 ABC', 'QH153', ''],
     ],
     },
     {
     id: 2,
     title: ['Danh sách chuyến bay'],
     button: ['+ Thêm chuyến bay'],
-    headers: ['STT', 'Date', 'Thông tin chuyến bay', 'Số ghế', 'Đã đặt', 'Còn lại', 'Giá vé', 'Hành động'],
+    headers: ['STT', 'Số hiệu', 'Hãng bay', 'Mã tàu bay', 'Chặng bay', 'Thời gian', 'Số ghế', 'Đã đặt', 'Hành động'],
     rows: [
-      ['1', '02 Thg 12 2024', 'Hãng bay: Bamboo Airway Plane: QH 171 Airbus A321 Chuyến bay: Hà Nội - TP. Hồ Chí Minh Khởi hành: 02 Thg 12 2024 - 15:10 Đến nơi: 02 Thg 12 2024 - 17:10', '50', '10', '40', '1000', ''],
-      ['2', '02 Thg 12 2024', 'Hãng bay: Bamboo Airway Plane: QH 153 Airbus A321 Chuyến bay: TP.Hồ Chí Minh - Hà Nội Khởi hành: 05 Thg 12 2024 - 15:10 Đến nơi: 05 Thg 12 2024 - 17:10', '50', '5', '45', '2000', ''],
+      ['1', 'QH171', 'Bamboo Airway', 'VN-A588', 'Hà Nội - TP. Hồ Chí Minh', '02 Thg 12 2024 - 15:10 / 02 Thg 12 2024 - 17:10', '50', '10', ''],
+      ['2', 'QH153', 'Bamboo Airway', 'VN-A589', 'TP.Hồ Chí Minh - Hà Nội', '05 Thg 12 2024 - 15:10 / 05 Thg 12 2024 - 17:10', '50', '5', ''],
     ],
     },
     {
-    id: 3,
+      id: 3,
+      title: ['Danh sách tàu bay'],
+      button: ['+ Thêm tàu bay'],
+      headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Hành động'],
+      rows: [
+        ['1', 'Bamboo Airway', 'VN-A588', 'Airbus A321', ''],
+        ['2', 'Bamboo Airway', 'VN-A589', 'Airbus A321', ''],
+      ],
+      },
+    {
+    id: 4,
     title: ['Danh sách sân bay'],
     button: ['+ Thêm sân bay'],
     headers: ['STT', 'Sân bay', 'Địa điểm', 'Hành động'],
@@ -55,7 +65,7 @@ const Table: React.FC = () => {
     ],
     },
     {
-    id: 4,
+    id: 5,
     title: ['Danh sách hãng bay'],
     button: ['+ Thêm hãng bay'],
     headers: ['STT', 'Hãng bay', 'Ký hiệu IATA', 'Ký hiệu ICAO', 'Hành động'],
@@ -65,7 +75,7 @@ const Table: React.FC = () => {
     ],
     },
     {
-      id: 5,
+      id: 6,
       title: ['Danh sách người dùng'],
       button: ['+ Thêm người dùng'],
       headers: ['STT', 'Họ và tên', 'Tên đăng nhập', 'Loại người dùng', 'Hành động'],
@@ -75,7 +85,7 @@ const Table: React.FC = () => {
       ],
     },
     {
-      id: 6,
+      id: 7,
       title: ['Danh sách bài đăng'],
       button: ['+ Thêm bài đăng'],
       headers: ['STT', 'Tiêu đề', 'Hành động'],
@@ -85,7 +95,7 @@ const Table: React.FC = () => {
       ],
     },
     {
-    id: 7,
+    id: 8,
     title: ['Cài đặt'],
     button: [''],
     headers: [''],
@@ -274,7 +284,7 @@ const Table: React.FC = () => {
               <div key={table.id} className='title'>{table.title}</div>
             ) : null)}
 
-            {tables.map((table) => (activeTable == table.id && [2, 3, 4, 5, 6].includes(activeTable)) ? (
+            {tables.map((table) => (activeTable == table.id && [2, 3, 4, 5, 6, 7].includes(activeTable)) ? (
               <button
                 onClick={openModal}
                 className="add-row-button"
@@ -283,22 +293,22 @@ const Table: React.FC = () => {
               </button>
             ) : null)}
 
-            {activeTable == 8 && (
+            {activeTable == 9 && (
               <div className='title'>Đăng xuất</div>
             )}
           </div>
 
 
-          {activeTable == 8  && (
+          {activeTable == 9  && (
             <div className="confirm-dialog">
               <p>Bạn có chắc muốn đăng xuất?</p>
               <button onClick={handleConfirmLogout} className='confirm'>Có</button>
             </div>
           )}
 
-          {activeTable == 7 && (
+          {activeTable == 8 && (
             <form onSubmit={handleSubmit} className='setting'>
-              <div>
+              <div className='setting-input'>
                 <label htmlFor="systemName">Tên hệ thống:</label>
                 <input
                   type="text"
@@ -308,7 +318,7 @@ const Table: React.FC = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div>
+              <div className='setting-input'>
                 <label htmlFor="Email">Email:</label>
                 <input
                   type="text"
@@ -318,7 +328,7 @@ const Table: React.FC = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div>
+              <div className='setting-input'>
                 <label htmlFor="phone">Số điện thoại:</label>
                 <input
                   type="text"
@@ -328,7 +338,7 @@ const Table: React.FC = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div>
+              <div className='setting-input'>
                 <label htmlFor="avatar">Ảnh hệ thống:</label>
                 <input
                   type="file"
@@ -351,15 +361,17 @@ const Table: React.FC = () => {
             </form>
           )}
 
-          {tables.map((table) => (activeTable == table.id && [1, 2, 3, 4, 5, 6].includes(activeTable)) ? (
-            <div className="controls" key={table.id}>
-              <label>Xem</label>
-              <select id="limitSelect" value={limit} onChange={handleLimitChange}>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-              </select>
-              phần tử
+          {tables.map((table) => (activeTable == table.id && [1, 2, 3, 4, 5, 6, 7].includes(activeTable)) ? (
+            <div className="controls-table-admin" key={table.id}>
+              <div className='limitSelect-admin-table'>
+                <label>Xem</label>
+                <select id="limitSelect" value={limit} onChange={handleLimitChange}>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                </select>
+                <label>phần tử</label>
+              </div>
               <input
                 type="text"
                 id="searchInput"
@@ -373,7 +385,7 @@ const Table: React.FC = () => {
 
           <div className="Table">
             <div className="table-container">
-              {tables.map((table) => (activeTable === table.id && [1, 2, 3, 4, 5, 6].includes(activeTable)) ? (
+              {tables.map((table) => (activeTable === table.id && [1, 2, 3, 4, 5, 6, 7].includes(activeTable)) ? (
                 <div key={table.id} className="table">
                   <table>
                     <thead>
