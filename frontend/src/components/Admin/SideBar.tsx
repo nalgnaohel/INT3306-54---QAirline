@@ -1,17 +1,18 @@
 import React, {useState} from "react";
 import { useTableContext } from './TableContext';
-import "../../css/Admin/SideBar.css";
+import "./SideBar.css";
 const SideBar: React.FC = () => {
     const { setActiveTable } = useTableContext();
     const [selectedDiv, setSelectedDiv] = useState<string | null>(null);
 
   const menuItems = [
-    { id: 'logout', label: 'Đăng xuất', table: 8 },
-    { id: 'settings', label: 'Cài đặt', table: 7 },
-    { id: 'blog', label: 'Đăng bài', table: 6 },
-    { id: 'user', label: 'Người dùng', table: 5 },
-    { id: 'airlines', label: 'Hãng bay', table: 4 },
-    { id: 'airport', label: 'Sân bay', table: 3 },
+    { id: 'logout', label: 'Đăng xuất', table: 9 },
+    { id: 'settings', label: 'Cài đặt', table: 8 },
+    { id: 'blog', label: 'Đăng bài', table: 7 },
+    { id: 'user', label: 'Người dùng', table: 6 },
+    { id: 'airlines', label: 'Hãng bay', table: 5 },
+    { id: 'airport', label: 'Sân bay', table: 4 },
+    { id: 'planes', label: 'Tàu bay', table: 3 },
     { id: 'flights', label: 'Chuyến bay', table: 2 },
     { id: 'booked', label: 'Đặt chỗ', table: 1 },
     { id: 'home', label: 'Trang chủ', table: 0 },

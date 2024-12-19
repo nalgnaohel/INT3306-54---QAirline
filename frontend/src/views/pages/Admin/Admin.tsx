@@ -1,9 +1,9 @@
 import React from "react";
-import SideBar from "./components/Admin/SideBar";
-import TopBar from "./components/Admin/TopBar";
-import Table from "./components/Admin/Table";
-import { TableProvider } from './components/Admin/TableContext';
-import "./css/Admin/Admin.css"
+import SideBar from "../../../components/Admin/SideBar";
+import TopBar from "../../../components/Admin/TopBar";
+import Table from "../../../components/Admin/Table";
+import { TableProvider } from '../../../components/Admin/TableContext';
+import "./Admin.css"
 
 const Admin: React.FC = () => {
     return (

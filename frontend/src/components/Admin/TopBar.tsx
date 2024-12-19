@@ -6,7 +6,7 @@ import image from "../../assets/images/Admin/oval2.svg";
 import man438081960720 from "../../assets/images/Admin/man-438081-960-720.png";
 import more from "../../assets/images/Admin/more.svg";
 import oval from "../../assets/images/Admin/oval1.svg";
-import "../../css/Admin/TopBar.css";
+import "./TopBar.css";
 
 const TopBar: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);

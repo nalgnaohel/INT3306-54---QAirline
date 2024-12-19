@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import TopNavBar from './components/Navbar/TopNavBar';
 import Login from './views/pages/Login/Login';
 import Home from './views/pages/Home/Home';
-import Admin from './Admin';
+import Admin from './views/pages/Admin/Admin';
 
 function App() {
   return (

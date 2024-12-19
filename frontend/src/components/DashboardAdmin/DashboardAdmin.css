@@ -1,0 +1,14 @@
+.dashboard-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 16px;
+  }
+
+  .line-chart-1 {
+  }
+
+  .bar-chart-2 {
+  }
+  
