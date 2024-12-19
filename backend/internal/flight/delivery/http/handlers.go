@@ -108,10 +108,11 @@ func (fh *flightHandler) Delete() fiber.Handler {
 // GetFlightOneWay - get flight one way
 func (fh *flightHandler) GetFlightOneWay() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		departure := c.Params("departure")
-		arrival := c.Params("arrival")
-		departureTime := c.Params("departureTime")
-		flights, err := fh.flightBusiness.GetFlightOneWay(departure, arrival, departureTime)
+		departure := c.Query("departure")
+		arrival := c.Query("arrival")
+		departureDate := c.Query("departureDate")
+		flights, err := fh.flightBusiness.GetFlightOneWay(departure, arrival, departureDate)
+		//log.Println(departure, arrival, departureDate)
 		if err != nil {
 			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"status": "Not Found",
@@ -120,8 +121,11 @@ func (fh *flightHandler) GetFlightOneWay() fiber.Handler {
 		}
 
 		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
-			"status":  "Success",
-			"flights": flights,
+			"status":        "Success",
+			"flights":       flights,
+			"departureDate": departureDate,
+			"departure":     departure,
+			"arrival":       arrival,
 		})
 	}
 }

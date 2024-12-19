@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"log"
 	"strings"
 
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight"
@@ -33,7 +34,8 @@ func (f *flightRepo) Create(flight *models.Flight) (*models.Flight, error) {
 // DB Find flight by id
 func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 	var flight models.Flight
-	err := f.db.Where("flight_id = ?", flightID).First(&flight).Error
+	fquery := strings.Replace(flightID, "%20", " ", -1)
+	err := f.db.Where("flight_id = ?", fquery).First(&flight).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "flightRepo.GetByFlightID.First")
 	}
@@ -72,9 +74,11 @@ func (f *flightRepo) Delete(flightID string) error {
 func (f *flightRepo) GetFlightOneWay(departure string, arrival string, departureDate string) ([]*models.Flight, error) {
 	// departureName := strings.Split(departure, "(")[0]
 	// arrivalName := strings.Split(arrival, "(")[0]
-	departureCode := strings.Split(departure, "(")[1][:3]
-	arrivalCode := strings.Split(arrival, "(")[1][:3]
-
+	// departureCode := strings.Split(departure, "(")[1][:3]
+	// arrivalCode := strings.Split(arrival, "(")[1][:3]
+	departureCode := departure
+	arrivalCode := arrival
+	log.Println("repo", departureCode, arrivalCode, departureDate)
 	var flights []*models.Flight
 	err := f.db.
 		Where("departure_code = ? AND arrival_code = ? AND DATE(departure_time) = ?", departureCode, arrivalCode, departureDate).
@@ -83,6 +87,7 @@ func (f *flightRepo) GetFlightOneWay(departure string, arrival string, departure
 	if err != nil {
 		return nil, errors.Wrap(err, "flightRepo.GetFlightOneWay.Find")
 	}
+	log.Println("repo", len(flights))
 	return flights, nil
 }
 

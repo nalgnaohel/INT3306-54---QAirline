@@ -58,8 +58,6 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	})
 
 	fib.Get("/hi", func(ctx *fiber.Ctx) error {
-		// span, _ := opentracing.StartSpanFromContext(ctx.Context(), "num.end")
-		// defer span.Finish()
 
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status": "success",
