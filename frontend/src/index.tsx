@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -13,6 +13,16 @@ import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm"
 import ReturnPage from "./components/ReturnPage/ReturnPage";
 import PageNews from "./views/pages/PageNews/PageNews";
 import Admin from "./views/pages/Admin/Admin";
+import AuthRoute from "./AuthRoute";
+
+const isAdmin = () => {
+  const storedUser = localStorage.getItem("currentUser");
+  if (storedUser) {
+    const parsedUser = JSON.parse(storedUser);
+    return parsedUser.type === "admin";
+  }
+  return false;
+};
 
 const router = createBrowserRouter([
   {
@@ -53,7 +63,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <AuthRoute
+        element={<Admin />}
+        isAuthenticated={localStorage.getItem("token") !== null}
+        isAdmin={isAdmin()}
+      />
+    ),
   },
 ]);
 

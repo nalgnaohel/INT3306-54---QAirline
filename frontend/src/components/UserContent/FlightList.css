@@ -1,0 +1,6 @@
+.flight-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Khoảng cách giữa các item */
+  }
+  

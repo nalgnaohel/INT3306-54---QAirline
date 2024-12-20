@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.119",
+    "axios": "^1.7.9",
     "framer-motion": "^11.15.0",
     "moment": "^2.30.1",
     "react": "^18.0.0",
@@ -47,6 +48,6 @@
     "@types/react": "^18.3.16",
     "@types/react-dom": "^18.3.5",
     "@types/testing-library__react": "^10.2.0",
-    "typescript": "^5.7.2"
+    "typescript": "^4.9.5"
   }
 }

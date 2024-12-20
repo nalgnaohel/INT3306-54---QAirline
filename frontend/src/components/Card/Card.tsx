@@ -13,7 +13,7 @@ const Card: React.FC<CardProps> = ({ title, value, percentage, isPositive, chart
   return (
     <div className="card">
       <div className="card-content">
-        <div className="card-title">{title}</div>
+        <div className="card-title-admin">{title}</div>
         <div className="card-value-percent-chart">
           <div className="card-value-percent">
           <div className="card-value">{value}</div>

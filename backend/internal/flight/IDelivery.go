@@ -11,4 +11,5 @@ type Handlers interface {
 	GetByFlightID() fiber.Handler
 	GetFlightOneWay() fiber.Handler
 	GetAll() fiber.Handler
+	GetStatusFlightsStatistics() fiber.Handler
 }

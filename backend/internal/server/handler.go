@@ -5,6 +5,9 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
+	aircraftBusiness "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/aircraft/business"
+	aircraftDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/aircraft/delivery/http"
+	aircraftRepository "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/aircraft/repository"
 	authBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/business"
 	authDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/delivery/http"
 	authRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/repository"
@@ -36,6 +39,11 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	flightBusiness := flightBusiness.NewFlightBusiness(s.cfg, flightRepository)
 	flightHandlers := flightDelivery.NewFlightHandlers(flightBusiness)
 
+	//Init aircraft
+	aircraftRepository := aircraftRepository.NewAircraftRepo(s.dtb)
+	aircraftBusiness := aircraftBusiness.NewAircraftBusiness(s.cfg, aircraftRepository)
+	aircraftHandlers := aircraftDelivery.NewAircraftHandlers(aircraftBusiness)
+
 	// Fiber default middleware
 	fib.Use(requestid.New())
 	fib.Use(limiter.New(limiter.Config{
@@ -57,6 +65,9 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 
 	flightGroup := api.Group("/flights")
 	flightDelivery.MapFlightRoutes(flightGroup, mw, flightHandlers, authBusiness, s.cfg)
+
+	aircraftGroup := api.Group("/aircraft")
+	aircraftDelivery.MapAircraftRoutes(aircraftGroup, mw, aircraftHandlers, authBusiness, s.cfg)
 
 	// Setup Ticket routes
 	ticketGroup := api.Group("/ticket")

@@ -3,6 +3,7 @@ package business
 import (
 	//"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
+	"github.com/pkg/errors"
 
 	"github.com/google/uuid"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/config"
@@ -123,29 +124,30 @@ func (auth *authBusiness) GetByID(userID uuid.UUID) (*models.User, error) {
 func (auth *authBusiness) ChangePassword(userID uuid.UUID, oldPassword string, newPassword string) (*models.User, error) {
 	user, err := auth.authRepo.GetByID(userID)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error getting user")
 	}
 
 	if err := user.PreRegister(); err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error changing password")
 	}
 
 	err = user.ComparePassword(oldPassword)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error changing password - old password is incorrect")
 	}
 
 	//Change to newpass and hash
 	user.Password = newPassword
 	if err := user.HashPassword(); err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error changing password - hashing new password")
 	}
 
 	updatedUser, err := auth.authRepo.Update(user)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error changing password - updating user")
 	}
 
+	//Make sure that user's password is not exposed in API responses or logs
 	updatedUser.SanitizePassword()
 	return updatedUser, nil
 }

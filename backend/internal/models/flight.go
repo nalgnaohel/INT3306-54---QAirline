@@ -1,9 +1,6 @@
 package models
 
 import (
-	"database/sql/driver"
-	"encoding/json"
-	"errors"
 	"time"
 )
 
@@ -33,16 +30,7 @@ type FlightList struct {
 	Flights    []*Flight `json:"flights"`
 }
 
-// Implement the Valuer interface for PassengersList
-func (p PassengersList) Value() (driver.Value, error) {
-    return json.Marshal(p)
-}
-
-// Implement the Scanner interface for PassengersList
-func (p *PassengersList) Scan(value interface{}) error {
-    b, ok := value.([]byte)
-    if !ok {
-        return errors.New("type assertion to []byte failed")
-    }
-    return json.Unmarshal(b, &p)
+type FlightStatus struct {
+	Status string `json:"status"`
+	Count  int    `json:"count"`
 }

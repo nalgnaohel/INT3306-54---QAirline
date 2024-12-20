@@ -8,7 +8,7 @@ interface TableContextProps {
 const TableContext = createContext<TableContextProps | undefined>(undefined);
 
 export const TableProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [activeTable, setActiveTable] = useState<number | null>(null);
+  const [activeTable, setActiveTable] = useState<number | null>(0);
 
   return (
     <TableContext.Provider value={{ activeTable, setActiveTable }}>
