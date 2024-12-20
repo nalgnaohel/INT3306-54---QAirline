@@ -6,6 +6,7 @@ import "./Table.css";
 import DashboardAdmin from '../DashboardAdmin/DashboardAdmin';
 import { error } from 'console';
 import TextEditor from '../TextEditor/TextEditor';
+import { useNavigate } from 'react-router-dom';
 
 const Table: React.FC = () => {
   //token for authorization
@@ -32,37 +33,10 @@ const Table: React.FC = () => {
     avatar: null as File | null,
   });
 
-  //Data retrieve and storage
-  const [flights, setFlights] = useState([]);
-  interface Aircraft {
-    manufacturer: string;
-    aircraft_id: string;
-    model: string;
-  }
-
-  interface Flight {
-    flight_id: string;
-    brand: string;
-    aircraft_id: string;
-    departure_code: string;
-    arrival_code: string;
-    departure_time: string;
-    arrival_time: string;
-    capacity: number;
-    available_seats: number;
-  }
-
-  interface Airport {
-    iata_code: string;
-    airport_name: string;
-    city: string;
-    country: string;
-  }
-  
-
   const [flightFetched, setFlightFetched] = useState(false);
   const [aircraftsFetched, setAircraftsFetched] = useState(false);
   const [airportsFetched, setAirportsFetched] = useState(false);
+  const [usersFetched, setUsersFetched] = useState(false);
 
   useEffect(() => {
     if (activeTable === 3 && !aircraftsFetched) {
@@ -82,6 +56,10 @@ const Table: React.FC = () => {
             aircraft.manufacturer,
             aircraft.aircraft_id,
             aircraft.model,
+            aircraft.economy_class_seats.toString(),
+            aircraft.business_class_seats.toString(),
+            aircraft.premium_class_seats.toString(),
+            aircraft.first_class_seats.toString(),
             '',
           ]);
           //console.log(aircrafts)
@@ -100,7 +78,6 @@ const Table: React.FC = () => {
         .then(resp => resp.json())
         .then(data => {
           console.log(data.flights.flights);
-          setFlights(data.flights.flights);
           setFlightFetched(true);
           tables[1].rows = data.flights.flights.map((flight: any, index: number) => [
             (index + 1).toString(),
@@ -108,7 +85,7 @@ const Table: React.FC = () => {
             flight.brand,
             flight.aircraft_id,
             flight.departure_code + ' - ' + flight.arrival_code,
-            flight.departure_time + ' / ' + flight.arrival_time,
+            flight.departure_time.replace('T', ' ') + ' / ' + flight.arrival_time.replace('T', ' '),
             '200',
             flight.available_seats.toString(),
             '',
@@ -133,7 +110,7 @@ const Table: React.FC = () => {
             tables[3].rows = data.airports.map((airport: any, index: number) => [
               (index + 1).toString(),
               airport.iata_code,
-              airport.airport_name,
+              airport.name,
               airport.city,
               airport.country,
               '',
@@ -143,8 +120,36 @@ const Table: React.FC = () => {
           .catch(error => {
             console.log('Error fetching airport data - ', error);
           });
+      } else if (activeTable === 6 && !usersFetched) {
+        fetch('http://127.0.0.1:5000/api/auth/all', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+        })
+          .then(resp => resp.json())
+          .then(data => {
+            console.log(data.users);
+            setAirportsFetched(true);
+            tables[5].rows = data.data.users.map((user: any, index: number) => [
+              (index + 1).toString(),
+              user.last_name,
+              user.first_name,
+              user.gender,
+              user.email.split('@')[0],
+              user.password,
+              user.email,
+              user.phone_number,
+              user.nationality,
+              user.type,
+              '',
+            ]);
+          }).catch(error => {
+            console.log('Error fetching user data - ', error);
+          });
       }
-    }, [activeTable, aircraftsFetched, flightFetched, airportsFetched]);
+    }, [activeTable, aircraftsFetched, flightFetched, airportsFetched, usersFetched]);
 
   const [tables, setTables] = useState([ // Table content
     {
@@ -423,13 +428,40 @@ const Table: React.FC = () => {
               aircraft_id: newRowData[1],
               model: newRowData[2],
               manufacturer: newRowData[0],
+              economy_class_seats: Number(newRowData[3]),
+              business_class_seats: Number(newRowData[4]),
+              premium_class_seats: Number(newRowData[5]),
+              first_class_seats: Number(newRowData[6]),
             }),
           })
             .then(resp => resp.json())
             .then(data => {
               console.log(data);
             })
-        } 
+        } else if (activeTable === 2) {
+          fetch(`http://127.0.0.1:5000/api/flight/${newRowData[1]}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              flight_id: newRowData[1],
+              brand: newRowData[2],
+              aircraft_id: newRowData[3],
+              departure_code: newRowData[4].split(' - ')[0],
+              arrival_code: newRowData[4].split(' - ')[1],
+              departure_time: newRowData[5].split(' / ')[0].split('T')[0] + ' ' + newRowData[5].split(' / ')[0].split('T')[1],
+              arrival_time: newRowData[5].split(' / ')[1].split('T')[0] + ' ' + newRowData[5].split(' / ')[1].split('T')[1],
+              capacity: Number(newRowData[6]),
+              available_seats: Number(newRowData[7]),
+            }),
+          })
+            .then(resp => resp.json())
+            .then(data => {
+              console.log(data);
+            })
+          }
       } catch (error) {
           console.log('Error updating aircraft - ', error);
       }

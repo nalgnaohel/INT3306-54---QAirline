@@ -240,11 +240,6 @@ func (authHandlers *authHandlers) GetByID() fiber.Handler {
 	}
 }
 
-// GetAll - gets all users Handler
-func (authHandlers *authHandlers) GetAll() fiber.Handler {
-	panic("implement me")
-}
-
 // GetByEmail - gets a user by email Handler
 func (authHandlers *authHandlers) GetByEmail() fiber.Handler {
 	return func(c *fiber.Ctx) error {
@@ -303,6 +298,33 @@ func (authHandlers *authHandlers) ChangePassword() fiber.Handler {
 		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status": "success",
 			"data":   &updatedUser,
+		})
+	}
+}
+
+// GetAll - gets all users Handler
+func (authHandlers *authHandlers) GetAll() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		query := &utils.PagingQuery{}
+		if err := c.QueryParser(query); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+				"status":  "Bad Request - QueryParser",
+				"message": err.Error(),
+			})
+		}
+
+		users, err := authHandlers.authBusiness.GetAll(query)
+		if err != nil {
+			log.Error("authHandlers.GetAll.Query", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
+				"status":  "Internal Server Error - Get All",
+				"message": err.Error(),
+			})
+		}
+
+		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+			"status": "success",
+			"data":   users,
 		})
 	}
 }

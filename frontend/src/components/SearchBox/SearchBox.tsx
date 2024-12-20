@@ -26,8 +26,8 @@ interface SearchBoxProps {
 interface Flight {
   flight_id: string;
   brand: string;
-  departure: string;
-  arrival: string;
+  departure_code: string;
+  arrival_code: string;
   departure_time: string;
   arrival_time: string;
   price: number;
@@ -65,13 +65,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     const fetchFlights = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:5000/api/flight/flights"
+          "http://127.0.0.1:5000/api/flight/all"
         );
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        setFlights(data);
+        setFlights(data.flights.flights);
+        console.log(flights);
       } catch (error) {
         if (error instanceof Error) {
           console.error(error.message);
@@ -146,10 +147,11 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   const handleSearch = () => {
     const filtered = flights.filter((flight) => {
       const isDepartureMatch = departure
-        ? flight.departure.includes(departure.split(" (")[0])
+        ? departure.split("(")[1].substring(0, 3) === flight.departure_code
         : true;
+      console.log(flight.departure_code, departure.split("(")[1].substring(0, 3));
       const isDestinationMatch = destination
-        ? flight.arrival.includes(destination.split(" (")[0])
+        ? destination.split("(")[1].substring(0, 3) === flight.arrival_code
         : true;
       const isDateMatch = departureDate
         ? flight.departure_time.startsWith(departureDate)
@@ -162,10 +164,10 @@ const SearchBox: React.FC<SearchBoxProps> = ({
       // Lọc các chuyến bay ngược lại
       const returnFlights = flights.filter((flight) => {
         const isDepartureMatch = departure
-          ? flight.departure.includes(destination.split(" (")[0])
-          : true;
+          ? flight.departure_code === destination.split("(")[1].substring(0, 3)
+          : true; 
         const isDestinationMatch = departure
-          ? flight.arrival.includes(departure.split(" (")[0])
+          ? flight.arrival_code === departure.split("(")[1].substring(0, 3)
           : true;
         const isDateMatch = returnDate
           ? flight.departure_time.startsWith(returnDate)

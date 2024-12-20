@@ -51,9 +51,7 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	airportRepository := airportRepository.NewAirportRepo(s.dtb)
 	airportBusiness := airportBusiness.NewAirportBusiness(s.cfg, airportRepository)
 	airportHandlers := airportDelivery.NewAirportHandlers(airportBusiness)
-
-	//Middleware init
-	mw := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
+	//ticketHandlers = ticketDelivery.NewTicketHandlers(ticketBusiness)
 
 	//fiber default middleware
 	fib.Use(requestid.New())
@@ -83,6 +81,8 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	airportGroup := api.Group("/airport")
 	airportDelivery.MapAirportRoutes(airportGroup, mw, airportHandlers, authBusiness, s.cfg)
 
+	ticketGroup := api.Group("/ticket")
+	ticketDelivery.SetupRouter(ticketGroup, mw, ticketHandlers, authBusiness, s.cfg)
 	fib.Get("", func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status":  "success",

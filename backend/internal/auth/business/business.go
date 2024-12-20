@@ -151,3 +151,8 @@ func (auth *authBusiness) ChangePassword(userID uuid.UUID, oldPassword string, n
 	updatedUser.SanitizePassword()
 	return updatedUser, nil
 }
+
+// GetAll gets all users
+func (auth *authBusiness) GetAll(query *utils.PagingQuery) (*models.UserList, error) {
+	return auth.authRepo.GetAll(query)
+}

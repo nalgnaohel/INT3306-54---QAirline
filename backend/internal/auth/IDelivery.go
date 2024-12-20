@@ -13,4 +13,5 @@ type Handlers interface {
 	GetByID() fiber.Handler
 	GetByEmail() fiber.Handler
 	ChangePassword() fiber.Handler
+	GetAll() fiber.Handler
 }
