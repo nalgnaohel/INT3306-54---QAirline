@@ -1,0 +1,137 @@
+/* Tổng thể container */
+.ticket-container {
+  background: linear-gradient(to bottom right, #4684c1, #414190);
+  color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 480px;
+  margin: 20px auto;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  font-family: "Arial", sans-serif;
+}
+
+/* Nội dung của vé */
+.ticket-content {
+  position: relative;
+  padding: 32px;
+}
+
+/* Nút đóng */
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+.close-button:hover {
+  color: #f1f5f9;
+}
+
+.icon-close {
+  width: 24px;
+  height: 24px;
+}
+
+/* Phần tiêu đề */
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.airline-name {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.plane-icon {
+  width: 30px; /* Điều chỉnh kích thước logo nhỏ hơn */
+  height: 30px; /* Điều chỉnh kích thước logo nhỏ hơn */
+  transform: rotate(-45deg);
+  border: none;
+}
+
+/* Chi tiết vé */
+.ticket-details {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 10px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.info {
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  color: #e5e7eb; /* Text color */
+}
+
+.icon {
+  max-width: 30px;
+  max-height: 30px;
+  margin-right: 12px;
+  border: none;
+}
+
+.plane-arrow {
+  width: 32px;
+  height: 32px;
+  transform: rotate(90deg);
+}
+
+/* Footer - thông tin và barcode */
+.ticket-footer {
+  background: #ffffff;
+  color: #333;
+  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #e0e0e0;
+  border-radius: 0 0 16px 16px;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.footer-value {
+  font-size: 26px;
+  font-weight: bold;
+  margin-top: 4px;
+  color: #434190;
+}
+
+.barcode {
+  width: 90px;
+  height: 90px;
+  color: #333;
+}

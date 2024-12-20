@@ -1,21 +1,13 @@
-body {
+* {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .popular-flights,
 .featured-info {
   padding: 20px;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-around;
-  padding: 20px;
-  background-color: #1e90ff;
-  color: white;
 }
 
 @media (max-width: 768px) {
@@ -45,5 +37,45 @@ body {
   .CruisePartners,
   .Footer {
     padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SearchBox,
+  .FlightResults,
+  .PopularFlights,
+  .FeaturedInfo,
+  .FeedbackCarousel,
+  .CruisePartners,
+  .Footer {
+    padding: 5px;
+  }
+
+  .SearchBox {
+    font-size: 14px;
+  }
+
+  .FlightResults {
+    font-size: 14px;
+  }
+
+  .PopularFlights {
+    font-size: 14px;
+  }
+
+  .FeaturedInfo {
+    font-size: 14px;
+  }
+
+  .FeedbackCarousel {
+    font-size: 14px;
+  }
+
+  .CruisePartners {
+    font-size: 14px;
+  }
+
+  .Footer {
+    font-size: 14px;
   }
 }

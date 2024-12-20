@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./PassengerInfoForm.css";
+import TopNavBar from "../Navbar/TopNavBar";
+import Footer from "../Footer/Footer";
 
 const PassengerInfoForm = () => {
   const location = useLocation();
@@ -64,188 +66,192 @@ const PassengerInfoForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2 className="form-title">Nhập thông tin hành khách</h2>
-      <form onSubmit={handleSubmit} className="passenger-form">
-        {/* Adult Forms */}
-        {adultData.map((_, index) => (
-          <div key={`adult-${index}`} className="passenger-section-form">
-            <h3 className="section-title">NGƯỜI LỚN {index + 1}</h3>
-            <div className="form-group">
-              <label>Danh xưng*</label>
-              <select
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "title",
-                    value: e.target.value,
-                    type: "adult",
-                  })
-                }
-                required
-              >
-                <option value="">Chọn danh xưng</option>
-                <option value="Ông">Ông</option>
-                <option value="Bà">Bà</option>
-              </select>
+    <>
+      <TopNavBar />
+      <div className="form-container">
+        <h2 className="form-title">Nhập thông tin hành khách</h2>
+        <form onSubmit={handleSubmit} className="passenger-form">
+          {/* Adult Forms */}
+          {adultData.map((_, index) => (
+            <div key={`adult-${index}`} className="passenger-section">
+              <h3 className="section-title">NGƯỜI LỚN {index + 1}</h3>
+              <div className="form-group">
+                <label>Danh xưng*</label>
+                <select
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "title",
+                      value: e.target.value,
+                      type: "adult",
+                    })
+                  }
+                  required
+                >
+                  <option value="">Chọn danh xưng</option>
+                  <option value="Ông">Ông</option>
+                  <option value="Bà">Bà</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Tên đệm và tên*</label>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "firstName",
+                      value: e.target.value,
+                      type: "adult",
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Họ*</label>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "lastName",
+                      value: e.target.value,
+                      type: "adult",
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Ngày sinh*</label>
+                <input
+                  type="date"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "dob",
+                      value: e.target.value,
+                      type: "adult",
+                    })
+                  }
+                  required
+                />
+              </div>
             </div>
-            <div className="form-group">
-              <label>Tên đệm và tên*</label>
-              <input
-                type="text"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "firstName",
-                    value: e.target.value,
-                    type: "adult",
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Họ*</label>
-              <input
-                type="text"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "lastName",
-                    value: e.target.value,
-                    type: "adult",
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Ngày sinh*</label>
-              <input
-                type="date"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "dob",
-                    value: e.target.value,
-                    type: "adult",
-                  })
-                }
-                required
-              />
-            </div>
-          </div>
-        ))}
+          ))}
 
-        {/* Child Forms */}
-        {childData.map((_, index) => (
-          <div key={`child-${index}`} className="passenger-section">
-            <h3 className="section-title">TRẺ EM {index + 1}</h3>
-            <div className="form-group">
-              <label>Tên đệm và tên*</label>
-              <input
-                type="text"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "firstName",
-                    value: e.target.value,
-                    type: "child",
-                  })
-                }
-                required
-              />
+          {/* Child Forms */}
+          {childData.map((_, index) => (
+            <div key={`child-${index}`} className="passenger-section">
+              <h3 className="section-title">TRẺ EM {index + 1}</h3>
+              <div className="form-group">
+                <label>Tên đệm và tên*</label>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "firstName",
+                      value: e.target.value,
+                      type: "child",
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Họ*</label>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "lastName",
+                      value: e.target.value,
+                      type: "child",
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Ngày sinh*</label>
+                <input
+                  type="date"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "dob",
+                      value: e.target.value,
+                      type: "child",
+                    })
+                  }
+                  required
+                />
+              </div>
             </div>
-            <div className="form-group">
-              <label>Họ*</label>
-              <input
-                type="text"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "lastName",
-                    value: e.target.value,
-                    type: "child",
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Ngày sinh*</label>
-              <input
-                type="date"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "dob",
-                    value: e.target.value,
-                    type: "child",
-                  })
-                }
-                required
-              />
-            </div>
-          </div>
-        ))}
+          ))}
 
-        {/* Infant Forms */}
-        {infantData.map((_, index) => (
-          <div key={`infant-${index}`} className="passenger-section">
-            <h3 className="section-title">TRẺ SƠ SINH {index + 1}</h3>
-            <div className="form-group">
-              <label>Tên đệm và tên*</label>
-              <input
-                type="text"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "firstName",
-                    value: e.target.value,
-                    type: "infant",
-                  })
-                }
-                required
-              />
+          {/* Infant Forms */}
+          {infantData.map((_, index) => (
+            <div key={`infant-${index}`} className="passenger-section">
+              <h3 className="section-title">TRẺ SƠ SINH {index + 1}</h3>
+              <div className="form-group">
+                <label>Tên đệm và tên*</label>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "firstName",
+                      value: e.target.value,
+                      type: "infant",
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Họ*</label>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "lastName",
+                      value: e.target.value,
+                      type: "infant",
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Ngày sinh*</label>
+                <input
+                  type="date"
+                  onChange={(e) =>
+                    handleChange({
+                      index,
+                      field: "dob",
+                      value: e.target.value,
+                      type: "infant",
+                    })
+                  }
+                  required
+                />
+              </div>
             </div>
-            <div className="form-group">
-              <label>Họ*</label>
-              <input
-                type="text"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "lastName",
-                    value: e.target.value,
-                    type: "infant",
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Ngày sinh*</label>
-              <input
-                type="date"
-                onChange={(e) =>
-                  handleChange({
-                    index,
-                    field: "dob",
-                    value: e.target.value,
-                    type: "infant",
-                  })
-                }
-                required
-              />
-            </div>
-          </div>
-        ))}
+          ))}
 
-        <button type="submit" className="submit-button">
-          Xác nhận
-        </button>
-      </form>
-    </div>
+          <button type="submit" className="submit-button">
+            Xác nhận
+          </button>
+        </form>
+      </div>
+      <Footer />
+    </>
   );
 };
 

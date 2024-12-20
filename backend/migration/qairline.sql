@@ -1,7 +1,8 @@
 -- DOWN
 DROP TABLE if EXISTS users;
 DROP TABLE if EXISTS flights;
-DROP TABLE if EXISTS airports;
+DROP TABLE if EXISTS tickets;
+
 
 -- UP
 CREATE TABLE IF NOT EXISTS users (

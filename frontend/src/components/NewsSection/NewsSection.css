@@ -1,0 +1,109 @@
+.news-section {
+  margin: 20px;
+}
+
+.news-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Container chính cho toàn bộ phần Featured Info */
+.featured-section {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 1200px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header gồm tiêu đề và nút "Thêm" */
+.featured-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.featured-section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+/* Lưới hiển thị các thẻ Featured */
+.featured-section-grid {
+  display: flex;
+  gap: 20px;
+}
+
+/* Card hiển thị thông tin từng Feature */
+.featured-card {
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.featured-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.featured-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.featured-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+}
+
+.news-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.news-item-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.news-item-description {
+  font-size: 14px;
+  color: #555;
+}
+
+.news-item-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.news-item-link:hover {
+  text-decoration: underline;
+}

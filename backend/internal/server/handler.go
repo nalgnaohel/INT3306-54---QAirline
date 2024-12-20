@@ -12,24 +12,31 @@ import (
 	flightDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/delivery/http"
 	flightRepository "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/repository"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/middleware"
+	ticketBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/business"
+	ticketDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/delivery/http"
+	ticketRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/repository"
 )
 
 func (s *Server) MapHandlers(fib *fiber.App) error {
-
-	//Init auth
+	// Init auth
 	authRepository := authRepo.NewAuthRepo(s.dtb)
 	authBusiness := authBiz.NewAuthBusiness(s.cfg, authRepository)
 	authHandlers := authDelivery.NewAuthHandlers(authBusiness)
 
-	//Init flight
+	//Middleware init
+	mw := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
+
+	// Init ticket
+	ticketRepository := ticketRepo.NewTicketRepo(s.dtb)
+	ticketBusiness := ticketBiz.NewTicketUsecase(ticketRepository)
+	ticketHandlers := ticketDelivery.NewTicketHandlers(ticketBusiness)
+
+	// Init flight
 	flightRepository := flightRepository.NewFlightRepo(s.dtb)
 	flightBusiness := flightBusiness.NewFlightBusiness(s.cfg, flightRepository)
 	flightHandlers := flightDelivery.NewFlightHandlers(flightBusiness)
 
-	//Middleware init
-	mw := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
-
-	//fiber default middleware
+	// Fiber default middleware
 	fib.Use(requestid.New())
 	fib.Use(limiter.New(limiter.Config{
 		Max: 1000,
@@ -42,6 +49,7 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	}))
 	fib.Use(cors.New())
 
+	// Setup API groups
 	api := fib.Group("/api")
 
 	authGroup := api.Group("/auth")
@@ -49,6 +57,10 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 
 	flightGroup := api.Group("/flights")
 	flightDelivery.MapFlightRoutes(flightGroup, mw, flightHandlers, authBusiness, s.cfg)
+
+// Setup Ticket routes
+ticketGroup := api.Group("/ticket")
+ticketDelivery.SetupRouter(ticketGroup, mw, ticketHandlers, ticketBusiness, s.cfg)
 
 	fib.Get("", func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
@@ -58,6 +70,8 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	})
 
 	fib.Get("/hi", func(ctx *fiber.Ctx) error {
+		// span, _ := opentracing.StartSpanFromContext(ctx.Context(), "num.end")
+		// defer span.Finish()
 
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status": "success",
