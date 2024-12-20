@@ -8,6 +8,9 @@ import (
 	aircraftBusiness "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/aircraft/business"
 	aircraftDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/aircraft/delivery/http"
 	aircraftRepository "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/aircraft/repository"
+	airportBusiness "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/airport/business"
+	airportDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/airport/delivery/http"
+	airportRepository "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/airport/repository"
 	authBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/business"
 	authDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/delivery/http"
 	authRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth/repository"
@@ -34,6 +37,11 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	aircraftBusiness := aircraftBusiness.NewAircraftBusiness(s.cfg, aircraftRepository)
 	aircraftHandlers := aircraftDelivery.NewAircraftHandlers(aircraftBusiness)
 
+	//Init airport
+	airportRepository := airportRepository.NewAirportRepo(s.dtb)
+	airportBusiness := airportBusiness.NewAirportBusiness(s.cfg, airportRepository)
+	airportHandlers := airportDelivery.NewAirportHandlers(airportBusiness)
+
 	//Middleware init
 	mw := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
 
@@ -55,11 +63,14 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	authGroup := api.Group("/auth")
 	authDelivery.MapAuthRoutes(authGroup, mw, authHandlers, authBusiness, s.cfg)
 
-	flightGroup := api.Group("/flights")
+	flightGroup := api.Group("/flight")
 	flightDelivery.MapFlightRoutes(flightGroup, mw, flightHandlers, authBusiness, s.cfg)
 
 	aircraftGroup := api.Group("/aircraft")
 	aircraftDelivery.MapAircraftRoutes(aircraftGroup, mw, aircraftHandlers, authBusiness, s.cfg)
+
+	airportGroup := api.Group("/airport")
+	airportDelivery.MapAirportRoutes(airportGroup, mw, airportHandlers, authBusiness, s.cfg)
 
 	fib.Get("", func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{

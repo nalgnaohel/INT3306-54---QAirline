@@ -4,11 +4,15 @@ import edit from "../../assets/images/Admin/edit.png";
 import remove from "../../assets/images/Admin/trash-can.png";
 import "./Table.css";
 import DashboardAdmin from '../DashboardAdmin/DashboardAdmin';
-import { error } from 'console';
+import { error, table } from 'console';
+import { useNavigate } from 'react-router-dom';
 
 const Table: React.FC = () => {
   //token for authorization
   const token = localStorage.getItem('token');
+
+  //navigator
+  const navigator = useNavigate();
 
   const { setActiveTable } = useTableContext(); // Link với TableContext component
   const { activeTable } = useTableContext(); // Link với TableContext component
@@ -35,10 +39,30 @@ const Table: React.FC = () => {
     aircraft_id: string;
     model: string;
   }
+
+  interface Flight {
+    flight_id: string;
+    brand: string;
+    aircraft_id: string;
+    departure_code: string;
+    arrival_code: string;
+    departure_time: string;
+    arrival_time: string;
+    capacity: number;
+    available_seats: number;
+  }
+
+  interface Airport {
+    iata_code: string;
+    airport_name: string;
+    city: string;
+    country: string;
+  }
   
-  const [aircrafts, setAircrafts] = useState<Aircraft[]>([]);
-  const [airports, setAirports] = useState([]);
+
+  const [flightFetched, setFlightFetched] = useState(false);
   const [aircraftsFetched, setAircraftsFetched] = useState(false);
+  const [airportsFetched, setAirportsFetched] = useState(false);
 
   useEffect(() => {
     if (activeTable === 3 && !aircraftsFetched) {
@@ -52,7 +76,6 @@ const Table: React.FC = () => {
         .then(resp => resp.json())
         .then(data => {
           console.log(data.flights.aircrafts);
-          setAircrafts(data.flights.aircrafts);
           setAircraftsFetched(true);
           tables[2].rows = data.flights.aircrafts.map((aircraft: any, index: number) => [
             (index + 1).toString(),
@@ -61,23 +84,68 @@ const Table: React.FC = () => {
             aircraft.model,
             '',
           ]);
-          //console.log(aircrafts)/
+          //console.log(aircrafts)
         })
         .catch(error => {
           console.log('Error fetching aircraft data - ', error);
         });
-    }
+    } else if (activeTable === 2 && !flightFetched) {
+      fetch('http://127.0.0.1:5000/api/flight/all', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          console.log(data.flights.flights);
+          setFlights(data.flights.flights);
+          setFlightFetched(true);
+          tables[1].rows = data.flights.flights.map((flight: any, index: number) => [
+            (index + 1).toString(),
+            flight.flight_id,
+            flight.brand,
+            flight.aircraft_id,
+            flight.departure_code + ' - ' + flight.arrival_code,
+            flight.departure_time + ' / ' + flight.arrival_time,
+            '200',
+            flight.available_seats.toString(),
+            '',
+          ]);
+          console.log(tables[1]);
+        })
+        .catch(error => {
+          console.log('Error fetching flight data - ', error);
+        });
+      } else if (activeTable === 4 && !airportsFetched) {
+        fetch('http://127.0.0.1:5000/api/airport/all', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+        })
+          .then(resp => resp.json())
+          .then(data => {
+            console.log(data.airports);
+            setAirportsFetched(true);
+            tables[3].rows = data.airports.map((airport: any, index: number) => [
+              (index + 1).toString(),
+              airport.iata_code,
+              airport.airport_name,
+              airport.city,
+              airport.country,
+              '',
+            ]);
+            //console.log(aircrafts)
+          })
+          .catch(error => {
+            console.log('Error fetching airport data - ', error);
+          });
+      }
+    }, [activeTable, aircraftsFetched, flightFetched, airportsFetched]);
 
-    // fetch('http://127.0.0.1:5000/api/aircraft/all')
-    //   .then(response => response.json())
-    //   .then(data => setAircrafts(data));
-
-    // fetch('http://127.0.0.1;5000/api/airports')
-    //   .then(response => response.json())
-    //   .then(data => setAirports(data));
-  });
-
-  console.log(aircrafts, aircraftsFetched, activeTable);
   const [tables, setTables] = useState([ // Table content
     {
     id: 1,
@@ -104,13 +172,10 @@ const Table: React.FC = () => {
       title: ['Danh sách tàu bay'],
       button: ['+ Thêm tàu bay'],
       headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Hành động'],
-      rows: aircrafts.map((aircraft: any, index: number) => [
-        (index + 1).toString(),
-        aircraft.manufacturer,
-        aircraft.aircraft_id,
-        aircraft.model,
-        '',
-      ]),
+      rows: [
+        ['1', 'Bamboo Airway', 'VN-A588', 'Airbus A321', '50', '20', '10', '5', ''],
+        ['2', 'Bamboo Airway', 'VN-A589', 'Airbus A321', '50', '20', '10', '5', ''],
+      ]
     },
     {
     id: 4,
@@ -266,44 +331,28 @@ const Table: React.FC = () => {
   const handleConfirmLogout = () => {
     setIsModalOpen(false);
     console.log('Đã đăng xuất');
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
+    navigator("/");
   };
 
   // Chỉnh sửa dữ liệu của một hàng
   const handleEdit = (rowIndex: number) => {
+    console.log(rowIndex); 
     setSelectedRowIndex(rowIndex);
     const selectedRow = tableToRender?.rows[rowIndex] || [];
     const editableData = selectedRow.slice(1, -1); // Bỏ cột STT và hành động
     setNewRowData(editableData);
     setIsModalOpen(true);
 
-    try {
-      if (activeTable === 3) {
-        fetch(`http://127.0.0.1:5000/api/aircraft/${aircrafts[rowIndex].aircraft_id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            aircraft_id: editableData[0],
-            model: editableData[1],
-            manufacturer: editableData[2],
-          }),
-        })
-          .then(resp => resp.json())
-          .then(data => {
-            console.log(data);
-          })
-      } 
-    } catch (error) {
-        console.log('Error updating aircraft - ', error);
-    }
   };
 
   // Xóa dữ liệu của một hàng
   const handleRemove = (rowIndex: number) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa dòng này?")) {
       if (activeTable !== null) {
+        let realIndex = tables[activeTable].rows[rowIndex][0];
+        console.log(realIndex);
         setTables((prevTables) =>
           prevTables.map((table) =>
             table.id === activeTable
@@ -320,22 +369,22 @@ const Table: React.FC = () => {
           )
         );
         if (activeTable === 3) {
-          console.log(aircrafts[rowIndex].aircraft_id);
-          try {
-            fetch(`http://127.0.0.1:5000/api/aircraft/${aircrafts[rowIndex].aircraft_id}`, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-              },
-            })
-              .then(resp => resp.json())
-              .then(data => {
-                console.log(data);
-              })
-          } catch(error)  {
-            console.log('Error deleting aircraft - ', error);
-          };
+          console.log(realIndex);
+          // try {
+          //   fetch(`http://127.0.0.1:5000/api/aircraft/${aircrafts[realIndex].aircraft_id}`, {
+          //     method: 'DELETE',
+          //     headers: {
+          //       'Content-Type': 'application/json',
+          //       Authorization: `Bearer ${token}`
+          //     },
+          //   })
+          //     .then(resp => resp.json())
+          //     .then(data => {
+          //       console.log(data);
+          //     })
+          // } catch(error)  {
+          //   console.log('Error deleting aircraft - ', error);
+          // };
         }
       }
     }
@@ -344,24 +393,46 @@ const Table: React.FC = () => {
   // Lưu dữ liệu của hàng khi đã chỉnh sửa
   const saveEditedRow = () => {
     if (selectedRowIndex !== null && activeTable !== null) {
-      setTables((prevTables) =>
-        prevTables.map((table) =>
-          table.id === activeTable
-            ? {
-                ...table,
-                rows: table.rows.map((row, index) =>
-                  index === selectedRowIndex
-                    ? [
-                        row[0], // Giữ lại STT
-                        ...newRowData,
-                        row[row.length - 1], // Giữ lại cột hành động
-                      ]
-                    : row
-                ),
-              }
-            : table
-        )
-      );
+      try {
+        setTables((prevTables) =>
+          prevTables.map((table) =>
+            table.id === activeTable
+              ? {
+                  ...table,
+                  rows: table.rows.map((row, index) =>
+                    index === selectedRowIndex
+                      ? [
+                          row[0], // Giữ lại STT
+                          ...newRowData,
+                          row[row.length - 1], // Giữ lại cột hành động
+                        ]
+                      : row
+                  ),
+                }
+              : table
+          )
+        );
+        if (activeTable === 3) {
+          fetch(`http://127.0.0.1:5000/api/aircraft/${newRowData[1]}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              aircraft_id: newRowData[1],
+              model: newRowData[2],
+              manufacturer: newRowData[0],
+            }),
+          })
+            .then(resp => resp.json())
+            .then(data => {
+              console.log(data);
+            })
+        } 
+      } catch (error) {
+          console.log('Error updating aircraft - ', error);
+      }
       setIsModalOpen(false);
       setSelectedRowIndex(null);
     }

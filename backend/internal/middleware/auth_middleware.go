@@ -27,7 +27,7 @@ func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg *conf
 		if authHeader != "" {
 			headerParts := strings.Split(authHeader, " ")
 			if len(headerParts) != 2 {
-				log.Panic("Auth middleware - Invalid auth header")
+				log.Panic("Auth middleware - Invalid auth header 1")
 				return ctx.Status(http.StatusUnauthorized).JSON(fiber.Map{
 					"status":  http.StatusUnauthorized,
 					"message": "Unauthorized",
@@ -37,7 +37,7 @@ func (m *Middleware) JWTAuthMiddleware(authBusiness auth.AuthBusiness, cfg *conf
 			tokenString := headerParts[1]
 
 			if err := m.validateJWTToken(tokenString, authBusiness, ctx, cfg); err != nil {
-				log.Panic("Auth middleware validate JWT Token - Invalid auth header")
+				log.Panic("Auth middleware validate JWT Token - Invalid auth header 2")
 				return ctx.Status(http.StatusUnauthorized).JSON(fiber.Map{
 					"status":  http.StatusUnauthorized,
 					"message": "Unauthorized",
