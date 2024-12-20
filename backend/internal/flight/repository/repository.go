@@ -34,8 +34,8 @@ func (f *flightRepo) Create(flight *models.Flight) (*models.Flight, error) {
 // DB Find flight by id
 func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 	var flight models.Flight
-	fquery := strings.Replace(flightID, "%20", " ", -1)
-	err := f.db.Where("flight_id = ?", fquery).First(&flight).Error
+
+	err := f.db.Where("flight_id = ?", flightID).First(&flight).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "flightRepo.GetByFlightID.First")
 	}
@@ -44,9 +44,9 @@ func (f *flightRepo) GetByFlightID(flightID string) (*models.Flight, error) {
 
 // DB Update flight
 func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
-	fquery := strings.Replace(flight.FlightID, "%20", " ", -1)
-	log.Println("repo-----", fquery)
-	err := f.db.Where("flight_id = ?", fquery).Updates(&flight).Error
+	// fquery := strings.Replace(flight.FlightID, "%20", " ", -1)
+	// log.Println("repo-----", fquery)
+	err := f.db.Where("flight_id = ?", flight.FlightID).Updates(&flight).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "flightRepo.Update.Updates")
 	}
@@ -55,8 +55,8 @@ func (f *flightRepo) Update(flight *models.Flight) (*models.Flight, error) {
 
 // DB Delete flight
 func (f *flightRepo) Delete(flightID string) error {
-	fquery := strings.Replace(flightID, "%20", " ", -1)
-	err := f.db.Where("flight_id = ?", fquery).Delete(&models.Flight{}).Error
+	//fquery := strings.Replace(flightID, "%20", " ", -1)
+	err := f.db.Where("flight_id = ?", flightID).Delete(&models.Flight{}).Error
 	if err != nil {
 		return errors.Wrap(err, "flightRepo.Delete.Delete")
 	}
@@ -158,4 +158,31 @@ func (f *flightRepo) GetAll(query *utils.PagingQuery) (*models.FlightList, error
 		HasMore:    query.GetPage() < utils.GetTotalPages(totalCount, query.GetQuerySize()),
 		Flights:    flights,
 	}, nil
+}
+
+// Get flights by statistics
+func (f *flightRepo) GetStatusFlightsStatistics() ([]models.FlightStatus, error) {
+	var flightStatus []models.FlightStatus
+	rows, err := f.db.Table("flights").
+		Select("status, count(*) as count").
+		Group("status").Rows()
+
+	if err != nil {
+		return nil, errors.Wrap(err, "flightRepo.GetStatusFlightsStatistics.Query")
+	}
+
+	for rows.Next() {
+		var status string
+		var count int
+		err = rows.Scan(&status, &count)
+		if err != nil {
+			return nil, errors.Wrap(err, "flightRepo.GetStatusFlightsStatistics.Scan")
+		}
+
+		flightStatus = append(flightStatus, models.FlightStatus{
+			Status: status,
+			Count:  count,
+		})
+	}
+	return flightStatus, nil
 }

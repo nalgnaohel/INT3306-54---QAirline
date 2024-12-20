@@ -16,4 +16,5 @@ func MapFlightRoutes(flightRouter fiber.Router, mw *middleware.Middleware, handl
 	flightRouter.Delete("/:flightID", handlers.Delete())
 	flightRouter.Put("/:flightID", handlers.Update())
 	flightRouter.Get("/all", handlers.GetAll())
+	flightRouter.Get("/statistics/flightstatus", handlers.GetStatusFlightsStatistics())
 }

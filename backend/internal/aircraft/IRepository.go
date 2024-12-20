@@ -1,12 +1,15 @@
 package aircraft
 
-import "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+import (
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/pkg/utils"
+)
 
 type AircraftRepository interface {
 	Create(aircraft *models.Aircraft) (*models.Aircraft, error)
-	GetByAircraftID(aircraftID int) (*models.Aircraft, error)
+	GetByAircraftID(aircraftID string) (*models.Aircraft, error)
 	Update(aircraft *models.Aircraft) (*models.Aircraft, error)
-	Delete(aircraftID int) error
+	Delete(aircraftID string) error
 	GetByAircraftModel(model string) (*models.Aircraft, error)
-	GetAll() ([]*models.AircraftList, error)
+	GetAll(query *utils.PagingQuery) (*models.AircraftList, error)
 }

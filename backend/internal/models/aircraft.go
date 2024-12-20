@@ -1,7 +1,8 @@
 package models
 
 type Aircraft struct {
-	AircraftID         int    `json:"aircraft_id"`
+	AircraftID         string `json:"aircraft_id"`
+	Model              string `json:"model"`
 	Manufacturer       string `json:"manufacturer"`
 	EconomyClassSeats  int    `json:"economy_class_seats"`
 	BusinessClassSeats int    `json:"business_class_seats"`

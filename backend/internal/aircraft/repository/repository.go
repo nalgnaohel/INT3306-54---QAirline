@@ -23,7 +23,7 @@ func (ar *AircraftRepository) Create(aircraft *models.Aircraft) (*models.Aircraf
 	return aircraft, nil
 }
 
-func (ar *AircraftRepository) GetByAircraftID(aircraftID int) (*models.Aircraft, error) {
+func (ar *AircraftRepository) GetByAircraftID(aircraftID string) (*models.Aircraft, error) {
 	aircraft := &models.Aircraft{}
 	if err := ar.db.Where("aircraft_id = ?", aircraftID).First(aircraft).Error; err != nil {
 		return nil, err
@@ -39,7 +39,7 @@ func (ar *AircraftRepository) Update(aircraft *models.Aircraft) (*models.Aircraf
 	return aircraft, nil
 }
 
-func (ar *AircraftRepository) Delete(aircraftID int) error {
+func (ar *AircraftRepository) Delete(aircraftID string) error {
 	if err := ar.db.Where("aircraft_id = ?", aircraftID).Delete(&models.Aircraft{}).Error; err != nil {
 		return err
 	}
