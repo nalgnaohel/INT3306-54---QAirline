@@ -18,12 +18,12 @@ func NewTicketUsecase(ticketRepo ticket.TicketRepository) ticket.TicketBusi {
 }
 
 // Create creates a new ticket
-func (tu *ticketUsecase) Create(ticket *models.Ticket) (*models.Ticket, error) {
-	ticket, err := tu.ticketRepo.Create(ticket)
+func (tu *ticketUsecase) Create(tickets models.Ticket) (models.Ticket, error) {
+	createdTicket, err := tu.ticketRepo.Create(tickets)
 	if err != nil {
-		return nil, errors.Wrap(err, "ticketUsecase.Create")
+		return models.Ticket{}, errors.Wrap(err, "ticketUsecase.Create")
 	}
-	return ticket, nil
+	return createdTicket, nil
 }
 
 // GetByID gets a ticket by ID
@@ -46,11 +46,20 @@ func (tu *ticketUsecase) Delete(ticketID string) error {
 
 // Update updates a ticket
 func (tu *ticketUsecase) Update(ticket *models.Ticket) (*models.Ticket, error) {
-	updatedTicket, err := tu.ticketRepo.Update(ticket)
-	if err != nil {
-		return nil, errors.Wrap(err, "ticketUsecase.Update")
-	}
-	return updatedTicket, nil
+    updatedTicket, err := tu.ticketRepo.Update(ticket)
+    if err != nil {
+        return nil, errors.Wrap(err, "ticketUsecase.Update")
+    }
+    return updatedTicket, nil
+}
+
+
+func (tu *ticketUsecase) UpdateSeat(ticketID string, seat string) error {
+    err := tu.ticketRepo.UpdateSeat(ticketID, seat)
+    if err != nil {
+        return errors.Wrap(err, "ticketUsecase.UpdateSeat")
+    }
+    return nil
 }
 
 // GetAll gets all tickets
@@ -62,9 +71,9 @@ func (tu *ticketUsecase) GetAll() ([]*models.Ticket, error) {
 	return tickets, nil
 }
 
-// GetByUserID gets tickets by user ID
-func (tu *ticketUsecase) GetByUserID(userID string) ([]*models.Ticket, error) {
-	tickets, err := tu.ticketRepo.GetByUserID(userID)
+// Getbyemail gets tickets by user ID
+func (tu *ticketUsecase) GetByEmail(email string) ([]*models.Ticket, error) {
+	tickets, err := tu.ticketRepo.GetByEmail(email)
 	if err != nil {
 		return nil, errors.Wrap(err, "ticketUsecase.GetByUserID")
 	}

@@ -6,11 +6,15 @@ import Footer from "../Footer/Footer";
 interface PassengerListProps {
   onBack: () => void;
   onContinue: () => void;
+  email: string;
+  bookingCode: string;
 }
 
 const PassengerList: React.FC<PassengerListProps> = ({
   onBack,
   onContinue,
+  email,
+  bookingCode,
 }) => {
   return (
     <div className="passenger-list-container">
@@ -21,13 +25,13 @@ const PassengerList: React.FC<PassengerListProps> = ({
         <div className="step">4 Xác nhận</div>
       </div>
 
-      <div className="passenger-card">
-        <h2 className="title">Danh Sách Hành Khách</h2>
-        <div className="passenger-item">
+      <div className="passenger-card_list">
+        <h2 className="title1">Danh Sách Hành Khách</h2>
+        <div className="passenger-item_list">
           <input type="checkbox" id="passenger1" />
           <label htmlFor="passenger1" className="passenger-name">
-            <strong>Mrs Dao Thi Khuyen</strong>
-            <span className="passenger-type">Adult</span>
+            <strong>{email}</strong>
+            <span className="passenger-type1">Adult</span>
           </label>
         </div>
         <div className="actions">

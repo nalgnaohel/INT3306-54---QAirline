@@ -54,7 +54,7 @@
   margin-bottom: 1.5rem;
 }
 
-.confirm-button {
+.confirm-button1 {
   display: block;
   width: 100%;
   padding: 0.75rem;
@@ -66,6 +66,6 @@
   cursor: pointer;
 }
 
-.confirm-button:hover {
+.confirm-button1:hover {
   background-color: #00aaff;
 }
