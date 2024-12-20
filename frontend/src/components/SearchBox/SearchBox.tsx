@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import TopNavBar from "../Navbar/TopNavBar";
 import "./SearchBox.css";
-import flightsData from "../Flights.json";
 import AutoCompleteInput from "../AutoCompleteInput/AutoCompleteInput";
+// import { format } from "date-fns";
 
 const tabs = document.querySelectorAll(".tab");
 
@@ -14,23 +14,76 @@ tabs.forEach((tab) => {
 });
 
 interface SearchBoxProps {
+  setReturnFlights: React.Dispatch<React.SetStateAction<any[]>>;
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
   setFilteredFlights: React.Dispatch<React.SetStateAction<any[]>>;
+  setPassengerCounts: React.Dispatch<
+    React.SetStateAction<{ adult: number; child: number; infant: number }>
+  >;
+  setTripType: React.Dispatch<React.SetStateAction<string>>;
 }
 
+interface Flight {
+  flight_id: string;
+  brand: string;
+  departure: string;
+  arrival: string;
+  departure_time: string;
+  arrival_time: string;
+  price: number;
+  available_seats: number;
+}
+
+// const formatTime = (time: string) => {
+//   const date = new Date(time);
+//   return format(date, "dd:mm:yyyy");
+// };
+
 const SearchBox: React.FC<SearchBoxProps> = ({
+  setReturnFlights,
   setIsSearching,
   setFilteredFlights,
+  setPassengerCounts,
+  setTripType,
 }) => {
   const [departure, setDeparture] = useState("");
+  const [departure2, setDeparture2] = useState("");
   const [destination, setDestination] = useState("");
-  const [departureDate, setDepartureDate] = useState("");
-  const [tripType, setTripType] = useState("one-way");
+  const [destination2, setDestination2] = useState("");
+  const [departureDate, setDepartureDate] = useState<string>("");
+  const [departureDate2, setDepartureDate2] = useState<string>("");
+  const [returnDate, setReturnDate] = useState<string>("");
+  const [tripTypeState, setTripTypeState] = useState("one-way");
   const [adultCount, setAdultCount] = useState(1);
   const [childCount, setChildCount] = useState(0);
   const [infantCount, setInfantCount] = useState(0);
 
-  const [flights, setFlights] = useState<any[]>(flightsData.flights);
+  const today = new Date().toISOString().split("T")[0];
+
+  const [flights, setFlights] = useState<Flight[]>([]);
+  useEffect(() => {
+    const fetchFlights = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:5000/api/flight/flights"
+        );
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        const data = await response.json();
+        setFlights(data);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(String(error));
+        }
+      } finally {
+      }
+    };
+
+    fetchFlights();
+  }, []);
 
   const [activeTab, setActiveTab] = useState("Mua vé");
 
@@ -96,16 +149,40 @@ const SearchBox: React.FC<SearchBoxProps> = ({
         ? flight.departure.includes(departure.split(" (")[0])
         : true;
       const isDestinationMatch = destination
-        ? flight.destination.includes(destination.split(" (")[0])
+        ? flight.arrival.includes(destination.split(" (")[0])
         : true;
-      // const isDateMatch = departureDate
-      //   ? flight.departureTime.startsWith(departureDate)
-      //   : true;
+      const isDateMatch = departureDate
+        ? flight.departure_time.startsWith(departureDate)
+        : true;
 
-      return isDepartureMatch && isDestinationMatch;
+      return isDepartureMatch && isDestinationMatch && isDateMatch;
     });
+
+    if (tripTypeState === "round-trip") {
+      // Lọc các chuyến bay ngược lại
+      const returnFlights = flights.filter((flight) => {
+        const isDepartureMatch = departure
+          ? flight.departure.includes(destination.split(" (")[0])
+          : true;
+        const isDestinationMatch = departure
+          ? flight.arrival.includes(departure.split(" (")[0])
+          : true;
+        const isDateMatch = returnDate
+          ? flight.departure_time.startsWith(returnDate)
+          : true;
+
+        return isDepartureMatch && isDestinationMatch && isDateMatch;
+      });
+      setReturnFlights(returnFlights);
+    }
     setIsSearching(true);
     setFilteredFlights(filtered);
+    setPassengerCounts({
+      adult: adultCount,
+      child: childCount,
+      infant: infantCount,
+    });
+    setTripType(tripTypeState);
   };
 
   return (
@@ -153,8 +230,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                     type="radio"
                     name="trip-type"
                     value="one-way"
-                    checked={tripType === "one-way"}
-                    onChange={(e) => setTripType(e.target.value)}
+                    checked={tripTypeState === "one-way"}
+                    onChange={(e) => setTripTypeState(e.target.value)}
                   />
                   Một chiều
                 </label>
@@ -163,8 +240,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                     type="radio"
                     name="trip-type"
                     value="round-trip"
-                    checked={tripType === "round-trip"}
-                    onChange={(e) => setTripType(e.target.value)}
+                    checked={tripTypeState === "round-trip"}
+                    onChange={(e) => setTripTypeState(e.target.value)}
                   />
                   Khứ hồi
                 </label>
@@ -173,8 +250,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                     type="radio"
                     name="trip-type"
                     value="multi-city"
-                    checked={tripType === "multi-city"}
-                    onChange={(e) => setTripType(e.target.value)}
+                    checked={tripTypeState === "multi-city"}
+                    onChange={(e) => setTripTypeState(e.target.value)}
                   />
                   Nhiều chặng
                 </label>
@@ -192,55 +269,61 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                   value={destination}
                   onChange={setDestination}
                 />
-                {tripType === "one-way" && (
+                {tripTypeState === "one-way" && (
                   <div>
                     <label>Ngày khởi hành</label>
                     <input
                       type="date"
+                      min={today}
                       value={departureDate}
                       onChange={(e) => setDepartureDate(e.target.value)}
                     />
                   </div>
                 )}
-                {tripType === "round-trip" && <div></div>}
-                {tripType === "round-trip" && (
+                {tripTypeState === "round-trip" && <div></div>}
+                {tripTypeState === "round-trip" && (
                   <div>
                     <label>Ngày khởi hành</label>
-                    <input type="date" />
+                    <input type="date" min={today} />
                   </div>
                 )}
-                {tripType === "round-trip" && (
+                {tripTypeState === "round-trip" && (
                   <div>
                     <label>Ngày về</label>
-                    <input type="date" />
+                    <input
+                      type="date"
+                      min={today}
+                      value={returnDate}
+                      onChange={(e) => setReturnDate(e.target.value)}
+                    />
                   </div>
                 )}
-                {tripType === "multi-city" && (
+                {tripTypeState === "multi-city" && (
                   <div>
                     <label>Ngày khởi hành</label>
-                    <input type="date" />
+                    <input type="date" min={today} />
                   </div>
                 )}
-                {tripType === "multi-city" && (
+                {tripTypeState === "multi-city" && (
                   <AutoCompleteInput
                     label="Từ"
                     placeholder="Chọn điểm khởi hành ..."
-                    value={departure}
-                    onChange={setDeparture}
+                    value={departure2}
+                    onChange={setDeparture2}
                   />
                 )}
-                {tripType === "multi-city" && (
+                {tripTypeState === "multi-city" && (
                   <AutoCompleteInput
                     label="Đến"
                     placeholder="Chọn điểm đến ..."
-                    value={destination}
-                    onChange={setDestination}
+                    value={destination2}
+                    onChange={setDestination2}
                   />
                 )}
-                {tripType === "multi-city" && (
+                {tripTypeState === "multi-city" && (
                   <div>
                     <label>Ngày khởi hành</label>
-                    <input type="date" />
+                    <input type="date" min={today} />
                   </div>
                 )}
                 <div className="passenger-section">

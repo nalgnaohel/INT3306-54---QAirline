@@ -18,16 +18,26 @@ import (
 	flightDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/delivery/http"
 	flightRepository "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight/repository"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/middleware"
+	ticketBiz "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/business"
+	ticketDelivery "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/delivery/http"
+	ticketRepo "github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/ticket/repository"
 )
 
 func (s *Server) MapHandlers(fib *fiber.App) error {
-
-	//Init auth
+	// Init auth
 	authRepository := authRepo.NewAuthRepo(s.dtb)
 	authBusiness := authBiz.NewAuthBusiness(s.cfg, authRepository)
 	authHandlers := authDelivery.NewAuthHandlers(authBusiness)
 
-	//Init flight
+	//Middleware init
+	mw := middleware.NewMiddleware(authBusiness, *s.cfg, []string{"*"})
+
+	// Init ticket
+	ticketRepository := ticketRepo.NewTicketRepo(s.dtb)
+	ticketBusiness := ticketBiz.NewTicketUsecase(ticketRepository)
+	ticketHandlers := ticketDelivery.NewTicketHandlers(ticketBusiness)
+
+	// Init flight
 	flightRepository := flightRepository.NewFlightRepo(s.dtb)
 	flightBusiness := flightBusiness.NewFlightBusiness(s.cfg, flightRepository)
 	flightHandlers := flightDelivery.NewFlightHandlers(flightBusiness)
@@ -58,6 +68,7 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	}))
 	fib.Use(cors.New())
 
+	// Setup API groups
 	api := fib.Group("/api")
 
 	authGroup := api.Group("/auth")
@@ -80,6 +91,8 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	})
 
 	fib.Get("/hi", func(ctx *fiber.Ctx) error {
+		// span, _ := opentracing.StartSpanFromContext(ctx.Context(), "num.end")
+		// defer span.Finish()
 
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status": "success",

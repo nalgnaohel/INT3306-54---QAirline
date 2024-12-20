@@ -1,75 +1,72 @@
 import React, { useRef, useState } from "react";
 import "./Login.css";
 import TopNavBar from "../../../components/Navbar/TopNavBar";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-    //const formRef = useRef();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [emailErr, setEmailErr] = useState(false);
-    const [passwordErr, setPasswordErr] = useState(false);
-    const emailInputRef = useRef<HTMLInputElement>(null);
-    const passwordInputRef = useRef<HTMLInputElement>(null);
-    const emailMsgRef = useRef<HTMLParagraphElement>(null);
-    const formData = {
-        email: email,
-        password: password
-    }
-    const navigator = useNavigate();
+  //const formRef = useRef();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailErr, setEmailErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const emailMsgRef = useRef<HTMLParagraphElement>(null);
+  const formData = {
+    email: email,
+    password: password,
+  };
+  const navigator = useNavigate();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setEmailErr(false);
-        setPasswordErr(false);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setEmailErr(false);
+    setPasswordErr(false);
 
-        if (email === '') {
-            setEmailErr(true);
-            emailInputRef.current?.focus();
-        } else if (password === '') {
-            setPasswordErr(true);
-            passwordInputRef.current?.focus();
+    if (email === "") {
+      setEmailErr(true);
+      emailInputRef.current?.focus();
+    } else if (password === "") {
+      setPasswordErr(true);
+      passwordInputRef.current?.focus();
+    } else {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        const data = await response.json();
+
+        console.log("Data:", data);
+        //create new token
+        const token = data.user.token;
+        const currentUser = data.user.user;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+        //debug
+        console.log("Token:", token);
+        console.log("Current User:", currentUser);
+
+        //redirect to home page
+        if (currentUser.type === 'admin') {
+            navigator('/admin');
         } else {
-            try {
-                const response = await fetch(
-                    'http://127.0.0.1:5000/api/auth/login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    }
-                );
-                const data = await response.json();
-
-                console.log('Data:', data);
-                //create new token
-                const token = data.user.token;
-                const currentUser = data.user.user;
-
-                localStorage.setItem('token', token);
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-                //debug
-                console.log('Token:', token);
-                console.log('Current User:', currentUser);
-
-                //redirect to home page
-                if (currentUser.type === 'admin') {
-                    navigator('/admin');
-                } else {
-                    navigator('/');
-                }
-            }
-            catch (error) {
-                setEmailErr(true);
-                if (emailMsgRef.current) {
-                    emailMsgRef.current.innerText = 'Email hoặc mật khẩu không đúng';
-                }
-                console.error('Unexpected Error:', error);
-            }
+            navigator('/');
         }
-
+        }
+        catch (error) {
+            setEmailErr(true);
+            if (emailMsgRef.current) {
+                emailMsgRef.current.innerText = 'Email hoặc mật khẩu không đúng';
+            }
+            console.error('Unexpected Error:', error);
+        }
+      }
     }
       
     return (
@@ -101,6 +98,6 @@ const Login: React.FC = () => {
             </div>
         </div></>
     );
-}
+};
 
 export default Login;

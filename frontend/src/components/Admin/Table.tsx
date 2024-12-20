@@ -4,8 +4,8 @@ import edit from "../../assets/images/Admin/edit.png";
 import remove from "../../assets/images/Admin/trash-can.png";
 import "./Table.css";
 import DashboardAdmin from '../DashboardAdmin/DashboardAdmin';
-import { error, table } from 'console';
-import { useNavigate } from 'react-router-dom';
+import { error } from 'console';
+import TextEditor from '../TextEditor/TextEditor';
 
 const Table: React.FC = () => {
   //token for authorization
@@ -18,7 +18,7 @@ const Table: React.FC = () => {
   const { activeTable } = useTableContext(); // Link với TableContext component
   const [isModalOpen, setIsModalOpen] = useState(false); // Lưu trạng thái của modal
   const [newRowData, setNewRowData] = useState<string[]>([]); // Thêm hàng mới
-  const [additionalField, setAdditionalField] = useState<string>(''); 
+  const [additionalField, setAdditionalField] = useState<string>(''); // Lưu nội dung của bài đăng
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // Lưu lỗi nhập liệu
   const [preview, setPreview] = useState<string | null>(null);
   const [selectedRowIndex, setSelectedRowIndex] = useState<number | null>(null); // Dòng được chọn để edit hoặc remove
@@ -171,11 +171,11 @@ const Table: React.FC = () => {
       id: 3,
       title: ['Danh sách tàu bay'],
       button: ['+ Thêm tàu bay'],
-      headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Hành động'],
+      headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Phổ thông', 'Thương gia', 'Cao cấp', 'Hạng nhất', 'Hành động'],
       rows: [
         ['1', 'Bamboo Airway', 'VN-A588', 'Airbus A321', '50', '20', '10', '5', ''],
         ['2', 'Bamboo Airway', 'VN-A589', 'Airbus A321', '50', '20', '10', '5', ''],
-      ]
+      ],
     },
     {
     id: 4,
@@ -613,23 +613,10 @@ const Table: React.FC = () => {
           </div>
       ))}
 
-      {activeTable == 5 && (
-        <div className="form-group">
-          <label>Mật khẩu</label>
-          <input
-            type="text"
-            onChange={(e) => setAdditionalField(e.target.value)}
-          />
-        </div>
-      )}
-
-      {activeTable == 6 && (
+      {activeTable == 7 && (
         <div className="form-group">
           <label>Nội dung</label>
-          <input
-            type="text"
-            onChange={(e) => setAdditionalField(e.target.value)}
-          />
+          <TextEditor />
         </div>
       )}
 

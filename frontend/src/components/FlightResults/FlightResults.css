@@ -83,6 +83,26 @@ h2 {
   margin-top: 5px;
 }
 
+.flight-info .seats-info {
+  width: 55%;
+  border-radius: 25px;
+  border: 2px solid #64b5f6;
+  background-color: aquamarine;
+  margin-left: 50px;
+}
+
+.flight-info .seats-info .seats-left {
+  padding-bottom: 3px;
+}
+
+.flight-info .airline-box {
+  padding-left: 50px;
+}
+
+.flight-info .flight-number-box {
+  padding-left: 50px;
+}
+
 .flight-item .fare-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -166,7 +186,7 @@ h2 {
   left: 360px;
 }
 
-button {
+.flight-results button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -190,4 +210,54 @@ button:hover {
 .fare-option:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 8px;
+}
+
+.page-button {
+  padding: 8px 12px;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.page-button:hover {
+  background-color: #e5e7eb;
+}
+
+.page-button.active {
+  background-color: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+/* Quay về trang chủ */
+.home-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.home-button {
+  padding: 10px 20px;
+  background-color: #f43f5df1;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.home-button:hover {
+  background-color: #e11d48;
 }

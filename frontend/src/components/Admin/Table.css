@@ -121,15 +121,45 @@ table tr:nth-child(even) {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100;
 }
 
 .modal-content {
   background: white;
   padding: 20px;
-  padding-right: 36px;
+  padding-right: 36px; /* Giữ khoảng cách nội dung bên trong */
   border-radius: 10px;
   text-align: left;
   width: 400px;
+  max-height: 600px; /* Đặt chiều cao tối đa cho modal-content */
+  overflow-y: auto; /* Hiển thị thanh cuộn dọc nếu nội dung vượt quá chiều cao */
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+  position: relative; /* Đặt thanh cuộn nằm chính xác bên trong */
+}
+
+/* Điều chỉnh thanh cuộn vào trong */
+.modal-content::-webkit-scrollbar {
+  width: 6px; /* Độ rộng thanh cuộn */
+  position: absolute;
+  margin-right: 6px; /* Dịch thanh cuộn một chút vào bên trong */
+}
+
+/* Track của thanh cuộn (phần nền) */
+.modal-content::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Màu nền track */
+  border-radius: 10px; /* Bo góc track */
+  margin-right: 10px; /* Đảm bảo track dịch vào trong */
+}
+
+/* Thumb của thanh cuộn (phần kéo được) */
+.modal-content::-webkit-scrollbar-thumb {
+  background: #b0b0b0; /* Màu thumb */
+  border-radius: 10px; /* Bo góc thumb */
+}
+
+/* Thêm hiệu ứng hover cho thumb */
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #888; /* Đổi màu khi hover */
 }
   
 .form-group {

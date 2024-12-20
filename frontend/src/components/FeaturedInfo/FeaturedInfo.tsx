@@ -1,35 +1,31 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./FeaturedInfo.css";
+import features from "../news.json";
 
 const FeaturedInfo: React.FC = () => {
+  const { featuredData, newsData } = features;
   return (
     <div className="featured-info">
-      <h2 className="featured-title">Thông tin nổi bật</h2>
+      <div className="featured-header">
+        <h2 className="featured-title">Thông tin nổi bật</h2>
+        <Link to="/news" className="more-button">
+          Thêm
+        </Link>
+      </div>
       <div className="info-grid">
-        <div className="info-card">
-          <img
-            src={require("../../assets/images/sinhnhat.jpg")}
-            alt="Giảm giá lên đến 30%"
-            className="info-card-image"
-          />
-          <div className="info-card-text">Giảm giá lên đến 30%</div>
-        </div>
-        <div className="info-card">
-          <img
-            src={require("../../assets/images/doan.jpg")}
-            alt="Ẩm thực hạng thương gia"
-            className="info-card-image"
-          />
-          <div className="info-card-text">Ẩm thực hạng thương gia</div>
-        </div>
-        <div className="info-card">
-          <img
-            src={require("../../assets/images/hanhli.jpg")}
-            alt="Trải nghiệm khách sạn 5 sao"
-            className="info-card-image"
-          />
-          <div className="info-card-text">Trải nghiệm khách sạn 5 sao</div>
-        </div>
+        {featuredData.map((feature) => (
+          <div key={feature.id} className="info-card">
+            <Link to={`/feature/${feature.id}`} className="info-card-link">
+              <img
+                src={require(`../../assets/images/${feature.image}`)}
+                alt={feature.title}
+                className="info-card-image"
+              />
+              <div className="info-card-text">{feature.title}</div>
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );

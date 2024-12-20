@@ -14,16 +14,32 @@ import { Flight } from "../../../components/FlightResults/FlightResults";
 const Home: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [filteredFlights, setFilteredFlights] = useState<Flight[]>([]);
+  const [returnFlights, setReturnFlights] = useState<Flight[]>([]);
+  const [passengerCounts, setPassengerCounts] = useState({
+    adult: 1,
+    child: 0,
+    infant: 0,
+  });
+  const [tripType, setTripType] = useState("one-way");
 
   return (
     <div className="Home">
       <SearchBox
         setIsSearching={setIsSearching}
+        setReturnFlights={setReturnFlights}
         setFilteredFlights={setFilteredFlights}
+        setPassengerCounts={setPassengerCounts}
+        setTripType={setTripType}
       />
 
       {isSearching ? (
-        <FlightResults flights={filteredFlights} />
+        <FlightResults
+          flights={filteredFlights}
+          returnFlights={returnFlights}
+          setIsSearching={setIsSearching}
+          passengerCounts={passengerCounts}
+          tripType={tripType}
+        />
       ) : (
         <>
           <PopularFlights />

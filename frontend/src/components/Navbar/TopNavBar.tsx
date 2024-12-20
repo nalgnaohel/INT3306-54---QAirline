@@ -32,7 +32,6 @@ const TopNavBar: React.FC = () => {
         >
           Đăng ký
         </li>
-        <li>VI</li>
       </ul>
     </nav>
   );

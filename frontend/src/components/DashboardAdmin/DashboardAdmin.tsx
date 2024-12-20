@@ -40,21 +40,14 @@ const DashboardAdmin: React.FC = () => {
     },
   ];
 
-  const chart1Data = {
-    title: "Vé đã bán",
-    totalTickets: 12500,
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    dataPoints: [2000, 1800, 3200, 4000, 3000, 3500],
-  };
-
-  const usersBySource = [
-    { name: 'Việt Nam', value: 8224, colorClass: 'google' },
-    { name: 'Trung Quốc', value: 5255, colorClass: 'instagram' },
-    { name: 'Nhật Bản', value: 2512, colorClass: 'bookmarks' },
-    { name: 'Hàn Quốc', value: 1642, colorClass: 'facebook' },
-    { name: 'Singapore', value: 1341, colorClass: 'yahoo' },
-    { name: 'Pháp', value: 2326, colorClass: 'others' },
-  ];
+  // const usersBySource = [
+  //   { name: 'Việt Nam', value: 8224, colorClass: 'google' },
+  //   { name: 'Trung Quốc', value: 5255, colorClass: 'instagram' },
+  //   { name: 'Nhật Bản', value: 2512, colorClass: 'bookmarks' },
+  //   { name: 'Hàn Quốc', value: 1642, colorClass: 'facebook' },
+  //   { name: 'Singapore', value: 1341, colorClass: 'yahoo' },
+  //   { name: 'Pháp', value: 2326, colorClass: 'others' },
+  // ];
 
   const chart3Data = [
     { month: 'Jan', domestic: 120, international: 80 },

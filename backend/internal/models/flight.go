@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+)
+
+type PassengersList []User
 
 type Flight struct {
 	FlightID      string    `json:"flight_id"`
