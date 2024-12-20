@@ -88,10 +88,10 @@ const Table: React.FC = () => {
       id: 7,
       title: ['Danh sách bài đăng'],
       button: ['+ Thêm bài đăng'],
-      headers: ['STT', 'Tiêu đề', 'Hành động'],
+      headers: ['STT', 'Mã bài đăng', 'Tiêu đề', 'Hành động'],
       rows: [
-        ['1', 'Giảm giá 20% cho khách hàng thân thiết', ''],
-        ['2', 'Quyện lợi khách hàng', ''],
+        ['1', 'QA-1233H12', 'Giảm giá 20% cho khách hàng thân thiết', ''],
+        ['2', 'QA-12312A2', 'Quyện lợi khách hàng', ''],
       ],
     },
     {
