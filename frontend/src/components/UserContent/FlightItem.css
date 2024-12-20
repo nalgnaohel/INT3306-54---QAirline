@@ -1,0 +1,143 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+
+.flight-item {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    opacity: 0; /* Start invisible */
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: var(--animation-delay, 0s); /* Allows dynamic delay */
+}
+
+.ticket-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100px;
+    padding: 10px;
+}
+
+.ticket-right {
+    background-color: rgb(77, 255, 255);
+    border-radius: 0 10px 10px 0;
+    flex: 1;
+}
+
+.ticket-header {
+    background-color: #80bcff;
+    padding: 15px 0 15px 40px;
+    font-size: 18px;
+    border-radius: 0 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-content {
+    display: flex;
+    align-items: end;
+    gap: 100px;
+    padding: 10px 0 20px 40px;
+}
+
+.ticket-content .ticket-from,
+.ticket-content .ticket-to {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ticket-content .ticket-from .code,
+.ticket-content .ticket-to .code {
+    color: #888;
+}
+
+.ticket-icon {
+    width: 60px;
+}
+
+.ticket-action {
+    margin-left: 50px;
+    display: flex;
+    gap: 50px;
+}
+
+.ticket-action button {
+    background-color: transparent;
+    padding: 0;
+}
+
+.ticket-more-detail {
+    color: #80bcff;
+}
+
+.ticket-checking {
+    color: #fbc02d;
+}
+
+.ticket-cancel {
+    color: red;
+}
+
+.ticket-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ticket-status-icon-ongoing {
+    background-color: rgb(0, 228, 15);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+.ticket-ongoing {
+    color: rgb(0, 228, 15);
+    font-weight: bold;
+}
+
+.ticket-status-icon-canceled {
+    background-color: red;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+.ticket-canceled {
+    color: red;
+    font-weight: bold;
+}
+
+.ticket-status-icon-completed {
+    background-color: lightgray;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+.ticket-completed {
+    color: lightgray;
+    font-weight: bold;
+}
+
+.ticket-airline-logo {
+    height: 30px;
+    margin-right: 30px;
+}
