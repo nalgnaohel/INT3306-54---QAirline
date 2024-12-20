@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import combinedShape from "../../assets/images/Admin/icon.svg";
 import dropDown from "../../assets/images/Admin/drop-down.svg";
 import flag from "../../assets/images/Admin/flag.png";
@@ -11,6 +12,7 @@ import "./TopBar.css";
 const TopBar: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
+    const navigate = useNavigate();
 
     const toggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation(); // Ngăn sự kiện lan tới document
@@ -45,13 +47,8 @@ const TopBar: React.FC = () => {
     }, []);
 
     // Hàm xử lý sự kiện click cho các mục
-    const handleProfileClick = () => {
+    const handleClick = () => {
         console.log("Clicked on Profile");
-        setIsDropdownOpen(false); // Đóng dropdown
-    };
-
-    const handleAccountClick = () => {
-        console.log("Clicked on Account");
         setIsDropdownOpen(false); // Đóng dropdown
     };
 
@@ -60,6 +57,7 @@ const TopBar: React.FC = () => {
             <div className="top-bar">
                 <div className="overlap">
                     <div className="separator"></div>
+                    <img className="top-bar-logo" src="logo.png" onClick={() => navigate("/")}/>
                     <div className="profile" onClick={toggleDropdown}>
                         <img className="more" alt="More" src={more} />
                         <div className="username">Admin</div>
@@ -72,15 +70,19 @@ const TopBar: React.FC = () => {
                                 onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
                             >
                                 <ul>
-                                <li onClick={handleProfileClick}>Thông tin cá nhân</li>
-                                <li onClick={handleAccountClick}>Thông tin tài khoản</li>
+                                <li onClick={handleClick}>Trang chủ</li>
+                                <li onClick={handleClick}>Đặt chỗ</li>
+                                <li onClick={handleClick}>Chuyến bay</li>
+                                <li onClick={handleClick}>Tàu bay</li>
+                                <li onClick={handleClick}>Sân bay</li>
+                                <li onClick={handleClick}>Hãng bay</li>
+                                <li onClick={handleClick}>Người dùng</li>
+                                <li onClick={handleClick}>Đăng bài</li>
+                                <li onClick={handleClick}>Cài đặt</li>
+                                <li onClick={handleClick}>Đăng xuất</li>
                                 </ul>
                             </div>
                         )}
-                    </div>
-                    <div className="english">
-                        <div className="div">VI</div>
-                        <img className="drop-down" alt="Drop down" src={dropDown} />
                     </div>
                     {/* <div className="overlap-group">
                         <div className="icon">

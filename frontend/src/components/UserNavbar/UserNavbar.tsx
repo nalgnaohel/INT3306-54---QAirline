@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { UserProvider, useUserContext } from "../UserContent/UserContext";
+import { useNavigate, useLocation } from "react-router-dom";
 import avatar from "../../assets/images/Admin/man-438081-960-720.png";
 import more from "../../assets/images/Admin/more.svg";
 import "./UserNavbar.css";
@@ -8,6 +9,7 @@ const TopBar: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
     const { setActiveContent } = useUserContext();
+    const navigate = useNavigate();
 
     const toggleDropdown = (e: React.MouseEvent) => {
     e.stopPropagation(); // Ngăn sự kiện lan tới document
@@ -51,7 +53,7 @@ const TopBar: React.FC = () => {
 
     return (
         <div className="top-bar">
-            <img className="logo-user-navbar" src="logo.png" />
+            <img className="logo-user-navbar" src="logo.png" onClick={() => navigate("/")}/>
             <div className="separator"></div>
             <div className="profile" onClick={toggleDropdown}>
                 <img className="more" alt="More" src={more} />

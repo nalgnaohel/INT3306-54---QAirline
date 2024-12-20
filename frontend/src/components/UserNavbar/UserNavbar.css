@@ -10,9 +10,16 @@
 
 .logo-user-navbar {
     position: absolute;
-    top: 10px;
+    top: 4px;
     left: 60px;
     width: 200px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.logo-user-navbar:hover {
+    background-color: #e0e0e0;
+    border-radius: 10px;
 }
 
 .top-bar .separator {
@@ -29,7 +36,7 @@
     position: absolute;
     top: 10px;
     left: 1200px;
-    width: 204px;
+    width: 200px;
     height: 50px;
     cursor: pointer;
     border-radius: 8px;
@@ -148,6 +155,7 @@
     position: absolute;
     top: 100%;
     left: 0;
+    width: 200px;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -174,6 +182,7 @@
     padding: 16px 20px;
     cursor: pointer;
     transition: all 0.3s ease;
+    padding-left: 30px;
 }
 
 .dropdown-menu li:hover {
