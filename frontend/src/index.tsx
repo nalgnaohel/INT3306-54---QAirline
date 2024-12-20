@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -11,6 +11,16 @@ import BookingConfirmation from "./components/BookingConfirmation/BookingConfirm
 import PaymentPage from "./components/PaymentPage/PaymentPage";
 import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm";
 import Admin from "./views/pages/Admin/Admin";
+import AuthRoute from "./AuthRoute";
+
+const isAdmin = () => {
+  const storedUser = localStorage.getItem('currentUser');
+  if (storedUser) {
+    const parsedUser = JSON.parse(storedUser);
+    return parsedUser.type === 'admin';
+  }
+  return false;
+};
 
 const router = createBrowserRouter([
   {
@@ -43,7 +53,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: <AuthRoute element={<Admin />} isAuthenticated={localStorage.getItem('token') !== null} isAdmin={isAdmin()} />,
   }
 ]);
 

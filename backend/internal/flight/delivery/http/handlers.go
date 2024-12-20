@@ -2,7 +2,6 @@ package http
 
 import (
 	"log"
-	"strings"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/flight"
@@ -68,7 +67,7 @@ func (fh *flightHandler) GetByFlightID() fiber.Handler {
 func (fh *flightHandler) Update() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		flightID := c.Params("flightID")
-		flightID = strings.Replace(flightID, "%20", " ", -1)
+		// flightID = strings.Replace(flightID, "%20", " ", -1)
 		log.Println("handler-----", flightID)
 		if flightID == "" {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
