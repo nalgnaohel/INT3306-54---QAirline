@@ -28,10 +28,10 @@ const Table: React.FC = () => {
     id: 1,
     title: ['Danh sách đặt chỗ'],
     button: [''],
-    headers: ['STT', 'Id', 'Thông tin người đặt', 'Số hiệu chuyến bay', 'Hành động'],
+    headers: ['STT', 'Mã người dùng', 'Số hiệu chuyến bay', 'Hạng vé', 'Hạn hủy vé', 'Hành động'],
     rows: [
-        ['1', 'QH-12ULK165', 'Tên: NGUYEN VAN A SĐT: 0123456789 Địa chỉ: 123 ABC', 'QH171', ''],
-        ['2', 'QH-12ULK166', 'Tên: NGUYEN VAN A SĐT: 0123456789 Địa chỉ: 123 ABC', 'QH153', ''],
+        ['1', 'QH-12ULK165', 'QH171', 'Thương gia', '15:00 01 Th12 2024', ''],
+        ['2', 'QH-12ULK166', 'QH153', 'Thương gia', '15:00 04 Th12 2024', ''],
     ],
     },
     {
@@ -48,20 +48,20 @@ const Table: React.FC = () => {
       id: 3,
       title: ['Danh sách tàu bay'],
       button: ['+ Thêm tàu bay'],
-      headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Hành động'],
+      headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Phổ thông', 'Thương gia', 'Cao cấp', 'Hạng nhất', 'Hành động'],
       rows: [
-        ['1', 'Bamboo Airway', 'VN-A588', 'Airbus A321', ''],
-        ['2', 'Bamboo Airway', 'VN-A589', 'Airbus A321', ''],
+        ['1', 'Bamboo Airway', 'VN-A588', 'Airbus A321', '50', '20', '10', '5', ''],
+        ['2', 'Bamboo Airway', 'VN-A589', 'Airbus A321', '50', '20', '10', '5', ''],
       ],
       },
     {
     id: 4,
     title: ['Danh sách sân bay'],
     button: ['+ Thêm sân bay'],
-    headers: ['STT', 'Sân bay', 'Địa điểm', 'Hành động'],
+    headers: ['STT', 'Mã sân bay', 'Sân bay', 'Địa điểm', 'Quốc gia', 'Hành động'],
     rows: [
-      ['1', 'Sân bay Nội Bài', 'Phú Minh, Sóc Sơn, Hà Nội', ''],
-      ['2', 'Sân bay Tân Sơn Nhất', 'Đ. Trường Sơn, Phường 2, Tân Bình, Hồ Chí Minh', ''],
+      ['1','HAN', 'Sân bay Nội Bài', 'Phú Minh, Sóc Sơn, Hà Nội', 'Viêt Nam', ''],
+      ['2','SGN', 'Sân bay Tân Sơn Nhất', 'Đ. Trường Sơn, Phường 2, Tân Bình, Hồ Chí Minh', 'Việt Nam', ''],
     ],
     },
     {
@@ -78,10 +78,10 @@ const Table: React.FC = () => {
       id: 6,
       title: ['Danh sách người dùng'],
       button: ['+ Thêm người dùng'],
-      headers: ['STT', 'Họ và tên', 'Tên đăng nhập', 'Loại người dùng', 'Hành động'],
+      headers: ['STT', 'Họ', 'Tên đêm và tên', 'Giới tính', 'Tên đăng nhập', 'Mật khẩu', 'Email', 'Số điện thoại', 'Quốc tịch', 'Loại người dùng', 'Hành động'],
       rows: [
-        ['1', 'ADMIN', 'admin', 'Admin', ''],
-        ['2', 'NGUYEN VAN A', 'example@gmail.com', 'Staff', ''],
+        ['1', '', 'ADMIN', 'Nam', 'admin', '123456', 'admin@gmail.com', '+84123456789', 'Việt Nam', 'Admin', ''],
+        ['2', 'NGUYEN', 'VAN A', 'Nam', 'hehe', '12345678', 'example@gmail.com', '+84123456789', 'Việt Nam', 'User', ''],
       ],
     },
     {
