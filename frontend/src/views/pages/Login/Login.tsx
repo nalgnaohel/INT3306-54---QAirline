@@ -52,22 +52,20 @@ const Login: React.FC = () => {
         console.log("Token:", token);
         console.log("Current User:", currentUser);
 
-                //redirect to home page
-                if (currentUser.type === 'admin') {
-                    navigator('/admin');
-                } else {
-                    navigator('/');
-                }
-            }
-            catch (error) {
-                setEmailErr(true);
-                if (emailMsgRef.current) {
-                    emailMsgRef.current.innerText = 'Email hoặc mật khẩu không đúng';
-                }
-                console.error('Unexpected Error:', error);
-            }
+        //redirect to home page
+        if (currentUser.type === 'admin') {
+            navigator('/admin');
+        } else {
+            navigator('/');
         }
-        console.error("Unexpected Error:", error);
+        }
+        catch (error) {
+            setEmailErr(true);
+            if (emailMsgRef.current) {
+                emailMsgRef.current.innerText = 'Email hoặc mật khẩu không đúng';
+            }
+            console.error('Unexpected Error:', error);
+        }
       }
     }
       
@@ -100,6 +98,6 @@ const Login: React.FC = () => {
             </div>
         </div></>
     );
-}
+};
 
 export default Login;

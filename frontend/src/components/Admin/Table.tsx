@@ -104,20 +104,11 @@ const Table: React.FC = () => {
       title: ['Danh sách tàu bay'],
       button: ['+ Thêm tàu bay'],
       headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Phổ thông', 'Thương gia', 'Cao cấp', 'Hạng nhất', 'Hành động'],
-      rows: aircrafts.map((aircraft: any, index: number) => [
-        (index + 1).toString(),
-        aircraft.manufacturer,
-        aircraft.aircraft_id,
-        aircraft.model,
-        '',
-      ]),
-    },
-      headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Phổ thông', 'Thương gia', 'Cao cấp', 'Hạng nhất', 'Hành động'],
       rows: [
         ['1', 'Bamboo Airway', 'VN-A588', 'Airbus A321', '50', '20', '10', '5', ''],
         ['2', 'Bamboo Airway', 'VN-A589', 'Airbus A321', '50', '20', '10', '5', ''],
       ],
-      },
+    },
     {
     id: 4,
     title: ['Danh sách sân bay'],

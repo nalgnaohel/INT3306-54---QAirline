@@ -53,27 +53,33 @@ const TopBar: React.FC = () => {
 
     return (
         <div className="top-bar">
-            <img className="logo-user-navbar" src="logo.png" onClick={() => navigate("/")}/>
-            <div className="separator"></div>
-            <div className="profile" onClick={toggleDropdown}>
-                <img className="more" alt="More" src={more} />
-                <div className="username">Admin</div>
-                <div className="text-wrapper">Admin</div>
-                <div className="avatar-background"></div>
-                <img className="man" alt="Man" src={avatar} />
-                {menuVisible && (
-                    <div
-                        className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}
-                        onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
-                    >
-                        <ul>
-                        <li onClick={() => handleClick(0)}>Tài khoản của tôi</li>
-                        <li onClick={() => handleClick(1)}>Thông tin cá nhân</li>
-                        <li onClick={() => handleClick(2)}>Quản lý chuyến bay</li>
-                        <li onClick={() => handleClick(3)}>Đăng xuất</li>
-                        </ul>
+            <div className="top-bar-container">
+                <img className="logo-user-navbar" src="logo.png" onClick={() => navigate("/")}/>
+                <div className="separator"></div>
+                <div className="top-bar-button">
+                    <div className="button" onClick={() => navigate("/")}>Trang chủ</div>
+                    <div className="button">Trợ giúp</div>
+                    <div className="profile" onClick={toggleDropdown}>
+                        <div>
+                            <div className="avatar">
+                                <img className="man" alt="Man" src={avatar} />
+                            </div>
+                        </div>
+                        {menuVisible && (
+                            <div
+                                className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}
+                                onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
+                            >
+                                <ul>
+                                <li onClick={() => handleClick(0)}>Tài khoản của tôi</li>
+                                <li onClick={() => handleClick(1)}>Thông tin cá nhân</li>
+                                <li onClick={() => handleClick(2)}>Quản lý chuyến bay</li>
+                                <li onClick={() => handleClick(3)}>Đăng xuất</li>
+                                </ul>
+                            </div>
+                        )}
                     </div>
-                )}
+                </div>
             </div>
         </div>
     );

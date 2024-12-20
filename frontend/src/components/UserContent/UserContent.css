@@ -18,8 +18,8 @@
     font-family: "Nunito Sans-SemiBold", Helvetica;
     position: absolute;
     top: 100px;
-    left: 400px;
-    width: 1000px;
+    left: 450px;
+    width: 970px;
     margin: 0 auto;
     background: #fff;
     border-radius: 10px;
@@ -35,8 +35,8 @@
 .user-flight-list {
     position: absolute;
     top: 100px;
-    left: 400px;
-    width: 1000px;
+    left: 450px;
+    width: 970px;
 }
 
 .user-content-header {
@@ -52,7 +52,7 @@
 }
 
 .user-content-data {
-    padding: 20px;
+    padding: 20px 40px 20px 40px;
     font-size: 20px;
 }
 
