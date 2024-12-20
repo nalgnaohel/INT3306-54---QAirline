@@ -3,10 +3,12 @@ import "./Signup.css";
 import moment from "moment";
 import Footer from "../../../components/Footer/Footer";
 import TopNavBar from "../../../components/Navbar/TopNavBar";
+import { useNavigate } from "react-router-dom";
 
 //Signup Page
 const Signup: React.FC = () => {
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   //Status for each field in the form
   const [haveEmail, setEmail] = useState("valid");
@@ -195,7 +197,8 @@ const Signup: React.FC = () => {
       });
       const data = await response.json();
       //console.log(data.user);
-      alert(`${data.status}: ${data.user}: ${data.err}`);
+      alert("Đăng ký thành công");
+      navigate("/login");
     } catch (error) {
       alert("Error: " + error);
     }
