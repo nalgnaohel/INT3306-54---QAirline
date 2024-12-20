@@ -44,7 +44,7 @@ const TopBar: React.FC = () => {
     }, []);
 
     // Hàm xử lý sự kiện click cho các mục
-    const handleClick = (id: string, tab: number | null) => {
+    const handleClick = (tab: number | null) => {
         if (tab !== null) {
             setActiveContent(tab)
         }
@@ -67,10 +67,10 @@ const TopBar: React.FC = () => {
                         onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
                     >
                         <ul>
-                        <li onClick={() => handleClick('account', 0)}>Tài khoản của tôi</li>
-                        <li onClick={() => handleClick('profile', 1)}>Thông tin cá nhân</li>
-                        <li onClick={() => handleClick('flight', 2)}>Quản lý chuyến bay</li>
-                        <li onClick={() => handleClick('logout', 3)}>Đăng xuất</li>
+                        <li onClick={() => handleClick(0)}>Tài khoản của tôi</li>
+                        <li onClick={() => handleClick(1)}>Thông tin cá nhân</li>
+                        <li onClick={() => handleClick(2)}>Quản lý chuyến bay</li>
+                        <li onClick={() => handleClick(3)}>Đăng xuất</li>
                         </ul>
                     </div>
                 )}

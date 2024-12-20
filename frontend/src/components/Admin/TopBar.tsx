@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import { useTableContext } from "./TableContext";
 import combinedShape from "../../assets/images/Admin/icon.svg";
 import dropDown from "../../assets/images/Admin/drop-down.svg";
 import flag from "../../assets/images/Admin/flag.png";
@@ -12,6 +13,7 @@ import "./TopBar.css";
 const TopBar: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
+    const { setActiveTable } = useTableContext();
     const navigate = useNavigate();
 
     const toggleDropdown = (e: React.MouseEvent) => {
@@ -47,8 +49,10 @@ const TopBar: React.FC = () => {
     }, []);
 
     // Hàm xử lý sự kiện click cho các mục
-    const handleClick = () => {
-        console.log("Clicked on Profile");
+    const handleClick = (table: number | null) => {
+        if (table !== null) {
+            setActiveTable(table)
+        }
         setIsDropdownOpen(false); // Đóng dropdown
     };
 
@@ -70,16 +74,16 @@ const TopBar: React.FC = () => {
                                 onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
                             >
                                 <ul>
-                                <li onClick={handleClick}>Trang chủ</li>
-                                <li onClick={handleClick}>Đặt chỗ</li>
-                                <li onClick={handleClick}>Chuyến bay</li>
-                                <li onClick={handleClick}>Tàu bay</li>
-                                <li onClick={handleClick}>Sân bay</li>
-                                <li onClick={handleClick}>Hãng bay</li>
-                                <li onClick={handleClick}>Người dùng</li>
-                                <li onClick={handleClick}>Đăng bài</li>
-                                <li onClick={handleClick}>Cài đặt</li>
-                                <li onClick={handleClick}>Đăng xuất</li>
+                                <li onClick={() => handleClick(0)}>Trang chủ</li>
+                                <li onClick={() => handleClick(1)}>Đặt chỗ</li>
+                                <li onClick={() => handleClick(2)}>Chuyến bay</li>
+                                <li onClick={() => handleClick(3)}>Tàu bay</li>
+                                <li onClick={() => handleClick(4)}>Sân bay</li>
+                                <li onClick={() => handleClick(5)}>Hãng bay</li>
+                                <li onClick={() => handleClick(6)}>Người dùng</li>
+                                <li onClick={() => handleClick(7)}>Đăng bài</li>
+                                <li onClick={() => handleClick(8)}>Cài đặt</li>
+                                <li onClick={() => handleClick(9)}>Đăng xuất</li>
                                 </ul>
                             </div>
                         )}

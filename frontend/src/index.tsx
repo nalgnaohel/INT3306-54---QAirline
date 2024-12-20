@@ -11,6 +11,7 @@ import BookingConfirmation from "./components/BookingConfirmation/BookingConfirm
 import PaymentPage from "./components/PaymentPage/PaymentPage";
 import PassengerInfoForm from "./components/PassengerInfoForm/PassengerInfoForm";
 import Admin from "./views/pages/Admin/Admin";
+import User from "./views/pages/User/User";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/user",
+    element: <User />,
   }
 ]);
 
