@@ -97,3 +97,55 @@
     background-color: #0066d3;
     transform: scale(0.95);
 }
+
+.change-password-btn {
+    color: #007bff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    position: absolute;
+    left: 350px;
+}
+
+.user-content-modal-label {
+    font-size: 20px;
+    color: #666;
+    padding: 10px 0 10px 0;
+}
+
+.user-content-label-input {
+    width: 300px;
+    font-size: 16px;
+    padding: 0 8px 0 8px;
+}
+
+.user-content-modal-section {
+    display: flex;
+    justify-content: space-between;
+    width: 550px;
+    padding-bottom: 10px;
+}
+
+.user-comfirm-button {
+    background-color: #80bcff;
+    color: #fff;
+    border: none;
+    margin-right: 20px;
+    width: 150px;
+    margin-left: 230px;
+}
+
+.user-cancel-button {
+    background-color: #e0e0e0;
+    color: #fff;
+    border: none;
+    margin-right: 20px;
+    width: 150px;
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin-left: 230px;
+}
