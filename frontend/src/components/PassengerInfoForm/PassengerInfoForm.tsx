@@ -79,11 +79,50 @@ const PassengerInfoForm = () => {
 
   const [allTickets, setAllTickets] = useState<any[]>([]);
 
-  const createTickets = async (ticketData: any, passengerCount: number) => {
-    const newTicketIds: string[] = [];
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    for (let i = 0; i < passengerCount; i++) {
-      try {
+    const firstAdult = adultData[0];
+    const email1 = firstAdult.email;
+    const identityNo1 = firstAdult.indentityno;
+    let passengerCount =
+      adultData.length + childData.length + infantData.length;
+
+    const ticket = {
+      flight_id: flight.flight_id,
+      email: email1,
+      identity_no: identityNo1,
+      seat_number: "",
+      price: flight.price,
+      departure: flight.departure_code,
+      arrival: flight.arrival_code,
+      departure_time: new Date(flight.departure_time).toISOString(),
+      arrival_time: new Date(flight.arrival_time).toISOString(),
+      booked_at: new Date().toISOString(),
+    };
+
+    let returnTicket;
+    if (tripType === "round-trip") {
+      returnTicket = {
+        flight_id: returnFlight.flight_id,
+        email: email1,
+        identity_no: identityNo1,
+        seat_number: "",
+        price: returnFlight.price,
+        departure: returnFlight.departure_code,
+        arrival: returnFlight.arrival_code,
+        departure_time: new Date(returnFlight.departure_time).toISOString(),
+        arrival_time: new Date(returnFlight.arrival_time).toISOString(),
+        booked_at: new Date().toISOString(),
+      };
+      passengerCount *= 2;
+    }
+
+    console.log("Sending ticket:", ticket);
+
+    try {
+      const newTicketIds: string[] = [];
+      for (let i = 0; i < passengerCount; i++) {
         const response = await fetch(
           "http://127.0.0.1:5000/api/ticket/tickets",
           {
@@ -91,7 +130,7 @@ const PassengerInfoForm = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(ticketData),
+            body: JSON.stringify(ticket),
           }
         );
 
@@ -100,74 +139,62 @@ const PassengerInfoForm = () => {
         }
 
         const data = await response.json();
+        setAllTickets(data);
+
         newTicketIds.push(data.ticket_id.toString());
-        setAllTickets((prev) => [...prev, data]);
-
         console.log("Ticket created successfully:", data);
-      } catch (error) {
-        console.error("Error creating ticket:", error);
       }
-    }
-
-    return newTicketIds;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const allPassengers = [...adultData, ...childData, ...infantData];
-    const passengerCount = allPassengers.length;
-
-    const outboundTickets = allPassengers.map((passenger) => ({
-      flight_id: flight.flight_id,
-      email: passenger.email,
-      identity_no: passenger.indentityno,
-      seat_number: "",
-      price: flight.price,
-      departure: flight.departure_code,
-      arrival: flight.arrival_code,
-      departure_time: new Date(flight.departure_time).toISOString(),
-      arrival_time: new Date(flight.arrival_time).toISOString(),
-      booked_at: new Date().toISOString(),
-    }));
-
-    try {
-      const outboundTicketIds = await Promise.all(
-        outboundTickets.map((ticket) => createTickets(ticket, 1))
-      );
-      console.log("Outbound Ticket IDs:", outboundTicketIds);
-      setTicketIds(outboundTicketIds.flat());
-
-      if (tripType === "roundtrip") {
-        const returnTickets = allPassengers.map((passenger) => ({
-          flight_id: returnFlight.flight_id,
-          email: passenger.email,
-          identity_no: passenger.indentityno,
-          seat_number: "",
-          price: returnFlight.price,
-          departure: returnFlight.departure_code,
-          arrival: returnFlight.arrival_code,
-          departure_time: new Date(returnFlight.departure_time).toISOString(),
-          arrival_time: new Date(returnFlight.arrival_time).toISOString(),
-          booked_at: new Date().toISOString(),
-        }));
-
-        const returnTicketIds = await Promise.all(
-          returnTickets.map((ticket) => createTickets(ticket, 1))
-        );
-        console.log("Return Ticket IDs:", returnTicketIds);
-
-        setTicketIds((prev) => {
-          const newTicketIds = [...prev, ...returnTicketIds.flat()];
-          console.log("Updated Ticket IDs:", newTicketIds);
-          return newTicketIds;
-        });
-      }
-
-      setDialogOpen(true);
+      setTicketIds(newTicketIds);
     } catch (error) {
-      console.error("Error creating tickets:", error);
+      console.error("Error:", error);
     }
+
+    if (tripType === "roundtrip") {
+      const returnTicket = {
+        flight_id: returnFlight.flight_id,
+        email: email1,
+        identity_no: identityNo1,
+        seat_number: "",
+        price: returnFlight.price,
+        departure: returnFlight.departure_code,
+        arrival: returnFlight.arrival_code,
+        departure_time: new Date(returnFlight.departure_time).toISOString(),
+        arrival_time: new Date(returnFlight.arrival_time).toISOString(),
+        booked_at: new Date().toISOString(),
+      };
+
+      try {
+        console.log("check");
+        const newTicketIds: string[] = [];
+        for (let i = 0; i < passengerCount; i++) {
+          const response = await fetch(
+            "http://127.0.0.1:5000/api/ticket/tickets",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(returnTicket),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+
+          const data = await response.json();
+          setAllTickets(data);
+
+          newTicketIds.push(data.ticket_id.toString());
+          console.log("Ticket created successfully:", data);
+        }
+        setTicketIds(newTicketIds);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    setDialogOpen(true);
   };
 
   return (
