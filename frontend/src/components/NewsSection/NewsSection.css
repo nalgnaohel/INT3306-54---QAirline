@@ -82,28 +82,35 @@
 }
 
 .news-item {
+  margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 10px;
 }
 
 .news-item-title {
-  font-size: 18px;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
 .news-item-description {
-  font-size: 14px;
-  color: #555;
+  font-size: 1rem;
+  margin: 10px 0;
 }
 
 .news-item-link {
-  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
   margin-top: 10px;
-  color: #007bff;
-  text-decoration: none;
+  font-size: 0.9rem;
 }
 
-.news-item-link:hover {
-  text-decoration: underline;
+.news-item-full-content {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #555;
 }

@@ -72,29 +72,6 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   const [reservation, setReservation] = useState<Reservation | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // const [flights, setFlights] = useState<Flight[]>([]);
-  // useEffect(() => {
-  //   const fetchFlights = async () => {
-  //     try {
-  //       const response = await fetch("http://127.0.0.1:5000/api/flights/all");
-  //       if (!response.ok) {
-  //         throw new Error(`Error: ${response.status}`);
-  //       }
-  //       const data = await response.json();
-  //       setFlights(data);
-  //     } catch (error) {
-  //       if (error instanceof Error) {
-  //         console.error(error.message);
-  //       } else {
-  //         console.error(String(error));
-  //       }
-  //     } finally {
-  //     }
-  //   };
-
-  //   fetchFlights();
-  // }, []);
-
   const [activeTab, setActiveTab] = useState("Mua vé");
 
   const handleTabClick = (tabName: string) => {
@@ -245,7 +222,51 @@ const SearchBox: React.FC<SearchBoxProps> = ({
           arrival: data.arrival,
           departure_time: data.departure_time,
           arrival_time: data.arrival_time,
-          saet_number: data.seat_number,
+          seat_number: data.seat_number,
+          price: data.price,
+          email: email,
+          bookingCode: bookingCode,
+        },
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Đã xảy ra lỗi khi tìm kiếm đặt chỗ.");
+      }
+    }
+  };
+
+  const handleSeatManage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!bookingCode || !email) {
+      setError("Vui lòng nhập đầy đủ mã đặt chỗ và email.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/api/ticket/tickets/${bookingCode}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(" fetched successfully:", data);
+
+      // Navigate after successfully fetching the data
+      navigate("/seat-management", {
+        state: {
+          flight_id: data.flight_id,
+          departure: data.departure,
+          arrival: data.arrival,
+          departure_time: data.departure_time,
+          arrival_time: data.arrival_time,
+          seat_number: data.seat_number,
           price: data.price,
           email: email,
           bookingCode: bookingCode,
@@ -471,7 +492,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
 
           {activeTab === "Quản lý đặt chỗ" && (
             <div className="manage-tab">
-              <form>
+              <form onSubmit={handleSeatManage}>
                 <div className="form-group-2">
                   <label>Mã đặt chỗ / Số vé điện tử</label>
                   <input

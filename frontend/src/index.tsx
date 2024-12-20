@@ -14,6 +14,8 @@ import ReturnPage from "./components/ReturnPage/ReturnPage";
 import PageNews from "./views/pages/PageNews/PageNews";
 import Admin from "./views/pages/Admin/Admin";
 import AuthRoute from "./AuthRoute";
+import BookingManagement from "./components/BookingManagement/BookingManagement";
+import SearchResults from "./components/SearchResults/SearchResults";
 
 const isAdmin = () => {
   const storedUser = localStorage.getItem("currentUser");
@@ -60,6 +62,14 @@ const router = createBrowserRouter([
   {
     path: "/news",
     element: <PageNews />,
+  },
+  {
+    path: "/seat-management",
+    element: <BookingManagement />,
+  },
+  {
+    path: "/search-results",
+    element: <SearchResults />,
   },
   {
     path: "/admin",
