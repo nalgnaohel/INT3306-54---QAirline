@@ -19,7 +19,7 @@
     padding: 5px;
 }
 
-.top-bar .separator {
+.top-bar-container .separator {
     position: absolute;
     top: 64px;
     left: 0px;
@@ -133,7 +133,7 @@
 }
 
 /* Dropdown Menu */
-.dropdown-menu {
+.top-bar-container .dropdown-menu {
     position: absolute;
     top: 100%;
     left: -150px;

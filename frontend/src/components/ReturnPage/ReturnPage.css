@@ -186,7 +186,7 @@ h2 {
   left: 360px;
 }
 
-button {
+.flight-results button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -197,7 +197,7 @@ button {
   border-radius: 10px;
 }
 
-button:hover {
+.flight-results button:hover {
   background-color: #0056b3;
 }
 
