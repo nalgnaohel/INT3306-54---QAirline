@@ -33,6 +33,15 @@ CREATE TABLE IF NOT EXISTS airports (
     UNIQUE KEY (iata_code)
 );
 
+CREATE TABLE if NOT EXISTS promotions (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    promo_id varchar(255) NOT NULL DEFAULT 'PRO0000',
+    title varchar(255) NOT NULL DEFAULT 'Untitle',
+    content text NOT NULL,
+    amount int NOT NULL DEFAULT 0,
+    UNIQUE KEY (promo_id)
+);
+
 CREATE TABLE IF NOT EXISTS aircrafts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     aircraft_id VARCHAR(255) NOT NULL default 'VN-A588',
@@ -73,8 +82,19 @@ CREATE TABLE if not exists flights (
 
 INSERT INTO users (user_id, title, first_name, last_name, dob, gender, email,
  password, phone_number, avatar, nationality, type, identity_no, created_at, updated_at) 
-VALUES ('7443c342-2e94-46d5-ad31-3c821f74a5b6', 'Miss', N'Hoàng Lan', N'Lê', '2004-01-08 00:00:00.000000', 'Female', 'lanlehoang8124@gmail.com',
-'$2a$10$aKQK38H/HJ7HvC6je2U7G.BW2.PVUpcYfPUI.9996/6a1KAaZbo3a', '0987654321', 'https://www.google.com', 'Vietnamese', 'admin', '001123456789', '2021-08-01 11:04:47.737661', '2021-08-01 11:04:47.737661');
+VALUES ('7443c342-2e94-46d5-ad31-3c821f74a5b6', 'miss', N'Hoàng Lan', N'Lê', '2004-01-08 00:00:00.000000', 'female', 'lanlehoang8124@gmail.com',
+'$2a$10$aKQK38H/HJ7HvC6je2U7G.BW2.PVUpcYfPUI.9996/6a1KAaZbo3a', '0987654321', 'https://www.google.com', N'Việt Nam', 'admin', '001123456789', '2021-08-01 11:04:47.737661', '2021-08-01 11:04:47.737661');
+INSERT INTO users (user_id, title, first_name, last_name, dob, gender, email,
+ password, phone_number, avatar, nationality, type, identity_no, created_at, updated_at) 
+VALUES ('4c51336d-17b0-420e-86f1-6b00d7090f9c', 'mr', N'Huy Luân', N'Văn', '2003-02-01 07:00:00', 'male', 'vanhuyluan2003@gmail.com',
+'$2a$10$SKG42QLXfXUkBCcLP3xPFuGEDjXp36i3llYQVTAUDewCBgkP6.hEe', '0904200402', 'https://www.gravatar.com/avatar/', N'Việt Nam', 'admin', '001102017836', '2024-12-20 21:59:39', '2024-12-20 21:59:39');
+INSERT INTO users (user_id, title, first_name, last_name, dob, gender, email,
+ password, phone_number, avatar, nationality, type, identity_no, created_at, updated_at) 
+VALUES ('ca4096e9-6c16-46fe-982c-34c74026d8ff', 'mr', N'Đức Hùng', N'Hà', '2000-07-08 07:00:00', 'male', 'hungkhiyb@gmail.com',
+'$2a$10$5BPH0fGzLQjfmmGPKSuG8.fcTqjCpzcj52QSzxKNPbvJru8BIbZ4y', '0908070605', 'https://www.gravatar.com/avatar/', N'Việt Nam', 'admin', '001101001002', '2024-12-20 22:03:24', '2024-12-20 22:03:24');
+INSERT INTO users (user_id, title, first_name, last_name, dob, gender, email,
+ password, phone_number, avatar, nationality, type, identity_no, created_at, updated_at)
+VALUES ('d8cdf331-63f3-44b5-8728-cc21206d0e58', 'mrs', N'Thị Thuý Phương', N'Lê', '1970-01-31 08:00:00', 'female', 'lethithuyphuong313@gmail.com', '$2a$10$t7506b/W8.ZagcaDGEiGzOdXJvZBzmg4OsipKjN14eq69zrgQFscS', '0904234689', 'https://www.gravatar.com/avatar/', N'Việt Nam', 'client', '001303021012', '2024-12-20 22:06:04', '2024-12-20 22:06:04');
 
 INSERT INTO airports (id, name, city, country, created_at, updated_at, iata_code) 
 VALUES (1, N'Sân bay Quốc tế Nội Bài', N'Hà Nội', N'Việt Nam', '2021-08-01 11:04:47.737661', '2021-08-01 11:04:47.737661', 'HAN');
@@ -90,6 +110,12 @@ INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_co
 INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (8, N'Sân bay Amsterdam, Hà Lan', 'Amsterdam', N'Hà Lan', 'AMS');
 INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (9, N'Sân bay London - Heathrow', 'London', 'Anh', 'LHR');
 INSERT INTO `qairline-dtb`.`airports` (`id`, `name`, `city`, `country`, `iata_code`) VALUES (10, N'Sân bay Frankfurt', 'Frankfurt', N'Đức', 'FRA');
+
+INSERT INTO promotions (id, promo_id, title, content, amount)
+VALUES (1, 'PRO0001', N'Giảm giá 10%', N'Giảm giá 10% cho tất cả các chuyến bay', 10);
+
+INSERT INTO promotions (id, promo_id, title, content, amount)
+VALUES (2, 'PRO0002', N'QAirline được 1 năm tuổi', N'Mừng kỷ niệm 1 năm tuổi của QAirline', 0);
 
 INSERT INTO aircrafts (aircraft_id, model, manufacturer, economy_class_seats, business_class_seats, first_class_seats, premium_class_seats, total_seats, range_in_km, description)
 VALUES ('VN-A324', 'Airbus 321', 'Airbus', 100, 50, 50, 0, 200, 10000, N'Máy bay Airbus A321 là dòng máy bay thân hẹp có sức chứa không quá 200 ghế ngồi.');
