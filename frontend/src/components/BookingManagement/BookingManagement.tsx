@@ -27,7 +27,7 @@ const BookingManagement = () => {
 
   interface FlightDetails {
     flight_id: string;
-    bookingCode: string;
+    ticket_id: string;
     email: string;
     departure: string;
     arrival: string;
@@ -62,6 +62,43 @@ const BookingManagement = () => {
         setError(err.message);
       } else {
         setError("Đã xảy ra lỗi khi tìm kiếm đặt chỗ.");
+      }
+    }
+  };
+
+  // Hàm hủy vé
+  const handleCancelBooking = async () => {
+    if (!flightDetails) {
+      setError("Không tìm thấy thông tin vé để hủy.");
+      return;
+    }
+    console.log(flightDetails.ticket_id);
+
+    const confirmCancel = window.confirm("Bạn có chắc chắn muốn hủy vé này?");
+    if (!confirmCancel) return;
+
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/api/ticket/tickets/${bookingCode1}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      // Xóa thông tin vé sau khi hủy
+      setFlightDetails(null);
+      setError(""); // Xóa thông báo lỗi trước đó
+      alert("Vé đã được hủy thành công!");
+      navigate("/"); // Quay lại trang chủ nếu cần
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Đã xảy ra lỗi khi hủy vé.");
       }
     }
   };
@@ -144,7 +181,7 @@ const BookingManagement = () => {
           <div className="flight-info-man">
             <h3>Thông Tin Chuyến Bay</h3>
             <p>
-              <strong>Mã đặt chỗ:</strong> {flightDetails.bookingCode}
+              <strong>Mã đặt chỗ:</strong> {flightDetails.ticket_id}
             </p>
             <p>
               <strong>Email:</strong> {flightDetails.email}
@@ -176,9 +213,15 @@ const BookingManagement = () => {
             <p>
               <strong>Giá vé:</strong> {flightDetails.price}
             </p>
+            {/* Nút quay lại trang chủ */}
+            <div className="home-button-container">
+              <button className="home-button" onClick={handleCancelBooking}>
+                Hủy vé
+              </button>
+            </div>
           </div>
         )}
-        {/* Nút quay lại trang chủ */}
+
         <div className="home-button-container">
           <button
             className="home-button"
