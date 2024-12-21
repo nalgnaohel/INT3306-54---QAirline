@@ -50,7 +50,7 @@ const Login: React.FC = () => {
 
         //debug
         console.log("Token:", token);
-        console.log("Current User:", currentUser);
+        console.log("Current User:", currentUser.type);
 
         //redirect to home page
         if (currentUser.type === 'admin') {

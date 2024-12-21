@@ -9,7 +9,7 @@ import User from "./views/pages/User/User";
 function App() {
   return (
     <div className="App">
-      <User />
+      <Home />
     </div>
   );
 }
