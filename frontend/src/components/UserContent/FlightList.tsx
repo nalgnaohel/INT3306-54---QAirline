@@ -24,7 +24,7 @@ const FlightList: React.FC<{ flights: FlightItemProps[] }> = ({ flights }) => {
           <div className="flight-list">
             {flights.map((flight, index) => (
               <motion.div
-                key={flight.id}
+                key={flight.ticketid}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}

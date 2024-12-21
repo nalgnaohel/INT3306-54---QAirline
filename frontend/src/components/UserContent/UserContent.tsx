@@ -24,7 +24,11 @@ const UserContent: React.FC = () => {
 
     const [flightData, setFlightData] = useState([
         {
-            id: 'VN171',
+            ticketid: 'VN-123HGH45',
+            flightid: 'VN171',
+            userid: 'QH-12ULK165',
+            seatnumber: 'E5',
+            ticketclass: 'Phổ thông',
             status: 'ongoing',
             from: 'Hà Nội',
             datefrom: '02 Thg 12 2024',
@@ -37,8 +41,12 @@ const UserContent: React.FC = () => {
             airline: 'VN',
         },
         {
-            id: 'QH171',
-            status: 'canceled',
+            ticketid: 'VN-123HGH45',
+            flightid: 'VN171',
+            userid: 'QH-12ULK165',
+            seatnumber: 'E5',
+            ticketclass: 'Phổ thông',
+            status: 'ongoing',
             from: 'Hà Nội',
             datefrom: '02 Thg 12 2024',
             timeFrom: '15:00',
@@ -50,8 +58,12 @@ const UserContent: React.FC = () => {
             airline: 'QH',
         },
         {
-            id: 'VJ171',
-            status: 'completed',
+            ticketid: 'VN-123HGH45',
+            flightid: 'VN171',
+            userid: 'QH-12ULK165',
+            seatnumber: 'E5',
+            ticketclass: 'Phổ thông',
+            status: 'ongoing',
             from: 'Hà Nội',
             datefrom: '02 Thg 12 2024',
             timeFrom: '15:00',
