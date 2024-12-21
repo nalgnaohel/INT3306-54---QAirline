@@ -110,17 +110,20 @@ const ReturnPage: React.FC<{}> = ({}) => {
         <TopNavBar />
         <div className="flight-results">
           <h2>Kết quả tìm kiếm chuyến bay</h2>
-          <p>Không tìm thấy chuyến bay nào phù hợp với tìm kiếm của bạn.</p>
-          <button
-            className="home-button"
-            style={{ margin: "20px" }}
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Quay lại trang chủ
-          </button>
+          <div className="no-flight" style={{ marginBottom: "200px" }}>
+            <p>Không tìm thấy chuyến bay nào phù hợp với tìm kiếm của bạn.</p>
+            <button
+              className="home-button"
+              style={{ margin: "20px" }}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Quay lại trang chủ
+            </button>
+          </div>
         </div>
+        <Footer />
       </>
     );
   }
