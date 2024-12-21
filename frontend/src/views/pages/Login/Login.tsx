@@ -57,6 +57,8 @@ const Login: React.FC = () => {
         //redirect to home page
         if (currentUser.type === 'admin') {
             navigator('/admin');
+        } else if (currentUser.type === 'client') {
+            navigator('/user');
         } else {
             navigator('/');
         }
@@ -73,7 +75,7 @@ const Login: React.FC = () => {
       
     return (
         <><TopNavBar />
-        <div className="main-container" background-image>
+        <div className="main-container" background-image="true">
             <div className="login-form-container">
                 <form className="login-form" action="POST" onSubmit={handleSubmit}>
                     <h2>Đăng nhập QAirline</h2>

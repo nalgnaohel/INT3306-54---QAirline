@@ -1,26 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUserContext } from './UserContext';
 import FlightList from './FlightList';
 import './UserContent.css'
 
 const UserContent: React.FC = () => {
+    const [currentUser, setCurrentUser] = useState<any>(localStorage.getItem('currentUser'));
+    const userJson = JSON.parse(currentUser);
+    console.log(userJson);
     const { activeContent } = useUserContext();
 
     const [accountData, setAccountData] = useState({
-        id: 'QH-12ULK165',
-        phone: '+84123456789',
-        email: 'abc@gmail.com',
-        username: 'hehe',
-        password: '12345678',
+        id: userJson.user_id,
+        phone: userJson.phone_number,
+        email: userJson.email,
+        username: userJson.email.split('@')[0],
+        password: '***********',
     })
 
     const [profile, setProfile] = useState({
-        firstname: 'Văn A',
-        lastname: 'Nguyễn',
-        birthday: '01/01/2000',
-        CCCD: '013456789012',
-        nationality: 'Việt Nam',
+        firstname: userJson.first_name,
+        lastname: userJson.last_name,
+        birthday: userJson.birthday,
+        CCCD: userJson.identity_no,
+        nationality: userJson.nationality
     })
+
+    // useEffect(() => {
+    //     if (activeContent == 2) {
+            
+    //     });
+    // }
 
     const [flightData, setFlightData] = useState([
         {
@@ -70,9 +79,11 @@ const UserContent: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    const password = 'Phuongnguyen1';
     const handlePasswordChange = () => {
+        //fetch("http://127.0.0.1:5000/api/user/change-password", {)
         // Kiểm tra mật khẩu cũ
-        if (oldPassword !== accountData.password) {
+        if (oldPassword !== password) {
             setErrorMessage("Mật khẩu cũ không chính xác!");
             return;
         }

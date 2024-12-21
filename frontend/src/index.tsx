@@ -27,6 +27,15 @@ const isAdmin = () => {
   return false;
 };
 
+const isClient = () => {
+  const storedUser = localStorage.getItem("currentUser");
+  if (storedUser) {
+    const parsedUser = JSON.parse(storedUser);
+    return parsedUser.type === "client";
+  }
+  return false;
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -84,7 +93,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <User />,
+    element:(<AuthRoute element = {<User />} isAuthenticated={localStorage.getItem("token") !== null} isAdmin={!isAdmin()} />)
   }
 
 ]);

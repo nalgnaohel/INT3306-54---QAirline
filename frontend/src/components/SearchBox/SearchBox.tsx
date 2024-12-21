@@ -173,7 +173,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     if (tripTypeState === "round-trip") {
       const fetchReturnFlights = async () => {
         try {
-          const urlReturn = `http://127.0.0.1:5000/api/flights/onewayflight?departure=${destinationCode}&arrival=${departureCode}&departureDate=${returnDate}`;
+          const urlReturn = `http://127.0.0.1:5000/api/flight/onewayflight?departure=${destinationCode}&arrival=${departureCode}&departureDate=${returnDate}`;
           console.log("Fetching Return URL:", urlReturn);
 
           const response1 = await fetch(urlReturn);
