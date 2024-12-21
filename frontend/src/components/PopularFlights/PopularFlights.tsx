@@ -87,7 +87,7 @@ const PopularFlights: React.FC = () => {
     departureDate: string
   ) => {
     try {
-      const url = `http://127.0.0.1:5000/api/flights/onewayflight?departure=${departureCode}&arrival=${destinationCode}&departureDate=${departureDate}`;
+      const url = `http://127.0.0.1:5000/api/flight/onewayflight?departure=${departureCode}&arrival=${destinationCode}&departureDate=${departureDate}`;
       console.log("Fetching URL:", url);
 
       const response = await fetch(url);

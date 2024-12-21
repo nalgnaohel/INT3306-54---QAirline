@@ -1,148 +1,118 @@
-/* SearchResults.css */
+/* Tổng thể */
 .search-results {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   padding: 30px;
   border-radius: 12px;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 40px auto;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .search-results h3 {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  color: #2c3e50;
 }
 
 .result-card {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  background-color: #f9fcff;
+  border: 1px solid #dfe6f0;
   border-radius: 12px;
   padding: 20px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-  transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+  flex-direction: column;
 }
 
 .result-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.result-card .flight-info,
-.result-card .flight-details {
-  flex: 1;
-  min-width: 270px;
+/* Header */
+.flight-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #dfe6f0;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-.result-card .flight-info p,
-.result-card .flight-details p {
+.flight-header p {
+  margin: 0;
   font-size: 16px;
-  margin: 10px 0;
-  color: #555;
+  font-weight: 500;
+  color: #4d4d4d;
 }
 
-.result-card .flight-info strong,
-.result-card .flight-details strong {
-  color: #007bff;
+.flight-header p strong {
+  color: #2c3e50;
+}
+
+/* Flight Info */
+.flight-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.departure-info,
+.arrival-info {
+  flex: 1;
+}
+
+.departure-info p,
+.arrival-info p {
+  font-size: 14px;
+  margin: 6px 0;
+  color: #4d4d4d;
+}
+
+.departure-info p strong,
+.arrival-info p strong {
+  color: #2980b9;
+}
+
+.departure-info .departure i,
+.arrival-info .arrival i {
+  color: #3498db;
+  margin-right: 6px;
+}
+
+/* Pricing Info */
+.pricing-info {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid #dfe6f0;
+  margin-top: 10px;
+}
+
+.pricing-info .price {
+  color: #f39c12;
+  font-size: 18px;
   font-weight: 600;
 }
 
-.result-card .price {
-  color: #28a745;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.result-card .available-seats {
-  color: #dc3545;
+.pricing-info .available-seats {
+  color: #27ae60;
+  font-size: 16px;
   font-weight: 500;
 }
 
-/* Thêm icon vào phần thông tin */
-.result-card .departure,
-.result-card .arrival,
-.result-card .price,
-.result-card .time,
-.result-card .available-seats {
-  display: flex;
-  align-items: center;
-}
-
-.result-card .departure i,
-.result-card .arrival i,
-.result-card .price i,
-.result-card .time i,
-.result-card .available-seats i {
-  margin-right: 8px;
-  font-size: 18px;
-}
-
-/* Icon cho điểm đi, điểm đến */
-.result-card .departure i {
-  color: #007bff;
-}
-
-.result-card .arrival i {
-  color: #28a745;
-}
-
-/* Icon cho giá vé */
-.result-card .price i {
-  color: #ff8c00;
-}
-
-/* Icon cho số ghế trống */
-.result-card .available-seats i {
-  color: #dc3545;
-}
-
-.result-card .flight-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.result-card .flight-details p {
-  margin-bottom: 12px;
-}
-
-.result-card .flight-info p {
-  margin-bottom: 8px;
-}
-
-.no-results {
-  text-align: center;
-  font-size: 18px;
-  color: #777;
-  padding: 20px;
-  background-color: #fff3cd;
-  border: 1px solid #ffeeba;
-  border-radius: 8px;
-  margin-top: 30px;
-}
-
-/* Thêm hiệu ứng cho các thông tin khi di chuột vào */
-.result-card .flight-info p:hover,
-.result-card .flight-details p:hover {
-  color: #007bff;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  .result-card {
+  .flight-info {
     flex-direction: column;
   }
 
-  .result-card .flight-info,
-  .result-card .flight-details {
-    min-width: 100%;
+  .pricing-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
   }
 }

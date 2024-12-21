@@ -104,6 +104,7 @@ const SearchResults: React.FC = () => {
           <p className="no-results">Không tìm thấy chuyến bay nào.</p>
         )}
         {/* Nút quay lại trang chủ */}
+
         <div className="home-button-container">
           <button
             className="home-button"

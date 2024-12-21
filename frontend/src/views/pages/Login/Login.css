@@ -1,96 +1,99 @@
 /* Login.css */
 .main-container {
-    margin: 50px 0 50px 0;
-    
+  margin: 50px 0 50px 0;
 }
 
 .login-form-container {
-    width: 30%;
-    margin-left: 63%;
-    background-color: #ffffff;
-    border-radius: 20px;
+  width: 30%;
+  margin-left: 63%;
+  background-color: #ffffff;
+  border-radius: 20px;
 }
 
 .login-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-form img {
-    margin-top: 30px;
-    margin-bottom: 10px;
-    height: 70px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  height: 70px;
 }
 
 .login-form .form {
-    text-align: left;
-    width: 100%;
+  text-align: left;
+  width: 100%;
 }
 
 .login-form h2 {
-    margin-top: 20px;
-    font-family: Montserrat;
-    font-size: 34px;
-    color: #1F77CF;
-    padding: 0;
-    text-align: center;
+  margin-top: 20px;
+  font-family: Montserrat;
+  font-size: 34px;
+  color: #1f77cf;
+  padding: 0;
+  text-align: center;
+}
+
+.login-form .form p {
+  padding-left: 50px;
 }
 .login-form label {
-    font-size: 16px;
-    margin: 5px 10% 10px;
-    font-family: Calibri;
+  font-size: 16px;
+  margin: 5px 10% 10px;
+  font-family: Calibri;
 }
 
 .login-form input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 77%;
-    font-size: 16px;
-    height: 2.5em;
-    margin: 5px 10% 0;
-    padding-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 77%;
+  font-size: 16px;
+  height: 2.5em;
+  margin: 5px 10% 0;
+  padding-left: 10px;
 }
 
 .login-form button {
-    padding: 0.5rem;
-    background-color: #80BCFF;
-    color: #f5f8ff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    height: 40px;
-    width: 80%;
+  padding: 0.5rem;
+  background-color: #80bcff;
+  color: #f5f8ff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  height: 40px;
+  width: 80%;
 }
 
 .login-form a {
-    padding-top: 5px;
+  padding-top: 5px;
 }
 
 .login-form button:hover {
-    background-color: #4b9fff;
+  background-color: #4b9fff;
 }
 
 .toSignup {
-    text-align: center;
-    margin-top: 10px;
-    font-family: Montserrat;
-    font-size: 16px;
-    height: 8%;
-    border-radius: 0 0 20px 20px;
-    background-color: #A3F3FF;
-    padding: 10px 0;
+  text-align: center;
+  margin-top: 10px;
+  font-family: Montserrat;
+  font-size: 16px;
+  height: 8%;
+  border-radius: 0 0 20px 20px;
+  background-color: #a3f3ff;
+  padding: 10px 0;
 }
 
 .toSignup p {
-    display: inline;
+  display: inline;
 }
 
 .toSignup a {
-    color: #1F77CF;
-    display: inline;
-    text-decoration: none;
+  color: #1f77cf;
+  display: inline;
+  text-decoration: none;
 }

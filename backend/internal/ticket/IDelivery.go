@@ -5,6 +5,7 @@ import (
 )
 
 type Handlers interface {
+    
     CreateTicket(c *fiber.Ctx) error
     GetTicketByID(c *fiber.Ctx) error
     DeleteTicket(c *fiber.Ctx) error

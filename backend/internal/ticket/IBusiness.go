@@ -6,6 +6,7 @@ import (
 
 // TicketBusi is the interface that defines the methods for handling ticket business logic
 type TicketBusi interface {
+	
 	Create(tickets models.Ticket) (models.Ticket, error)
 	GetByID(ticketID string) (*models.Ticket, error)
 	Delete(ticketID string) error
@@ -14,4 +15,7 @@ type TicketBusi interface {
 	GetByEmail(email string) ([]*models.Ticket, error)
 	GetByFlightID(flightID string) ([]*models.Ticket, error)
 	UpdateSeat(ticketID string, seat string) error
+
+	
+
 }
