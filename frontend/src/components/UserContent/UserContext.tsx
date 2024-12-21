@@ -11,7 +11,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [activeContent, setActiveContent] = useState<number | null>(0);
 
   return (
-    <UserContext.Provider value={{ activeContent, setActiveContent }}>
+    <UserContext.Provider value={{
+      activeContent,
+      setActiveContent: (id: number | null) => {
+        console.log("Updating activeContent to:", id);
+        setActiveContent(id);
+      },
+    }}>
+      
       {children}
     </UserContext.Provider>
   );

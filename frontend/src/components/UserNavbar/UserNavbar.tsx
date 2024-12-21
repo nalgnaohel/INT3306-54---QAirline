@@ -9,6 +9,7 @@ const TopBar: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
     const { setActiveContent } = useUserContext();
+    const { state } = useLocation();
     const navigate = useNavigate();
 
     const toggleDropdown = (e: React.MouseEvent) => {
@@ -45,12 +46,21 @@ const TopBar: React.FC = () => {
 
     // Hàm xử lý sự kiện click cho các mục
     const handleClick = (tab: number | null) => {
-        navigate("/user");
+        navigate("/user", { state: { tab } });
+        
         if (tab !== null) {
+            console.log(tab)
             setActiveContent(tab)
         }
         setIsDropdownOpen(false); // Đóng dropdown
     };
+
+    useEffect(() => {
+        if (state?.tab !== undefined) {
+            setActiveContent(state.tab);
+        }
+    }, [state, setActiveContent]);
+
 
     return (
         <div className="user-navbar">
