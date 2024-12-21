@@ -99,36 +99,42 @@ const DashboardAdmin: React.FC = () => {
 
   return (
     <div className="dashboard-admin">
-      {cardsData.map((card, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.2 }} // Add delay for each card
-        >
-          <Card
-            title={card.title}
-            value={card.value}
-            percentage={card.percentage}
-            isPositive={card.isPositive}
-            chartData={card.chartData}
-          />
-        </motion.div>
-      ))}
-      <div className="line-chart-1">
-        <Chart1 data={data} totalTickets={totalTickets} />
+      <div className="row row1">
+        {cardsData.map((card, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }} // Add delay for each card
+          >
+            <Card
+              title={card.title}
+              value={card.value}
+              percentage={card.percentage}
+              isPositive={card.isPositive}
+              chartData={card.chartData}
+            />
+          </motion.div>
+        ))}
       </div>
-      <div className="line-chart-2">
-        <Chart4 data={chart4Data} title="Revenue Growth" keys={chart4Keys} />
+      <div className="row row2">
+        <div className="line-chart-1">
+          <Chart1 data={data} totalTickets={totalTickets} />
+        </div>
+        <div className="line-chart-2">
+          <Chart4 data={chart4Data} title="Revenue Growth" keys={chart4Keys} />
+        </div>
       </div>
       {/* <div className="bar-chart-1">
         <Chart2 title="Điểm đến phổ biến" data={usersBySource} />
       </div> */}
-      <div className="bar-chart-2">
-        <Chart3 data={chart3Data} title="Lịch bay" keys={chart3Keys} />
-      </div>
-      <div className="pie-chart-1">
-        <Chart5 data={airlinesData} />
+      <div className="row row3">
+        <div className="bar-chart-2">
+          <Chart3 data={chart3Data} title="Lịch bay" keys={chart3Keys} />
+        </div>
+        <div className="pie-chart-1">
+          <Chart5 data={airlinesData} />
+        </div>
       </div>
     </div>
   );

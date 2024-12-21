@@ -14,6 +14,7 @@ import ReturnPage from "./components/ReturnPage/ReturnPage";
 import PageNews from "./views/pages/PageNews/PageNews";
 import Admin from "./views/pages/Admin/Admin";
 import AuthRoute from "./AuthRoute";
+import User from "./views/pages/User/User";
 
 const isAdmin = () => {
   const storedUser = localStorage.getItem('currentUser');
@@ -23,7 +24,7 @@ const isAdmin = () => {
   }
   return false;
 };
-import User from "./views/pages/User/User";
+
 
 const router = createBrowserRouter([
   {

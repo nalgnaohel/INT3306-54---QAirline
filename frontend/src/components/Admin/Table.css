@@ -9,14 +9,19 @@
   }
 }
 
+.admin-context {
+  position: absolute;
+  top: 70px;
+  left: 280px;
+  width: calc(100% - 280px);
+  height: calc(100% - 70px);
+}
+
 /* General Styles */
 .container-admin-table {
   font-family: "Nunito Sans-SemiBold", Helvetica;
-  position: absolute;
-  top: 100px;
-  left: 400px;
-  width: 1000px;
-  margin: 0 auto;
+  width: 80%;
+  margin: 30px 8% 0 8%;
   background: #fff;
   border-radius: 10px;
   padding: 20px;
@@ -30,10 +35,8 @@
 
 .container-admin-dashboard {
   font-family: "Nunito Sans-SemiBold", Helvetica;
-  position: absolute;
-  top: 100px;
-  left: 300px;
-  width: 1200px;
+  margin: 30px 1.5% 0 1.5%;
+  width: 97%;
 }
 
 /* Header */
@@ -45,13 +48,10 @@
   padding: 15px;
   padding-left: 30px;
   padding-right: 30px;
-  position: relative;
-  top: -20px;
-  left: -20px;
-  width: 980px;
   height: 40px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  margin: -20px -20px 20px -20px;
 }
 
 .title-admin-table {
@@ -166,7 +166,7 @@ table tr:nth-child(even) {
   margin-bottom: 15px;
 }
 
-input {
+.admin-context input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -231,7 +231,7 @@ button.cancel-button-admin-modal:hover {
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   font-size: 14px;
-  width: 300px;
+  width: 30%;
   position: absolute;
   right: 20px;
 }
@@ -269,4 +269,8 @@ button.cancel-button-admin-modal:hover {
   width: 98%;
   display: flex;
   justify-content: center;
+}
+
+.setting #avatar {
+  width: calc(100% - 20px);
 }

@@ -4,7 +4,7 @@
   margin: 0 auto;
 }
 
-h2 {
+.flight-results h2 {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -180,7 +180,7 @@ h2 {
   text-align: left;
 }
 
-.button-container {
+.flight-results .button-container {
   grid-row: 3;
   position: relative;
   left: 360px;
