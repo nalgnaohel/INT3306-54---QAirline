@@ -128,16 +128,19 @@ const FlightResults: React.FC<FlightResultsProps> = ({
     return (
       <div className="flight-results">
         <h2>Kết quả tìm kiếm chuyến bay</h2>
-        <p>Không tìm thấy chuyến bay nào phù hợp với tìm kiếm của bạn.</p>
-        <button
-          className="home-button"
-          style={{ margin: "20px" }}
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Quay lại trang chủ
-        </button>
+        <div className="no-flight">
+          <p>Không tìm thấy chuyến bay nào phù hợp với tìm kiếm của bạn.</p>
+          <button
+            className="home-button"
+            style={{ margin: "20px" }}
+            onClick={() => {
+              setIsSearching(false);
+              window.scrollTo(0, 0);
+            }}
+          >
+            Quay lại trang chủ
+          </button>
+        </div>
       </div>
     );
   }
@@ -146,7 +149,7 @@ const FlightResults: React.FC<FlightResultsProps> = ({
     <div className="flight-results">
       <h2>Kết quả tìm kiếm chuyến bay</h2>
       {currentFlights.map((flight) => (
-        <div key={flight.flight_id} className="flight-item">
+        <div key={flight.flight_id} className="flight-item1">
           <div className="flight-info">
             <div className="time-details">
               <p className="date">
@@ -212,8 +215,7 @@ const FlightResults: React.FC<FlightResultsProps> = ({
             >
               <p>Phổ thông</p>
               <span>
-                {calculateTotalPrice(flight.price).toLocaleString("vi-VN")}.000
-                VND
+                {calculateTotalPrice(flight.price).toLocaleString("vi-VN")} VND
               </span>
               <div className="dropdown">▼</div>
             </div>
@@ -230,180 +232,200 @@ const FlightResults: React.FC<FlightResultsProps> = ({
               }}
             >
               <p>Thương gia</p>
-              <span>{(flight.price * 2).toLocaleString("vi-VN")}.000 VND</span>
+              <span>
+                {calculateTotalPrice(flight.price * 1.5).toLocaleString(
+                  "vi-VN"
+                )}{" "}
+                VND
+              </span>
               <div className="dropdown">▼</div>
             </div>
           </div>
           {expandedFlightId === flight.flight_id && (
-            <div className="fare-selection">
-              {(selectedFare === "economySaver" ||
-                selectedFare === "economyStandard") && (
-                <>
-                  <div className="fare-box3"></div>
-                  <div className="fare-box1">
-                    <div
-                      className={`fare-box ${
-                        selectedFare === "economySaver" ? "selected" : ""
-                      }`}
-                      onClick={() => setSelectedFare("economySaver")}
-                    >
-                      <h3>Phổ thông tiết kiệm</h3>
-                      <div className="fare-details">
-                        <h3 style={{ color: "#f0584d" }}>
-                          <strong>
-                            {flight.price.toLocaleString("vi-VN")}.000 VND
-                          </strong>
+            <>
+              <div className="fare-selection">
+                {(selectedFare === "economySaver" ||
+                  selectedFare === "economyStandard") && (
+                  <>
+                    <div className="fare-box3"></div>
+                    <div className="fare-box1">
+                      <div
+                        className={`fare-box ${
+                          selectedFare === "economySaver" ? "selected" : ""
+                        }`}
+                        onClick={() => setSelectedFare("economySaver")}
+                      >
+                        <h3>
+                          Phổ thông tiết <br />
+                          kiệm
                         </h3>
-                        <p>
-                          <strong>Thay đổi vé:</strong>
-                          <br /> Phí đổi vé bay tối đa 860.000 VND mỗi hành
-                          khách
-                        </p>
-                        <p>
-                          <strong>Hoàn vé:</strong>
-                          <br />
-                          Phí hoàn vé tối đa 860.000 VND mỗi hành khách
-                        </p>
-                        <p>
-                          <strong>Hành lí kí gửi:</strong>
-                          <br />
-                          15kg miễn phí
-                        </p>
-                        <p>
-                          <strong>Hành lí xách tay:</strong>
-                          <br />
-                          7kg miễn phí
-                        </p>
+                        <div className="fare-details">
+                          <h3 style={{ color: "#f0584d" }}>
+                            <strong>
+                              {calculateTotalPrice(flight.price).toLocaleString(
+                                "vi-VN"
+                              )}{" "}
+                              VND
+                            </strong>
+                          </h3>
+                          <p>
+                            <strong>Thay đổi vé:</strong>
+                            <br /> Phí đổi vé bay tối đa 860.000 VND mỗi hành
+                            khách
+                          </p>
+                          <p>
+                            <strong>Hoàn vé:</strong>
+                            <br />
+                            Phí hoàn vé tối đa 860.000 VND mỗi hành khách
+                          </p>
+                          <p>
+                            <strong>Hành lí kí gửi:</strong>
+                            <br />
+                            15kg miễn phí
+                          </p>
+                          <p>
+                            <strong>Hành lí xách tay:</strong>
+                            <br />
+                            7kg miễn phí
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="fare-box2">
-                    <div
-                      className={`fare-box ${
-                        selectedFare === "economyStandard" ? "selected" : ""
-                      }`}
-                      onClick={() => setSelectedFare("economyStandard")}
-                    >
-                      <h3>Phổ thông tiêu chuẩn</h3>
-                      <div className="fare-details">
-                        <h3 style={{ color: "#f0584d" }}>
-                          <strong>
-                            {(flight.price + 500).toLocaleString("vi-VN")}.000
-                            VND
-                          </strong>
-                        </h3>
-                        <p>
-                          <strong>Thay đổi vé:</strong>
-                          <br /> Phí đổi vé bay tối đa 460.000 VND mỗi hành
-                          khách
-                        </p>
-                        <p>
-                          <strong>Hoàn vé:</strong>
-                          <br />
-                          Phí hoàn vé tối đa 460.000 VND mỗi hành khách
-                        </p>
-                        <p>
-                          <strong>Hành lí kí gửi:</strong>
-                          <br />
-                          20kg miễn phí
-                        </p>
-                        <p>
-                          <strong>Hành lí xách tay:</strong>
-                          <br />
-                          12kg miễn phí
-                        </p>
+                    <div className="fare-box2">
+                      <div
+                        className={`fare-box ${
+                          selectedFare === "economyStandard" ? "selected" : ""
+                        }`}
+                        onClick={() => setSelectedFare("economyStandard")}
+                      >
+                        <h3>Phổ thông tiêu chuẩn</h3>
+                        <div className="fare-details">
+                          <h3 style={{ color: "#f0584d" }}>
+                            <strong>
+                              {calculateTotalPrice(
+                                flight.price + 500000
+                              ).toLocaleString("vi-VN")}
+                              VND
+                            </strong>
+                          </h3>
+                          <p>
+                            <strong>Thay đổi vé:</strong>
+                            <br /> Phí đổi vé bay tối đa 460.000 VND mỗi hành
+                            khách
+                          </p>
+                          <p>
+                            <strong>Hoàn vé:</strong>
+                            <br />
+                            Phí hoàn vé tối đa 460.000 VND mỗi hành khách
+                          </p>
+                          <p>
+                            <strong>Hành lí kí gửi:</strong>
+                            <br />
+                            20kg miễn phí
+                          </p>
+                          <p>
+                            <strong>Hành lí xách tay:</strong>
+                            <br />
+                            12kg miễn phí
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
-              {(selectedFare === "businessSaver" ||
-                selectedFare === "businessStandard") && (
-                <>
-                  <div className="fare-box3"></div>
-                  <div className="fare-box1">
-                    <div
-                      className={`fare-box ${
-                        selectedFare === "businessSaver" ? "selected" : ""
-                      }`}
-                      onClick={() => setSelectedFare("businessSaver")}
-                    >
-                      <h3>Thương gia tiêu chuẩn</h3>
-                      <div className="fare-details">
-                        <h3 style={{ color: "#f0584d" }}>
-                          <strong>
-                            {(flight.price * 2).toLocaleString("vi-VN")}.000 VND
-                          </strong>
-                        </h3>
-                        <p>
-                          <strong>Thay đổi vé:</strong>
-                          <br /> Phí đổi vé bay tối đa 360.000 VND mỗi hành
-                          khách
-                        </p>
-                        <p>
-                          <strong>Hoàn vé:</strong>
-                          <br />
-                          Phí hoàn vé tối đa 360.000 VND mỗi hành khách
-                        </p>
-                        <p>
-                          <strong>Hành lí kí gửi:</strong>
-                          <br />
-                          25kg miễn phí
-                        </p>
-                        <p>
-                          <strong>Hành lí xách tay:</strong>
-                          <br />
-                          15kg miễn phí
-                        </p>
+                  </>
+                )}
+                {(selectedFare === "businessSaver" ||
+                  selectedFare === "businessStandard") && (
+                  <>
+                    <div className="fare-box3"></div>
+                    <div className="fare-box1">
+                      <div
+                        className={`fare-box ${
+                          selectedFare === "businessSaver" ? "selected" : ""
+                        }`}
+                        onClick={() => setSelectedFare("businessSaver")}
+                      >
+                        <h3>Thương gia tiêu chuẩn</h3>
+                        <div className="fare-details">
+                          <h3 style={{ color: "#f0584d" }}>
+                            <strong>
+                              {calculateTotalPrice(
+                                flight.price * 1.5
+                              ).toLocaleString("vi-VN")}{" "}
+                              VND
+                            </strong>
+                          </h3>
+                          <p>
+                            <strong>Thay đổi vé:</strong>
+                            <br /> Phí đổi vé bay tối đa 360.000 VND mỗi hành
+                            khách
+                          </p>
+                          <p>
+                            <strong>Hoàn vé:</strong>
+                            <br />
+                            Phí hoàn vé tối đa 360.000 VND mỗi hành khách
+                          </p>
+                          <p>
+                            <strong>Hành lí kí gửi:</strong>
+                            <br />
+                            25kg miễn phí
+                          </p>
+                          <p>
+                            <strong>Hành lí xách tay:</strong>
+                            <br />
+                            15kg miễn phí
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="fare-box2">
-                    <div
-                      className={`fare-box ${
-                        selectedFare === "businessStandard" ? "selected" : ""
-                      }`}
-                      onClick={() => setSelectedFare("businessStandard")}
-                    >
-                      <h3>Thương gia linh hoạt</h3>
-                      <div className="fare-details">
-                        <h3 style={{ color: "#f0584d" }}>
-                          <strong>
-                            {(flight.price * 2 + 700).toLocaleString("vi-VN")}
-                            .000 VND
-                          </strong>
-                        </h3>
-                        <p>
-                          <strong>Thay đổi vé:</strong>
-                          <br /> Phí đổi vé bay tối đa 180.000 VND mỗi hành
-                          khách
-                        </p>
-                        <p>
-                          <strong>Hoàn vé:</strong>
-                          <br />
-                          Phí hoàn vé tối đa 180.000 VND mỗi hành khách
-                        </p>
-                        <p>
-                          <strong>Hành lí kí gửi:</strong>
-                          <br />
-                          30kg miễn phí
-                        </p>
-                        <p>
-                          <strong>Hành lí xách tay:</strong>
-                          <br />
-                          20kg miễn phí
-                        </p>
+                    <div className="fare-box2">
+                      <div
+                        className={`fare-box ${
+                          selectedFare === "businessStandard" ? "selected" : ""
+                        }`}
+                        onClick={() => setSelectedFare("businessStandard")}
+                      >
+                        <h3>Thương gia linh hoạt</h3>
+                        <div className="fare-details">
+                          <h3 style={{ color: "#f0584d" }}>
+                            <strong>
+                              {calculateTotalPrice(
+                                flight.price * 1.5 + 700000
+                              ).toLocaleString("vi-VN")}{" "}
+                              VND
+                            </strong>
+                          </h3>
+                          <p>
+                            <strong>Thay đổi vé:</strong>
+                            <br /> Phí đổi vé bay tối đa 180.000 VND mỗi hành
+                            khách
+                          </p>
+                          <p>
+                            <strong>Hoàn vé:</strong>
+                            <br />
+                            Phí hoàn vé tối đa 180.000 VND mỗi hành khách
+                          </p>
+                          <p>
+                            <strong>Hành lí kí gửi:</strong>
+                            <br />
+                            30kg miễn phí
+                          </p>
+                          <p>
+                            <strong>Hành lí xách tay:</strong>
+                            <br />
+                            20kg miễn phí
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
+                  </>
+                )}
+              </div>
               <div className="button-container">
                 <button onClick={handleConfirmBooking}>
                   Xác nhận và đặt vé
                 </button>
               </div>
-            </div>
+            </>
           )}
         </div>
       ))}

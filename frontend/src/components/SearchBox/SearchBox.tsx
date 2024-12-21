@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import TopNavBar from "../Navbar/TopNavBar";
 import "./SearchBox.css";
 import AutoCompleteInput from "../AutoCompleteInput/AutoCompleteInput";
+import { Navigate, useNavigate } from "react-router-dom";
 // import { format } from "date-fns";
 
 const tabs = document.querySelectorAll(".tab");
@@ -46,6 +47,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   setPassengerCounts,
   setTripType,
 }) => {
+  const navigate = useNavigate();
   const [departure, setDeparture] = useState("");
   const [departure2, setDeparture2] = useState("");
   const [destination, setDestination] = useState("");
@@ -60,30 +62,21 @@ const SearchBox: React.FC<SearchBoxProps> = ({
 
   const today = new Date().toISOString().split("T")[0];
 
-  const [flights, setFlights] = useState<Flight[]>([]);
-  useEffect(() => {
-    const fetchFlights = async () => {
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:5000/api/flight/flights"
-        );
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
-        setFlights(data);
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error(error.message);
-        } else {
-          console.error(String(error));
-        }
-      } finally {
-      }
-    };
+  const [bookingCode, setBookingCode] = useState("");
+  const [email, setEmail] = useState("");
+  interface Reservation {
+    flight_id: string;
+    brand: string;
+    departure: string;
+    arrival: string;
+    departure_time: string;
+    arrival_time: string;
+    price: number;
+    available_seats: number;
+  }
 
-    fetchFlights();
-  }, []);
+  const [reservation, setReservation] = useState<Reservation | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState("Mua vé");
 
@@ -144,45 +137,154 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   }, []);
 
   const handleSearch = () => {
-    const filtered = flights.filter((flight) => {
-      const isDepartureMatch = departure
-        ? flight.departure.includes(departure.split(" (")[0])
-        : true;
-      const isDestinationMatch = destination
-        ? flight.arrival.includes(destination.split(" (")[0])
-        : true;
-      const isDateMatch = departureDate
-        ? flight.departure_time.startsWith(departureDate)
-        : true;
+    console.log(departure, destination, departureDate, returnDate);
+    const departureCode = departure.match(/\((.*?)\)/)?.[1];
+    const destinationCode = destination.match(/\((.*?)\)/)?.[1];
 
-      return isDepartureMatch && isDestinationMatch && isDateMatch;
-    });
+    const fetchFlights = async () => {
+      try {
+        const url = `http://127.0.0.1:5000/api/flights/onewayflight?departure=${departureCode}&arrival=${destinationCode}&departureDate=${departureDate}`;
+        console.log("Fetching URL:", url);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Fetched Data:", data);
+
+        const { flights } = data;
+        setFilteredFlights(flights);
+        setIsSearching(true);
+        setPassengerCounts({
+          adult: adultCount,
+          child: childCount,
+          infant: infantCount,
+        });
+        setTripType(tripTypeState);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFlights();
 
     if (tripTypeState === "round-trip") {
-      // Lọc các chuyến bay ngược lại
-      const returnFlights = flights.filter((flight) => {
-        const isDepartureMatch = departure
-          ? flight.departure.includes(destination.split(" (")[0])
-          : true;
-        const isDestinationMatch = departure
-          ? flight.arrival.includes(departure.split(" (")[0])
-          : true;
-        const isDateMatch = returnDate
-          ? flight.departure_time.startsWith(returnDate)
-          : true;
+      const fetchReturnFlights = async () => {
+        try {
+          const urlReturn = `http://127.0.0.1:5000/api/flights/onewayflight?departure=${destinationCode}&arrival=${departureCode}&departureDate=${returnDate}`;
+          console.log("Fetching Return URL:", urlReturn);
 
-        return isDepartureMatch && isDestinationMatch && isDateMatch;
-      });
-      setReturnFlights(returnFlights);
+          const response1 = await fetch(urlReturn);
+
+          if (!response1.ok) {
+            throw new Error(`Error: ${response1.status}`);
+          }
+
+          const dataReturn = await response1.json();
+          console.log("Fetched Return Data:", dataReturn);
+
+          const { flights: flightsReturn } = dataReturn;
+          setReturnFlights(flightsReturn);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchReturnFlights();
     }
-    setIsSearching(true);
-    setFilteredFlights(filtered);
-    setPassengerCounts({
-      adult: adultCount,
-      child: childCount,
-      infant: infantCount,
-    });
-    setTripType(tripTypeState);
+  };
+
+  const handleFetchReservation = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setReservation(null);
+
+    if (!bookingCode || !email) {
+      setError("Vui lòng nhập đầy đủ mã đặt chỗ và email.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/api/ticket/tickets/${bookingCode}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setReservation(data);
+      console.log("Reservation fetched successfully:", data);
+
+      // Navigate after successfully fetching the data
+      navigate("/flight", {
+        state: {
+          flight_id: data.flight_id,
+          departure: data.departure,
+          arrival: data.arrival,
+          departure_time: data.departure_time,
+          arrival_time: data.arrival_time,
+          seat_number: data.seat_number,
+          price: data.price,
+          email: email,
+          bookingCode: bookingCode,
+        },
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Đã xảy ra lỗi khi tìm kiếm đặt chỗ.");
+      }
+    }
+  };
+
+  const handleSeatManage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!bookingCode || !email) {
+      setError("Vui lòng nhập đầy đủ mã đặt chỗ và email.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/api/ticket/tickets/${bookingCode}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(" fetched successfully:", data);
+
+      // Navigate after successfully fetching the data
+      navigate("/seat-management", {
+        state: {
+          flight_id: data.flight_id,
+          departure: data.departure,
+          arrival: data.arrival,
+          departure_time: data.departure_time,
+          arrival_time: data.arrival_time,
+          seat_number: data.seat_number,
+          price: data.price,
+          email: email,
+          bookingCode: bookingCode,
+        },
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Đã xảy ra lỗi khi tìm kiếm đặt chỗ.");
+      }
+    }
   };
 
   return (
@@ -284,7 +386,12 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                 {tripTypeState === "round-trip" && (
                   <div>
                     <label>Ngày khởi hành</label>
-                    <input type="date" min={today} />
+                    <input
+                      type="date"
+                      min={today}
+                      value={departureDate}
+                      onChange={(e) => setDepartureDate(e.target.value)}
+                    />
                   </div>
                 )}
                 {tripTypeState === "round-trip" && (
@@ -391,14 +498,24 @@ const SearchBox: React.FC<SearchBoxProps> = ({
 
           {activeTab === "Quản lý đặt chỗ" && (
             <div className="manage-tab">
-              <form>
+              <form onSubmit={handleSeatManage}>
                 <div className="form-group-2">
                   <label>Mã đặt chỗ / Số vé điện tử</label>
-                  <input type="text" placeholder="Mã đặt chỗ / Số vé điện tử" />
+                  <input
+                    type="text"
+                    placeholder="Mã đặt chỗ / Số vé điện tử"
+                    value={bookingCode}
+                    onChange={(e) => setBookingCode(e.target.value)}
+                  />
                 </div>
                 <div className="form-group-2">
-                  <label>Họ</label>
-                  <input type="text" placeholder="Họ" />
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <button type="submit">Tìm kiếm</button>
               </form>
@@ -406,14 +523,24 @@ const SearchBox: React.FC<SearchBoxProps> = ({
           )}
           {activeTab === "Làm thủ tục" && (
             <div className="manage-tab">
-              <form>
+              <form onSubmit={handleFetchReservation}>
                 <div className="form-group-2">
                   <label>Mã đặt chỗ / Số vé điện tử</label>
-                  <input type="text" placeholder="Mã đặt chỗ / Số vé điện tử" />
+                  <input
+                    type="text"
+                    placeholder="Mã đặt chỗ / Số vé điện tử"
+                    value={bookingCode}
+                    onChange={(e) => setBookingCode(e.target.value)}
+                  />
                 </div>
                 <div className="form-group-2">
-                  <label>Họ</label>
-                  <input type="text" placeholder="Họ" />
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <button type="submit">Tìm kiếm</button>
               </form>

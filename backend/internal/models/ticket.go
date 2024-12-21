@@ -7,7 +7,8 @@ import (
 type Ticket struct {
 	TicketID      string    `json:"ticket_id"`
 	FlightID      string    `json:"flight_id"`
-	UserID        string    `json:"user_id"`
+	Email        string    `json:"email"`
+	IdentityNo	string    `json:"identity_no"`
 	SeatNumber    string    `json:"seat_number"`
 	Price         float64   `json:"price"`
 	Departure     string    `json:"departure"`
@@ -15,5 +16,5 @@ type Ticket struct {
 	DepartureTime time.Time `json:"departure_time"`
 	ArrivalTime   time.Time `json:"arrival_time"`
 	BookedAt      time.Time `json:"booked_at"`
-	TicketClass   string    `json:"class"`
+	// TicketClass   string    `json:"class_ticket"`
 }

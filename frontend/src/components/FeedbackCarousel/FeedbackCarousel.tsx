@@ -19,18 +19,18 @@ const feedbacks = [
   },
   {
     content:
-      "Mình rất hài lòng với dịch vụ ở đây. Mọi thứ đều rất chuyên nghiệp, mình sẽ giới thiệu cho bạn bè.",
-    author: "Cô Minh Hòa",
+      "Lần đầu chị đặt vé bay đi nước ngoài bên em và cảm thấy vô cùng hài lòng! Chị rất cảm ơn bên em tư vấn cho chị chuyến bay, giờ bay đẹp, thời gian nối chuyến hợp lý, không bị mệt. Chắc chắn chị sẽ đặt vé bên em nhiều nhiều.",
+    author: "Chị Giang",
   },
   {
     content:
-      "Mình rất hài lòng với dịch vụ ở đây. Mọi thứ đều rất chuyên nghiệp, mình sẽ giới thiệu cho bạn bè.",
-    author: "Cô Minh Hòa",
+      "Alo, mình và gia đình vừa về. Cảm ơn bên bạn đặt vé cho mình nhé! Cả nhà đi vui lắm bạn ạ. May là bạn tư vấn cho mình giờ vì nhà mình có trẻ nhỏ. Chuyến bay chuẩn giờ, chỗ ngồi đẹp. Lần sau, mình lại nhờ bạn đặt vé nhé!",
+    author: "Bạn Chu Huyền",
   },
   {
     content:
-      "Mình rất hài lòng với dịch vụ ở đây. Mọi thứ đều rất chuyên nghiệp, mình sẽ giới thiệu cho bạn bè.",
-    author: "Cô Minh Hòa",
+      "Cô bị đau chân nên hay phải chọn chỗ ngồi thoải mái. Bên cháu tư vấn tốt lắm! Bạn đặt vé chọn cho cô máy bay to, thân rộng. Cô rất ưng í! Mấy hôm nữa cô lại bay tiếp nên nhờ bên cháu kiểm tra vé và đặt chỗ cho cô nhé!",
+    author: "Cô Giang",
   },
 ];
 

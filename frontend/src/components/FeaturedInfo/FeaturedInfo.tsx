@@ -16,7 +16,7 @@ const FeaturedInfo: React.FC = () => {
       <div className="info-grid">
         {featuredData.map((feature) => (
           <div key={feature.id} className="info-card">
-            <Link to={`/feature/${feature.id}`} className="info-card-link">
+            <Link to={`/news`} className="info-card-link">
               <img
                 src={require(`../../assets/images/${feature.image}`)}
                 alt={feature.title}

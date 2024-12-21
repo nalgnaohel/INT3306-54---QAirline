@@ -39,7 +39,7 @@
 }
 
 /* Passenger card */
-.passenger-card {
+.passenger-card_list {
   border: 1px solid #ddd;
   padding: 30px;
   border-radius: 10px;
@@ -54,7 +54,7 @@
   text-align: center;
 }
 
-.passenger-item {
+.passenger-item_list {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -66,7 +66,14 @@
   font-size: 18px;
 }
 
-.passenger-type {
+.passenger-card_list #passenger1 {
+  display: block;
+  font-size: 14px;
+  width: 70px;
+  color: #777;
+}
+
+.passenger-type1 {
   display: block;
   font-size: 14px;
   color: #777;

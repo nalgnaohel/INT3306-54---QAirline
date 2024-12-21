@@ -4,12 +4,18 @@
   margin: 0 auto;
 }
 
-.flight-results h2 {
+.flight-results .no-flight {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 20px;
+}
+
+h2 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.flight-item {
+.flight-item1 {
   display: grid;
   grid-template-columns: 2fr 1fr; /* Phần thông tin chuyến bay và hạng vé */
   background-color: #f8fcff;
@@ -19,12 +25,12 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.flight-item:hover {
+.flight-item1:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.flight-item .flight-info {
+.flight-item1 .flight-info {
   background-color: #e0f2fe;
   padding: 20px;
   display: grid;
@@ -103,7 +109,7 @@
   padding-left: 50px;
 }
 
-.flight-item .fare-options {
+.flight-item1 .fare-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -163,11 +169,18 @@
   cursor: pointer;
   transition: background-color 0.3s;
   border-radius: 20px;
+  min-width: 180px;
 }
 
 .fare-box.selected {
   background-color: #64b5f6;
   border-color: #007bff;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 20px;
+  min-width: 180px;
 }
 
 .fare-box h3 {
@@ -180,13 +193,15 @@
   text-align: left;
 }
 
-.flight-results .button-container {
-  grid-row: 3;
-  position: relative;
-  left: 360px;
+.button-container {
+  grid-row: 3; /* Đặt hàng thứ 3 trong Grid */
+  grid-column: 1 / -1; /* Chiếm toàn bộ chiều rộng Grid */
+  display: flex; /* Sử dụng Flexbox để căn giữa nút */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  margin-bottom: 20px;
 }
 
-.flight-results button {
+button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -197,7 +212,7 @@
   border-radius: 10px;
 }
 
-.flight-results button:hover {
+button:hover {
   background-color: #0056b3;
 }
 

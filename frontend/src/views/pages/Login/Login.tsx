@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "./Login.css";
 import TopNavBar from "../../../components/Navbar/TopNavBar";
 import { useNavigate } from "react-router-dom";
-import background from "../../../assets/images/plane.png"
+import background from "../../../assets/images/plane.png";
 import Footer from "../../../components/Footer/Footer";
 
 const Login: React.FC = () => {
@@ -55,65 +55,76 @@ const Login: React.FC = () => {
         console.log("Current User:", currentUser);
 
         //redirect to home page
-        if (currentUser.type === 'admin') {
-            navigator('/admin');
+        if (currentUser.type === "admin") {
+          navigator("/admin");
         } else {
-            navigator('/');
+          navigator("/");
         }
+      } catch (error) {
+        setEmailErr(true);
+        if (emailMsgRef.current) {
+          emailMsgRef.current.innerText = "Email hoặc mật khẩu không đúng";
         }
-        catch (error) {
-            setEmailErr(true);
-            if (emailMsgRef.current) {
-                emailMsgRef.current.innerText = 'Email hoặc mật khẩu không đúng';
-            }
-            console.error('Unexpected Error:', error);
-        }
+        console.error("Unexpected Error:", error);
       }
     }
-      
-    return (
-        <>
-        <div className="signup-in-background">
-          <img className="background1" src={background} />
-          <div className="background2"></div>
-          <div className="background3"></div>
-        </div>
-        <TopNavBar />
-        <div className="main-container" background-image>
-            <div className="login-form-container">
-                <form className="login-form" action="POST" onSubmit={handleSubmit}>
-                    <img src="logo.png"/>
-                    <h2>Đăng nhập QAirline</h2>
-                    {/* Email */}
-                    <div className="form">
-                      <label htmlFor="username">E-Mail</label>
-                      <input ref={emailInputRef} type="email" name="username" placeholder="Email của bạn"
-                          value={email} onChange={(e) => setEmail(e.target.value)} />
-                      <p ref={emailMsgRef}
-                          className={` ${emailErr ? 'show' : 'hide'}`}>Email khong duoc de trong</p>
-                    </div>
-                    {/* Password */}
-                    <div className="form">
-                      <label htmlFor="password">Password</label>
-                      <input type="password" name="password" placeholder="Password"
-                          value={password} onChange={(e) => setPassword(e.target.value)} />
-                      <p className={` ${passwordErr ? 'show' : 'hide'}`}>Mat khau khong duoc de trong</p>
-                    </div>
-                    <button type="submit">Đăng nhập</button>
-                    <a href="/forgot-password">Quên mật khẩu?</a>
-                </form>
-                <div className="login-options">
-                    
-                </div>
-                <div className="toSignup">
-                    <p>Bạn chưa có tài khoản? </p>
-                    <a href="/signup">Đăng ký ngay</a>
-                </div>
+  };
+
+  return (
+    <>
+      <div className="signup-in-background">
+        <img className="background1" src={background} />
+        <div className="background2"></div>
+        <div className="background3"></div>
+      </div>
+      <TopNavBar />
+      <div className="main-container" background-image>
+        <div className="login-form-container">
+          <form className="login-form" action="POST" onSubmit={handleSubmit}>
+            <img src="logo.png" />
+            <h2>Đăng nhập QAirline</h2>
+            {/* Email */}
+            <div className="form">
+              <label htmlFor="username">E-Mail</label>
+              <input
+                ref={emailInputRef}
+                type="email"
+                name="username"
+                placeholder="Email của bạn"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <p ref={emailMsgRef} className={` ${emailErr ? "show" : "hide"}`}>
+                Email khong duoc de trong
+              </p>
             </div>
+            {/* Password */}
+            <div className="form">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <p className={` ${passwordErr ? "show" : "hide"}`}>
+                Mat khau khong duoc de trong
+              </p>
+            </div>
+            <button type="submit">Đăng nhập</button>
+            <a href="/forgot-password">Quên mật khẩu?</a>
+          </form>
+          <div className="login-options"></div>
+          <div className="toSignup">
+            <p>Bạn chưa có tài khoản? </p>
+            <a href="/signup">Đăng ký ngay</a>
+          </div>
         </div>
-        <Footer />
-        </>
-    );
+      </div>
+      <Footer />
+    </>
+  );
 };
 
 export default Login;
