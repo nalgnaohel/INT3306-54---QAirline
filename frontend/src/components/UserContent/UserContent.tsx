@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useUserContext } from './UserContext';
 import FlightList from './FlightList';
 import './UserContent.css'
+import { useNavigate } from 'react-router-dom';
 
 const UserContent: React.FC = () => {
     const [currentUser, setCurrentUser] = useState<any>(localStorage.getItem('currentUser'));
     const userJson = JSON.parse(currentUser);
-    console.log(userJson);
+    //console.log(userJson);
     const { activeContent } = useUserContext();
+    const navigator = useNavigate();
 
     const [accountData, setAccountData] = useState({
         id: userJson.user_id,
@@ -20,16 +22,32 @@ const UserContent: React.FC = () => {
     const [profile, setProfile] = useState({
         firstname: userJson.first_name,
         lastname: userJson.last_name,
-        birthday: userJson.birthday,
+        birthday: userJson.dob,
         CCCD: userJson.identity_no,
         nationality: userJson.nationality
     })
 
-    // useEffect(() => {
-    //     if (activeContent == 2) {
-            
-    //     });
-    // }
+    const [getFlights, setGetFlights] = useState(false);
+    useEffect(() => {
+        console.log(activeContent);
+        if (activeContent == 2) {
+            fetch(`http://127.0.0.1:5000/api/flight/flightbyemail?email=${userJson.email.replace('@', "%40")}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${userJson.access_token}`,
+                },
+            }).then((response) => {
+                return response.json();
+            }).then((data) => {
+                setGetFlights(true);
+                console.log(getFlights, data);
+                //setFlightData(data);
+            }).catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }, [getFlights]);
 
     const [flightData, setFlightData] = useState([
         {
@@ -78,6 +96,12 @@ const UserContent: React.FC = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+
+    const handleLogOut = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('currentUser');
+        navigator('/');
+    }
 
     const password = 'Phuongnguyen1';
     const handlePasswordChange = () => {
@@ -225,7 +249,7 @@ const UserContent: React.FC = () => {
                 </div>
                 <div className='user-content-data'>
                     <div className='user-content-label-logout'>Bạn có chắc muốn đăng xuất?</div>
-                    <button className='user-content-confirm-btn'>Có</button>
+                    <button className='user-content-confirm-btn' onClick={handleLogOut}>Có</button>
                 </div>
             </div>
             )}

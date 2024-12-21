@@ -242,6 +242,31 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     }
   };
 
+  const handleCancelTicket = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!bookingCode || !email) {
+      setError("Vui lòng nhập đầy đủ mã đặt chỗ và email.");
+      return;
+    }
+
+    try {
+      fetch(`http://127.0.0.1:5000/api/ticket/${bookingCode}`, {
+        method: "DELETE",
+      });   
+      console.log("Ticket canceled successfully.");
+      alert("Vé đã được hủy thành công.");
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Đã xảy ra lỗi khi hủy vé.");
+      }
+    }
+    navigate("/");
+  }
+
   const handleSeatManage = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -320,6 +345,12 @@ const SearchBox: React.FC<SearchBoxProps> = ({
               onClick={() => handleTabClick("Làm thủ tục")}
             >
               Làm thủ tục
+            </div>
+            <div
+              className={`tab ${activeTab === "Huỷ vé" ? "active" : ""}`}
+              onClick={() => handleTabClick("Huỷ vé")}
+            >
+              Huỷ vé
             </div>
           </div>
 
@@ -542,6 +573,31 @@ const SearchBox: React.FC<SearchBoxProps> = ({
                   />
                 </div>
                 <button type="submit">Tìm kiếm</button>
+              </form>
+            </div>
+          )}
+          {activeTab === "Huỷ vé" && (
+            <div className="manage-tab">
+              <form onSubmit={handleCancelTicket}>
+                <div className="form-group-2">
+                  <label>Mã đặt chỗ / Số vé điện tử</label>
+                  <input
+                    type="text"
+                    placeholder="Mã đặt chỗ / Số vé điện tử"
+                    value={bookingCode}
+                    onChange={(e) => setBookingCode(e.target.value)}
+                  />
+                </div>
+                <div className="form-group-2">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <button type="submit">Huỷ</button>
               </form>
             </div>
           )}

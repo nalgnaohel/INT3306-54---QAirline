@@ -14,6 +14,6 @@ type TicketRepository interface {
 	GetByEmail(email string) ([]*models.Ticket, error)
 	GetByFlightID(flightID string) ([]*models.Ticket, error)
 	UpdateSeat(ticketID string, seat string) error
+	//GetFlightByEmail(email string) ([]*models.Flight, error)
 
 }
-

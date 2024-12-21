@@ -85,3 +85,11 @@ func (fb *flightBusiness) GetStatusFlightsStatistics() ([]models.FlightStatus, e
 	}
 	return flights, nil
 }
+
+func (fb *flightBusiness) GetFlightByEmail(email string) ([]*models.Flight, error) {
+	flights, err := fb.flightRepo.GetFlightByEmail(email)
+	if err != nil {
+		return nil, err
+	}
+	return flights, nil
+}
