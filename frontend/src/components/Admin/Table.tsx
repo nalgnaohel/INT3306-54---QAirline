@@ -6,9 +6,6 @@ import "./Table.css";
 import DashboardAdmin from '../DashboardAdmin/DashboardAdmin';
 import { error } from 'console';
 import TextEditor from '../TextEditor/TextEditor';
-import DashboardAdmin from "../DashboardAdmin/DashboardAdmin";
-import { error } from "console";
-import TextEditor from "../TextEditor/TextEditor";
 import { useNavigate } from 'react-router-dom';
 
 const Table: React.FC = () => {
@@ -274,7 +271,6 @@ const Table: React.FC = () => {
         "Tên đêm và tên",
         "Giới tính",
         "Tên đăng nhập",
-        "Mật khẩu",
         "Email",
         "Số điện thoại",
         "Quốc tịch",
@@ -288,7 +284,6 @@ const Table: React.FC = () => {
           "ADMIN",
           "Nam",
           "admin",
-          "123456",
           "admin@gmail.com",
           "+84123456789",
           "Việt Nam",
@@ -301,7 +296,6 @@ const Table: React.FC = () => {
           "VAN A",
           "Nam",
           "hehe",
-          "12345678",
           "example@gmail.com",
           "+84123456789",
           "Việt Nam",

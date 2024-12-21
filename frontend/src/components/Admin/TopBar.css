@@ -1,128 +1,34 @@
 /* General Styles */
-.box {
-    position: relative;
-    height: 70px;
-    right: 0;
-}
-
-.box .top-bar,
-.box .overlap {
-    height: 70px;
-    left: 0;
-    right: 0;
-    top: 0;
-}
-
-.box .top-bar {
+.admin-top-bar-container {
     position: fixed;
+    background-color: #e0f3fe;
+    height: 70px;
+    width: 100vw;
 }
 
-.box .overlap {
-    position: relative;
-    background-color: #ffffff;
-}
-
-.box .separator {
-    position: absolute;
-    top: 70px;
-    left: 0px;
-    width: 1300px;
-    height: 2px;
-    background-color: #e0e0e0;
+.admin-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 70px 0 70px;
 }
 
 /* Profile Section */
-.box .profile {
-    position: absolute;
-    top: 10px;
-    left: 1300px;
-    width: 200px;
+.profile {
+    width: 50px;
     height: 50px;
     cursor: pointer;
     border-radius: 8px;
 }
 
-.box .profile:hover {
-    background-color: #e0e0e0;
-}
-
-.box .man {
-    position: absolute;
-    top: 0;
-    left: 0;
+.man {
     width: 48px;
     height: 48px;
     border-radius: 24px;
-}
-
-.avatar-background {
-    background-color: #e0e0e0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;
-}
-
-.box .more {
-    position: absolute;
-    top: 15px;
-    left: 170px;
-}
-
-.box .english {
-    position: absolute;
-    top: 17px;
-    left: 1200px;
-    width: 60px;
-    height: 37px;
-    cursor: pointer;
-    border-radius: 8px;
-}
-
-.box .english:hover {
-    background-color: #e0e0e0;
-}
-
-/* Text Styling */
-.box .username,
-.box .text-wrapper,
-.box .div {
-    position: absolute;
-    font-family: "Nunito Sans", Helvetica;
-    font-weight: 600;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
-.box .username {
-    top: 4px;
-    left: 76px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #404040;
-    width: 51px;
-}
-
-.box .text-wrapper {
-    top: 30px;
-    left: 76px;
-    font-size: 12px;
-    color: #565656;
-    width: 44px;
-}
-
-.box .div {
-    top: 10px;
-    left: 10px;
-    font-size: 16px;
-    color: #646464;
-    width: 70px;
 }
 
 /* Dropdown */
-.box .drop-down {
+.drop-down {
     position: absolute;
     top: 15px;
     left: 40px;
@@ -130,101 +36,9 @@
     height: 6px;
 }
 
-/* Overlap Groups */
-.box .overlap-group,
-.box .overlap-group-2 {
-    position: absolute;
-    top: 17px;
-}
-
-.box .overlap-group {
-    left: 1100px;
-    width: 50px;
-    height: 50px;
-}
-
-.box .overlap-group-2 {
-    position: relative;
-    width: 40px;
-    height: 42px;
-}
-
-/* Icons */
-.box .icon,
-.box .icon-2 {
-    position: absolute;
-}
-
-.box .icon {
-    top: 2px;
-    left: 0;
-    width: 42px;
-    height: 42px;
-}
-
-.box .icon-2 {
-    top: 7px;
-    left: 0;
-    width: 33px;
-    height: 35px;
-}
-
-/* Shapes */
-.box .combined-shape {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 33px;
-    height: 25px;
-}
-
-.box .rectangle {
-    position: absolute;
-    top: 27px;
-    left: 12px;
-    width: 8px;
-    height: 8px;
-    background-color: #ff0000;
-    border-radius: 2.25px;
-    opacity: 0.3;
-}
-
-.box .oval {
-    position: absolute;
-    top: 0;
-    left: 18px;
-    width: 22px;
-    height: 22px;
-}
-
-/* Text Wrapper */
-.box .text-wrapper-2 {
-    position: absolute;
-    top: 4px;
-    left: 25px;
-    font-family: "Nunito Sans-Bold", Helvetica;
-    font-size: 12px;
-    font-weight: 700;
-    color: #ffffff;
-    white-space: nowrap;
-    width: 8px;
-}
-
-/* Image */
-.box .img {
-    position: absolute;
-    top: 0;
-    left: 16px;
-    width: 26px;
-    height: 26px;
-}
-
 /* Dropdown Menu */
-.top-bar .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 200px;
+.admin-top-bar .dropdown-menu {
+    margin-left: -10rem;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -235,41 +49,32 @@
     pointer-events: none;
 }
 
-.top-bar .dropdown-menu.open {
+.admin-top-bar .dropdown-menu.open {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
 }
 
-.top-bar .dropdown-menu ul {
+.admin-top-bar .dropdown-menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-.top-bar .dropdown-menu li {
+.admin-top-bar .dropdown-menu li {
     padding: 16px 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     padding-left: 50px;
 }
 
-.top-bar .dropdown-menu li:hover {
+.admin-top-bar .dropdown-menu li:hover {
     background-color: #f0f0f0;
     border-radius: 8px;
     transform: scale(1.05);
 }
 
-.top-bar-logo {
-    position: absolute;
-    top: 4px;
-    left: 60px;
-    width: 200px;
+.admin-top-bar-logo {
+    height: 50px;
     cursor: pointer;
-    padding: 5px;
-}
-
-.top-bar-logo:hover {
-    background-color: #e0e0e0;
-    border-radius: 10px;
 }
