@@ -6,11 +6,13 @@ import "./Table.css";
 import DashboardAdmin from "../DashboardAdmin/DashboardAdmin";
 import { error } from "console";
 import TextEditor from "../TextEditor/TextEditor";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { randomFill } from "crypto";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 const Table: React.FC = () => {
   //token for authorization
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   //navigator
   const navigator = useNavigate();
@@ -34,10 +36,15 @@ const Table: React.FC = () => {
     avatar: null as File | null,
   });
 
+  type TicketData = (string | number)[][];
+
   const [flightFetched, setFlightFetched] = useState(false);
   const [aircraftsFetched, setAircraftsFetched] = useState(false);
   const [airportsFetched, setAirportsFetched] = useState(false);
   const [usersFetched, setUsersFetched] = useState(false);
+  const [ticketFetched, setTicketFetched] = useState<TicketData>([]);
+  const [loading, setLoading] = useState(true); // Trạng thái loading
+  const [error, setError] = useState(""); // Thông báo lỗi nếu có
 
   useEffect(() => {
     if (activeTable === 3 && !aircraftsFetched) {
@@ -52,123 +59,137 @@ const Table: React.FC = () => {
         .then((data) => {
           console.log(data.flights.aircrafts);
           setAircraftsFetched(true);
-          tables[2].rows = data.flights.aircrafts.map((aircraft: any, index: number) => [
-            (index + 1).toString(),
-            aircraft.manufacturer,
-            aircraft.aircraft_id,
-            aircraft.model,
-            aircraft.economy_class_seats.toString(),
-            aircraft.business_class_seats.toString(),
-            aircraft.premium_class_seats.toString(),
-            aircraft.first_class_seats.toString(),
-            '',
-          ]);
+          tables[2].rows = data.flights.aircrafts.map(
+            (aircraft: any, index: number) => [
+              (index + 1).toString(),
+              aircraft.manufacturer,
+              aircraft.aircraft_id,
+              aircraft.model,
+              aircraft.economy_class_seats.toString(),
+              aircraft.business_class_seats.toString(),
+              aircraft.premium_class_seats.toString(),
+              aircraft.first_class_seats.toString(),
+              "",
+            ]
+          );
           //console.log(aircrafts)
         })
         .catch((error) => {
           console.log("Error fetching aircraft data - ", error);
         });
+    } else if (activeTable === 1) {
+      fetchTickets();
+      wait(1000);
+      console.log(ticketFetched);
     } else if (activeTable === 2 && !flightFetched) {
-      fetch('http://127.0.0.1:5000/api/flight/all', {
-        method: 'GET',
+      fetch("http://127.0.0.1:5000/api/flight/all", {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
-        .then(resp => resp.json())
-        .then(data => {
+        .then((resp) => resp.json())
+        .then((data) => {
           console.log(data.flights.flights);
           setFlightFetched(true);
-          tables[1].rows = data.flights.flights.map((flight: any, index: number) => [
-            (index + 1).toString(),
-            flight.flight_id,
-            flight.brand,
-            flight.aircraft_id,
-            flight.departure_code + ' - ' + flight.arrival_code,
-            flight.departure_time.replace('T', ' ') + ' / ' + flight.arrival_time.replace('T', ' '),
-            '200',
-            flight.available_seats.toString(),
-            '',
-          ]);
+          tables[1].rows = data.flights.flights.map(
+            (flight: any, index: number) => [
+              (index + 1).toString(),
+              flight.flight_id,
+              flight.brand,
+              flight.aircraft_id,
+              flight.departure_code + " - " + flight.arrival_code,
+              flight.departure_time.replace("T", " ") +
+                " / " +
+                flight.arrival_time.replace("T", " "),
+              "200",
+              flight.available_seats.toString(),
+              "",
+            ]
+          );
           console.log(tables[1]);
         })
-        .catch(error => {
-          console.log('Error fetching flight data - ', error);
+        .catch((error) => {
+          console.log("Error fetching flight data - ", error);
         });
-      } else if (activeTable === 4 && !airportsFetched) {
-        fetch('http://127.0.0.1:5000/api/airport/all', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          },
+    } else if (activeTable === 4 && !airportsFetched) {
+      fetch("http://127.0.0.1:5000/api/airport/all", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data.airports);
+          setAirportsFetched(true);
+          tables[3].rows = data.airports.map((airport: any, index: number) => [
+            (index + 1).toString(),
+            airport.iata_code,
+            airport.name,
+            airport.city,
+            airport.country,
+            "",
+          ]);
+          //console.log(aircrafts)
         })
-          .then(resp => resp.json())
-          .then(data => {
-            console.log(data.airports);
-            setAirportsFetched(true);
-            tables[3].rows = data.airports.map((airport: any, index: number) => [
-              (index + 1).toString(),
-              airport.iata_code,
-              airport.name,
-              airport.city,
-              airport.country,
-              '',
-            ]);
-            //console.log(aircrafts)
-          })
-          .catch(error => {
-            console.log('Error fetching airport data - ', error);
-          });
-      } else if (activeTable === 6 && !usersFetched) {
-        fetch('http://127.0.0.1:5000/api/auth/all', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          },
+        .catch((error) => {
+          console.log("Error fetching airport data - ", error);
+        });
+    } else if (activeTable === 6 && !usersFetched) {
+      fetch("http://127.0.0.1:5000/api/auth/all", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data.data.users);
+          setAirportsFetched(true);
+          tables[5].rows = data.data.users.map((user: any, index: number) => [
+            (index + 1).toString(),
+            user.last_name,
+            user.first_name,
+            user.gender,
+            user.email.split("@")[0],
+            user.email,
+            user.phone_number,
+            user.nationality,
+            user.type,
+            "",
+          ]);
         })
-          .then(resp => resp.json())
-          .then(data => {
-            console.log(data.data.users);
-            setAirportsFetched(true);
-            tables[5].rows = data.data.users.map((user: any, index: number) => [
-              (index + 1).toString(),
-              user.last_name,
-              user.first_name,
-              user.gender,
-              user.email.split('@')[0],
-              user.password,
-              user.email,
-              user.phone_number,
-              user.nationality,
-              user.type,
-              '',
-            ]);
-          }).catch(error => {
-            console.log('Error fetching user data - ', error);
-          });
-      }
-    }, [activeTable, aircraftsFetched, flightFetched, airportsFetched, usersFetched]);
+        .catch((error) => {
+          console.log("Error fetching user data - ", error);
+        });
+    }
+  }, [
+    activeTable,
+    aircraftsFetched,
+    flightFetched,
+    airportsFetched,
+    usersFetched,
+  ]);
 
-  const [tables, setTables] = useState([ // Table content
+  const [tables, setTables] = useState([
+    // Table content
     {
       id: 1,
       title: ["Danh sách đặt chỗ"],
       button: [""],
       headers: [
         "STT",
-        "Mã người dùng",
+        "Email",
         "Số hiệu chuyến bay",
         "Hạng vé",
         "Hạn hủy vé",
         "Hành động",
       ],
-      rows: [
-        ["1", "QH-12ULK165", "QH171", "Thương gia", "15:00 01 Th12 2024", ""],
-        ["2", "QH-12ULK166", "QH153", "Thương gia", "15:00 04 Th12 2024", ""],
-      ],
+      rows: [],
     },
     {
       id: 2,
@@ -212,12 +233,42 @@ const Table: React.FC = () => {
     },
     {
       id: 3,
-      title: ['Danh sách tàu bay'],
-      button: ['+ Thêm tàu bay'],
-      headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Phổ thông', 'Thương gia', 'Cao cấp', 'Hạng nhất', 'Hành động'],
+      title: ["Danh sách tàu bay"],
+      button: ["+ Thêm tàu bay"],
+      headers: [
+        "STT",
+        "Hãng bay",
+        "Mã tàu bay",
+        "Loại máy bay",
+        "Phổ thông",
+        "Thương gia",
+        "Cao cấp",
+        "Hạng nhất",
+        "Hành động",
+      ],
       rows: [
-        ['1', 'Bamboo Airway', 'VN-A588', 'Airbus A321', '50', '20', '10', '5', ''],
-        ['2', 'Bamboo Airway', 'VN-A589', 'Airbus A321', '50', '20', '10', '5', ''],
+        [
+          "1",
+          "Bamboo Airway",
+          "VN-A588",
+          "Airbus A321",
+          "50",
+          "20",
+          "10",
+          "5",
+          "",
+        ],
+        [
+          "2",
+          "Bamboo Airway",
+          "VN-A589",
+          "Airbus A321",
+          "50",
+          "20",
+          "10",
+          "5",
+          "",
+        ],
       ],
     },
     {
@@ -271,7 +322,6 @@ const Table: React.FC = () => {
         "Tên đêm và tên",
         "Giới tính",
         "Tên đăng nhập",
-        "Mật khẩu",
         "Email",
         "Số điện thoại",
         "Quốc tịch",
@@ -285,7 +335,7 @@ const Table: React.FC = () => {
           "ADMIN",
           "Nam",
           "admin",
-          "123456",
+          "",
           "admin@gmail.com",
           "+84123456789",
           "Việt Nam",
@@ -298,7 +348,7 @@ const Table: React.FC = () => {
           "VAN A",
           "Nam",
           "hehe",
-          "12345678",
+          "",
           "example@gmail.com",
           "+84123456789",
           "Việt Nam",
@@ -325,6 +375,64 @@ const Table: React.FC = () => {
       rows: [[""]],
     },
   ]);
+
+  const fetchTickets = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "http://127.0.0.1:5000/api/ticket/alltickets"
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch tickets");
+      }
+      const data = await response.json();
+
+      // Chuyển đổi thành mảng 2 chiều
+      const formattedData = data.map((ticket: any, index: number) => {
+        const departureDate = new Date(ticket.departure_time); // Chuyển đổi thành đối tượng Date
+
+        departureDate.setHours(departureDate.getHours() - 48);
+
+        // Định dạng ngày/tháng/năm giờ:phút
+        const formattedDate = `${departureDate
+          .getDate()
+          .toString()
+          .padStart(2, "0")}/${(departureDate.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}/${departureDate.getFullYear()} ${departureDate
+          .getHours()
+          .toString()
+          .padStart(2, "0")}:${departureDate
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}`;
+
+        return [
+          (index + 1).toString(), // Số thứ tự
+          ticket.email, // ID người dùng
+          ticket.flight_id, // ID chuyến bay
+          Math.random() > 0.5 ? "Economy" : "Business", // Hạng vé random
+          formattedDate, // Ngày/giờ định dạng lại
+          "Hành động",
+        ];
+      });
+
+      // Cập nhật dữ liệu vào state
+      setTicketFetched(formattedData);
+
+      // Đồng bộ dữ liệu vào bảng đầu tiên
+      setTables((prevTables) =>
+        prevTables.map((table) =>
+          table.id === 1 ? { ...table, rows: formattedData } : table
+        )
+      );
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Hàm dổi giới hạn hiển thị
   const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLimit(Number(e.target.value));
@@ -336,10 +444,10 @@ const Table: React.FC = () => {
   };
 
   // Hàm hiển thị các dòng có từ khóa khớp với từ tìm kiếm
-  const getFilteredRows = (rows: string[][]) => {
+  const getFilteredRows = (rows: (string | number)[][]) => {
     console.log(rows);
     return rows.filter((row) =>
-      row.some((cell) => cell.toLowerCase().includes(searchTerm))
+      row.some((cell) => cell.toString().toLowerCase().includes(searchTerm))
     );
   };
 
@@ -433,21 +541,20 @@ const Table: React.FC = () => {
   // Hàm xử lý khi nhấn "Có" trong hộp thoại đăng xuất
   const handleConfirmLogout = () => {
     setIsModalOpen(false);
-    console.log('Đã đăng xuất');
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
+    console.log("Đã đăng xuất");
+    localStorage.removeItem("token");
+    localStorage.removeItem("currentUser");
     navigator("/");
   };
 
   // Chỉnh sửa dữ liệu của một hàng
   const handleEdit = (rowIndex: number) => {
-    console.log(rowIndex); 
+    console.log(rowIndex);
     setSelectedRowIndex(rowIndex);
     const selectedRow = tableToRender?.rows[rowIndex] || [];
-    const editableData = selectedRow.slice(1, -1); // Bỏ cột STT và hành động
+    const editableData = selectedRow.slice(1, -1).map(String); // Bỏ cột STT và hành động và chuyển đổi tất cả các phần tử thành chuỗi
     setNewRowData(editableData);
     setIsModalOpen(true);
-
   };
 
   // Xóa dữ liệu của một hàng
@@ -517,10 +624,10 @@ const Table: React.FC = () => {
         );
         if (activeTable === 3) {
           fetch(`http://127.0.0.1:5000/api/aircraft/${newRowData[1]}`, {
-            method: 'PUT',
+            method: "PUT",
             headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
               aircraft_id: newRowData[1],
@@ -532,75 +639,81 @@ const Table: React.FC = () => {
               first_class_seats: Number(newRowData[6]),
             }),
           })
-            .then(resp => resp.json())
-            .then(data => {
+            .then((resp) => resp.json())
+            .then((data) => {
               console.log(data);
-            }) 
+            });
         } else if (activeTable === 2) {
           fetch(`http://127.0.0.1:5000/api/flight/${newRowData[1]}`, {
-            method: 'PUT',
+            method: "PUT",
             headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
               flight_id: newRowData[1],
               brand: newRowData[2],
               aircraft_id: newRowData[3],
-              departure_code: newRowData[4].split(' - ')[0],
-              arrival_code: newRowData[4].split(' - ')[1],
-              departure_time: newRowData[5].split(' / ')[0].split('T')[0] + ' ' + newRowData[5].split(' / ')[0].split('T')[1],
-              arrival_time: newRowData[5].split(' / ')[1].split('T')[0] + ' ' + newRowData[5].split(' / ')[1].split('T')[1],
+              departure_code: newRowData[4].split(" - ")[0],
+              arrival_code: newRowData[4].split(" - ")[1],
+              departure_time:
+                newRowData[5].split(" / ")[0].split("T")[0] +
+                " " +
+                newRowData[5].split(" / ")[0].split("T")[1],
+              arrival_time:
+                newRowData[5].split(" / ")[1].split("T")[0] +
+                " " +
+                newRowData[5].split(" / ")[1].split("T")[1],
               capacity: Number(newRowData[6]),
               available_seats: Number(newRowData[7]),
             }),
           })
-            .then(resp => resp.json())
-            .then(data => {
+            .then((resp) => resp.json())
+            .then((data) => {
               console.log(data);
-            })
-          } else if (activeTable === 4) {
-            fetch(`http://127.0.0.1:5000/api/airport/${newRowData[1]}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-              },
-              body: JSON.stringify({
-                iata_code: newRowData[1],
-                name: newRowData[2],
-                city: newRowData[3],
-                country: newRowData[4],
-              }),
-            })
-              .then(resp => resp.json())
-              .then(data => {
-                console.log(data);
-              })
-            } else if (activeTable === 6) {
-              fetch(`http://127.0.0.1:5000/api/auth/${newRowData[4]}`, {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                  last_name: newRowData[0],
-                  first_name: newRowData[1],
-                  gender: newRowData[2],
-                  email: newRowData[5],
-                  phone_number: newRowData[6],
-                  nationality: newRowData[7],
-                  type: newRowData[8]
-                }),
-              })
-                .then(resp => resp.json())
-                .then(data => {
-                  console.log(data);
-                })
-            } 
+            });
+        } else if (activeTable === 4) {
+          fetch(`http://127.0.0.1:5000/api/airport/${newRowData[1]}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              iata_code: newRowData[1],
+              name: newRowData[2],
+              city: newRowData[3],
+              country: newRowData[4],
+            }),
+          })
+            .then((resp) => resp.json())
+            .then((data) => {
+              console.log(data);
+            });
+        } else if (activeTable === 6) {
+          fetch(`http://127.0.0.1:5000/api/auth/${newRowData[4]}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              last_name: newRowData[0],
+              first_name: newRowData[1],
+              gender: newRowData[2],
+              email: newRowData[5],
+              phone_number: newRowData[6],
+              nationality: newRowData[7],
+              type: newRowData[8],
+            }),
+          })
+            .then((resp) => resp.json())
+            .then((data) => {
+              console.log(data);
+            });
+        }
       } catch (error) {
-          console.log('Error updating aircraft - ', error);
+        console.log("Error updating aircraft - ", error);
       }
       setIsModalOpen(false);
       setSelectedRowIndex(null);
@@ -759,7 +872,7 @@ const Table: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody id="flightTableBody">
-                      {getFilteredRows(table.rows)
+                      {getFilteredRows(table.rows as (string | number)[][])
                         .slice(0, limit) // Apply limit to the rows displayed
                         .map((row, rowIndex) => (
                           <tr key={rowIndex}>
