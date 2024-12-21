@@ -71,6 +71,8 @@ func (tu *ticketUsecase) GetAll() ([]*models.Ticket, error) {
 	return tickets, nil
 }
 
+
+
 // Getbyemail gets tickets by user ID
 func (tu *ticketUsecase) GetByEmail(email string) ([]*models.Ticket, error) {
 	tickets, err := tu.ticketRepo.GetByEmail(email)
