@@ -13,7 +13,7 @@ import "./Chart4.css";
 interface Chart4Props {
   data: Array<{ [key: string]: number | string }>;
   title: string;
-  keys: { name: string; color: string }[];
+  keys: { id: string; name: string; color: string }[];
 }
 
 const Chart4: React.FC<Chart4Props> = ({ data, title, keys }) => {
@@ -59,7 +59,7 @@ const Chart4: React.FC<Chart4Props> = ({ data, title, keys }) => {
               <Line
                 key={index}
                 type="monotone"
-                dataKey={key.name}
+                dataKey={key.id}
                 stroke={key.color}
                 strokeWidth={3}
                 dot={{ r: 6, fill: key.color}}
