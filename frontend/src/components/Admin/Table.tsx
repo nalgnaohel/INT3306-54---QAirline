@@ -3,10 +3,10 @@ import { useTableContext } from "./TableContext";
 import edit from "../../assets/images/Admin/edit.png";
 import remove from "../../assets/images/Admin/trash-can.png";
 import "./Table.css";
-import DashboardAdmin from '../DashboardAdmin/DashboardAdmin';
-import { error } from 'console';
-import TextEditor from '../TextEditor/TextEditor';
-import { useNavigate } from 'react-router-dom';
+import DashboardAdmin from "../DashboardAdmin/DashboardAdmin";
+import { error } from "console";
+import TextEditor from "../TextEditor/TextEditor";
+import { useNavigate } from "react-router-dom";
 
 const Table: React.FC = () => {
   //token for authorization
@@ -77,7 +77,6 @@ const Table: React.FC = () => {
         });
     } else if (activeTable === 1) {
       fetchTickets();
-      wait(1000);
       console.log(ticketFetched);
     } else if (activeTable === 2 && !flightFetched) {
       fetch("http://127.0.0.1:5000/api/flight/all", {
