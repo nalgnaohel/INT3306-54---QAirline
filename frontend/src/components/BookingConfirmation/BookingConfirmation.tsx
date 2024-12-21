@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./BookingConfirmation.css";
 import TopNavBar from "../Navbar/TopNavBar";
 import Footer from "../Footer/Footer";
+import UserNavBar from "../UserNavbar/UserNavbar"
+import { UserProvider } from "../UserContent/UserContext";
 
 interface BookingConfirmationProps {}
 
@@ -96,7 +98,9 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = () => {
 
   return (
     <>
-      <TopNavBar />
+      <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
       <div className="booking-confirmation">
         <h2>Lựa chọn của Quý khách</h2>
 

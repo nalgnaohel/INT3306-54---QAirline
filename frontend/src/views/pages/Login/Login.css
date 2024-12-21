@@ -97,3 +97,7 @@
   display: inline;
   text-decoration: none;
 }
+
+.login-form-container .form p {
+  margin-left: 10%;
+}

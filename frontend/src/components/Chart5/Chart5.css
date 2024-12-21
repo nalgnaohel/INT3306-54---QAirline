@@ -10,6 +10,13 @@
     padding-right: 20px;
     width: 250px;
   }
+
+  .chart5-container img {
+    width: 40px;
+    position: absolute;
+    margin-top: 133px;
+    z-index: 10;
+  }
   
   .chart5-title {
     font-size: 16px;

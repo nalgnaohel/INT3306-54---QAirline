@@ -3,6 +3,8 @@ import TopNavBar from "../Navbar/TopNavBar";
 import "./SearchBox.css";
 import AutoCompleteInput from "../AutoCompleteInput/AutoCompleteInput";
 import { Navigate, useNavigate } from "react-router-dom";
+import UserNavBar from "../UserNavbar/UserNavbar"
+import { UserProvider } from "../UserContent/UserContext";
 
 const tabs = document.querySelectorAll(".tab");
 
@@ -313,7 +315,9 @@ const SearchBox: React.FC<SearchBoxProps> = ({
 
   return (
     <>
-      <TopNavBar />
+      <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
       <div className="search-box">
         <div className="hero-section">
           <div className="infor">

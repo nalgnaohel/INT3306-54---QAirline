@@ -4,14 +4,16 @@ import './Chart1.css';
 
 interface Chart1Props {
   data: { month: string; ticketsSold: number }[];
+  title: string;
   totalTickets: number;
+  unit: string;
 }
 
-const Chart1: React.FC<Chart1Props> = ({ data, totalTickets }) => {
+const Chart1: React.FC<Chart1Props> = ({ data, title, totalTickets, unit }) => {
   return (
     <div className="chart-container">
       <div className="chart-header">
-        <h3 className="chart-title">Ticket Sales</h3>
+        <h3 className="chart-title">{title}</h3>
         {/* <select className="chart-dropdown">
           <option>Last 6 Months</option>
           <option>Last Year</option>
@@ -19,7 +21,7 @@ const Chart1: React.FC<Chart1Props> = ({ data, totalTickets }) => {
       </div>
       <div className="chart-total-tickets">
         <div className="chart-total-number">{totalTickets.toLocaleString('en-US')}</div>
-        <div className="chart-sub-title">Tickets Sold</div>
+        <div className="chart-sub-title">{unit}</div>
       </div>
       <ResponsiveContainer width={410} height={200}>
         <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>

@@ -6,3 +6,32 @@
     top: 0px;
     left: 0px;
 }
+
+.Admin .background1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00C8FF;
+    mix-blend-mode: multiply;
+    opacity: 50%;
+}
+
+.Admin .background2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 20%;
+}
+
+.Admin .background3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

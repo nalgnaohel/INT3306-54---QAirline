@@ -3,6 +3,8 @@ import "./BookingManagement.css"; // Import a CSS file for styling
 import TopNavBar from "../Navbar/TopNavBar";
 import Footer from "../Footer/Footer";
 import { useLocation, useNavigate } from "react-router-dom";
+import UserNavBar from "../UserNavbar/UserNavbar"
+import { UserProvider } from "../UserContent/UserContext";
 
 const BookingManagement = () => {
   const [bookingCode1, setBookingCode] = useState("");
@@ -148,7 +150,9 @@ const BookingManagement = () => {
 
   return (
     <>
-      <TopNavBar />
+      <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
       <div className="booking-management-page">
         <h2>Quản lý Đặt Chỗ</h2>
         <form onSubmit={handleSearch}>

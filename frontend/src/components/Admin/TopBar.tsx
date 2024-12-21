@@ -57,49 +57,30 @@ const TopBar: React.FC = () => {
     };
 
     return (
-        <div className="box">
-            <div className="top-bar">
-                <div className="overlap">
-                    <div className="separator"></div>
-                    <img className="top-bar-logo" src="logo.png" onClick={() => navigate("/")}/>
-                    <div className="profile" onClick={toggleDropdown}>
-                        <img className="more" alt="More" src={more} />
-                        <div className="username">Admin</div>
-                        <div className="text-wrapper">Admin</div>
-                        <div className="avatar-background"></div>
-                        <img className="man" alt="Man" src={man438081960720} />
-                        {menuVisible && (
-                            <div
-                                className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}
-                                onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
-                            >
-                                <ul>
-                                <li onClick={() => handleClick(0)}>Trang chủ</li>
-                                <li onClick={() => handleClick(1)}>Đặt chỗ</li>
-                                <li onClick={() => handleClick(2)}>Chuyến bay</li>
-                                <li onClick={() => handleClick(3)}>Tàu bay</li>
-                                <li onClick={() => handleClick(4)}>Sân bay</li>
-                                <li onClick={() => handleClick(5)}>Hãng bay</li>
-                                <li onClick={() => handleClick(6)}>Người dùng</li>
-                                <li onClick={() => handleClick(7)}>Đăng bài</li>
-                                <li onClick={() => handleClick(8)}>Cài đặt</li>
-                                <li onClick={() => handleClick(9)}>Đăng xuất</li>
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-                    {/* <div className="overlap-group">
-                        <div className="icon">
-                            <div className="overlap-group-2">
-                                <div className="icon-2">
-                                    <img className="combined-shape" alt="Combined shape" src={combinedShape} />
-                                </div>
-                                <img className="oval" alt="Oval" src={oval} />
-                                <div className="text-wrapper-2">6</div>
-                            </div>
+        <div className="admin-top-bar-container">
+            <div className="admin-top-bar">
+                <img className="admin-top-bar-logo" src="logo.png" onClick={() => navigate("/")}/>
+                <div className="profile" onClick={toggleDropdown}>
+                    <img className="man" alt="Man" src={man438081960720} />
+                    {menuVisible && (
+                        <div
+                            className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}
+                            onClick={(e) => e.stopPropagation()} // Ngăn click trong dropdown bị đóng
+                        >
+                            <ul>
+                            <li onClick={() => handleClick(0)}>Trang chủ</li>
+                            <li onClick={() => handleClick(1)}>Đặt chỗ</li>
+                            <li onClick={() => handleClick(2)}>Chuyến bay</li>
+                            <li onClick={() => handleClick(3)}>Tàu bay</li>
+                            <li onClick={() => handleClick(4)}>Sân bay</li>
+                            <li onClick={() => handleClick(5)}>Hãng bay</li>
+                            <li onClick={() => handleClick(6)}>Người dùng</li>
+                            <li onClick={() => handleClick(7)}>Đăng bài</li>
+                            <li onClick={() => handleClick(8)}>Cài đặt</li>
+                            <li onClick={() => handleClick(9)}>Đăng xuất</li>
+                            </ul>
                         </div>
-                        <img className="img" alt="Oval" src={image} />
-                    </div> */}
+                    )}
                 </div>
             </div>
         </div>
