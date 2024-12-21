@@ -6,6 +6,9 @@ import "./Table.css";
 import DashboardAdmin from '../DashboardAdmin/DashboardAdmin';
 import { error } from 'console';
 import TextEditor from '../TextEditor/TextEditor';
+import DashboardAdmin from "../DashboardAdmin/DashboardAdmin";
+import { error } from "console";
+import TextEditor from "../TextEditor/TextEditor";
 import { useNavigate } from 'react-router-dom';
 
 const Table: React.FC = () => {
@@ -212,42 +215,12 @@ const Table: React.FC = () => {
     },
     {
       id: 3,
-      title: ["Danh sách tàu bay"],
-      button: ["+ Thêm tàu bay"],
-      headers: [
-        "STT",
-        "Hãng bay",
-        "Mã tàu bay",
-        "Loại máy bay",
-        "Phổ thông",
-        "Thương gia",
-        "Cao cấp",
-        "Hạng nhất",
-        "Hành động",
-      ],
+      title: ['Danh sách tàu bay'],
+      button: ['+ Thêm tàu bay'],
+      headers: ['STT','Hãng bay', 'Mã tàu bay', 'Loại máy bay', 'Phổ thông', 'Thương gia', 'Cao cấp', 'Hạng nhất', 'Hành động'],
       rows: [
-        [
-          "1",
-          "Bamboo Airway",
-          "VN-A588",
-          "Airbus A321",
-          "50",
-          "20",
-          "10",
-          "5",
-          "",
-        ],
-        [
-          "2",
-          "Bamboo Airway",
-          "VN-A589",
-          "Airbus A321",
-          "50",
-          "20",
-          "10",
-          "5",
-          "",
-        ],
+        ['1', 'Bamboo Airway', 'VN-A588', 'Airbus A321', '50', '20', '10', '5', ''],
+        ['2', 'Bamboo Airway', 'VN-A589', 'Airbus A321', '50', '20', '10', '5', ''],
       ],
     },
     {

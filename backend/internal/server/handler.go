@@ -87,9 +87,6 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 
 	airportGroup := api.Group("/airport")
 	airportDelivery.MapAirportRoutes(airportGroup, mw, airportHandlers, authBusiness, s.cfg)
-
-	ticketGroup := api.Group("/ticket")
-	ticketDelivery.SetupRouter(ticketGroup, mw, ticketHandlers, authBusiness, s.cfg)
 	fib.Get("", func(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
 			"status":  "success",

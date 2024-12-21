@@ -14,7 +14,6 @@ import ReturnPage from "./components/ReturnPage/ReturnPage";
 import PageNews from "./views/pages/PageNews/PageNews";
 import Admin from "./views/pages/Admin/Admin";
 import AuthRoute from "./AuthRoute";
-import User from "./views/pages/User/User";
 import BookingManagement from "./components/BookingManagement/BookingManagement";
 import SearchResults from "./components/SearchResults/SearchResults";
 import User from "./views/pages/User/User";
