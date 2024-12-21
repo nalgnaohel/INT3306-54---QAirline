@@ -15,13 +15,41 @@ interface SeatSelectionProps {
 const rows = 10;
 const columns = ["A", "B", "C", "D", "E", "G"];
 
+const blockedSeatCount = 5; // Số ghế muốn block ngẫu nhiên
+
+// Tạo danh sách ghế ban đầu
 const initialSeats: SeatRow[] = Array.from({ length: rows }, () => {
   const row: SeatRow = {};
   columns.forEach((col) => {
-    row[col] = "available";
+    row[col] = "available"; // Tất cả ghế mặc định là "available"
   });
   return row;
 });
+
+// Hàm random ghế bị block
+function randomBlockSeats(seats: SeatRow[], columns: string[], count: number) {
+  let blocked = 0;
+  const totalSeats = seats.length * columns.length;
+
+  if (count > totalSeats) {
+    console.error("Số ghế block vượt quá tổng số ghế!");
+    return;
+  }
+
+  while (blocked < count) {
+    const randomRow = Math.floor(Math.random() * seats.length);
+    const randomColumn = columns[Math.floor(Math.random() * columns.length)];
+
+    // Chỉ block ghế chưa bị block
+    if (seats[randomRow][randomColumn] === "available") {
+      seats[randomRow][randomColumn] = "blocked";
+      blocked++;
+    }
+  }
+}
+
+// Gọi hàm random ghế bị block
+randomBlockSeats(initialSeats, columns, blockedSeatCount);
 
 const SeatSelection: React.FC<SeatSelectionProps> = ({
   onBack,
@@ -121,7 +149,7 @@ const SeatSelection: React.FC<SeatSelectionProps> = ({
               <div className="seat available"></div> Chỗ ngồi còn trống
             </div>
             <div className="legend-item">
-              <div className="seat blocked"></div> Hàng ghế được chặn
+              <div className="seat blocked"></div> Chỗ ngồi đã được đặt
             </div>
           </div>
           <div className="seat-map">

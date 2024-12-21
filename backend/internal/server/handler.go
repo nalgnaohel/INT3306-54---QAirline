@@ -44,7 +44,7 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 	aircraftBusiness := aircraftBusiness.NewAircraftBusiness(s.cfg, aircraftRepository)
 	aircraftHandlers := aircraftDelivery.NewAircraftHandlers(aircraftBusiness)
 
-	// Fiber default middleware
+	//fiber default middleware
 	fib.Use(requestid.New())
 	fib.Use(limiter.New(limiter.Config{
 		Max: 1000,

@@ -1,49 +1,39 @@
 /* General Styles */
-.box-2 {
-    min-height: calc(100vh - 70px);
+.side-bar-container {
+    background-color: #fff;
     width: 280px;
-}
-
-.box-2 .side-bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100%;
-}
-
-.box-2 .overlap {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
+    top: 70px;
+    overflow-y: auto;
 }
 
 /* Menu Items */
-.box-2 .products,
-.box-2 .logout,
-.box-2 .settings,
-.box-2 .blog,
-.box-2 .user,
-.box-2 .airlines,
-.box-2 .airport,
-.box-2 .planes,
-.box-2 .flights,
-.box-2 .booked,
-.box-2 .home {
-    position: absolute;
+.side-bar-container .products,
+.side-bar-container .logout,
+.side-bar-container .settings,
+.side-bar-container .blog,
+.side-bar-container .user,
+.side-bar-container .airlines,
+.side-bar-container .airport,
+.side-bar-container .planes,
+.side-bar-container .flights,
+.side-bar-container .booked,
+.side-bar-container .home {
     width: 280px;
     height: 60px;
-    left: 0;
     cursor: pointer;
 }
 
-.box-2 .products {
+.side-bar-container .products {
     position: relative;
     transition: all 0.3s ease;
 }
 
-.box-2 .products .background-products1 {
+.side-bar-container .products .background-products1 {
     position: absolute;
     width: 17px;
     height: 60px;
@@ -51,7 +41,7 @@
     transition: all 0.3s ease;
 }
 
-.box-2 .products .background-products2 {
+.side-bar-container .products .background-products2 {
     position: absolute;
     width: 240px;
     height: 60px;
@@ -59,19 +49,8 @@
     transition: all 0.3s ease;
 }
 
-.box-2 .logout { top: 623px; }
-.box-2 .settings { top: 563px; }
-.box-2 .blog { top: 503px; }
-.box-2 .user { top: 443px; }
-.box-2 .airlines { top: 383px; }
-.box-2 .airport { top: 323px; }
-.box-2 .planes { top: 263px;}
-.box-2 .flights { top: 203px; }
-.box-2 .booked { top: 143px; }
-.box-2 .home { top: 83px; }
-
 /* Text Wrapper */
-.box-2 .text-wrapper-3 {
+.side-bar-container .text-wrapper-3 {
     position: absolute;
     top: 17px;
     left: 80px;
@@ -82,62 +61,41 @@
     letter-spacing: 0.3px;
 }
 
-.box-2 .text-wrapper-3.active {
+.side-bar-container .text-wrapper-3.active {
     color: #ffffff;
 }
 
 /* Active and Hover States */
-.box-2 .products.active .background-products2,
-.box-2 .products.active .background-products1 {
+.side-bar-container .products.active .background-products2,
+.side-bar-container .products.active .background-products1 {
     background-color: #80bcff;
     border-radius: 4px;
 }
 
-.box-2 .products.active:hover {
+.side-bar-container .products.active:hover {
     background-color: #fff;
 }
 
-.box-2 .products:hover {
+.side-bar-container .products:hover {
     background-color: #e0e0e0;
 }
 
-.box-2 .products:active .background-products1,
-.box-2 .products:active .background-products2 {
+.side-bar-container .products:active .background-products1,
+.side-bar-container .products:active .background-products2 {
     transform: scale(0.95);
     background-color: #70a3e8;
 }
 
-/* Bright Web */
-.box-2 .bright-web {
-    position: absolute;
-    top: 5px;
-    left: 25px;
-    width: 239px;
-    font-family: "Nunito Sans-ExtraBold", Helvetica;
-    font-size: 20px;
-    font-weight: 600;
-    color: transparent;
-    cursor: pointer;
-}
-
-.box-2 .bright-web .span {
-    color: #80bcff;
-}
-
-.box-2 .bright-web .text-wrapper-4 {
-    color: #474747;
-}
-
 /* Divider and Separator */
-.box-2 .divider {
+.side-bar-container .divider {
     position: absolute;
-    top: 563px;
+    top: 480px;
     width: 280px;
     height: 1px;
     background-color: #e0e0e0;
 }
 
-.box-2 .separator {
+.side-bar-container .separator {
     position: absolute;
     top: 0;
     left: 280px;

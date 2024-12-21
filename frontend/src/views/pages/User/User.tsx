@@ -3,6 +3,7 @@ import UserControlPanel from "../../../components/UserControlPanel/UserControlPa
 import UserNavbar from "../../../components/UserNavbar/UserNavbar";
 import UserContent from "../../../components/UserContent/UserContent";
 import { UserProvider } from "../../../components/UserContent/UserContext";
+import background from "../../../assets/images/plane.png"
 import './User.css'
 
 
@@ -10,7 +11,11 @@ const User: React.FC = () => {
     return (
         <UserProvider>
             <div className="User">
-                <div className="background"></div>
+                <div className="background">
+                    <img className="background3" src={background} />
+                    <div className="background1"></div>
+                    <div className="background2"></div>
+                </div>
                 <UserContent />
                 <UserControlPanel />
                 <UserNavbar />

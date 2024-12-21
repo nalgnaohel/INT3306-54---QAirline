@@ -12,15 +12,13 @@
 .user-content-container {
     width: 100%;
     height: 100%;
+    margin-top: 14vh;
 }
 
 .user-content {
     font-family: "Nunito Sans-SemiBold", Helvetica;
-    position: absolute;
-    top: 100px;
-    left: 400px;
-    width: 1000px;
-    margin: 0 auto;
+    width: 63%;
+    margin-left: 30%;
     background: #fff;
     border-radius: 10px;
     padding: 0px;
@@ -33,10 +31,9 @@
 }
 
 .user-flight-list {
-    position: absolute;
-    top: 100px;
-    left: 400px;
-    width: 1000px;
+    margin-top: 13vh;
+    margin-left: 30vw;
+    width: 63vw;
 }
 
 .user-content-header {
@@ -52,7 +49,7 @@
 }
 
 .user-content-data {
-    padding: 20px;
+    padding: 20px 40px 20px 40px;
     font-size: 20px;
 }
 
@@ -132,8 +129,20 @@
     color: #fff;
     border: none;
     margin-right: 20px;
-    width: 150px;
+    width: 9em;
     margin-left: 230px;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.user-comfirm-button:hover {
+    background-color: #66adff;
+}
+
+.user-comfirm-button:active {
+    transform: scale(0.95);
+    background-color: #3693fe;
 }
 
 .user-cancel-button {
@@ -141,7 +150,19 @@
     color: #fff;
     border: none;
     margin-right: 20px;
-    width: 150px;
+    font-size: 16px;
+    width: 9em;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.user-cancel-button:hover {
+    background-color: #cfcfcf;
+}
+
+.user-cancel-button:active {
+    background-color: #afaeae;
+    transform: scale(0.95);
 }
 
 .error-message {

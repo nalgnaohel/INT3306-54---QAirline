@@ -38,14 +38,10 @@ return (
                 className={`products ${selectedDiv === item.id ? 'active' : ''}`}
                 onClick={() => handleClick(item.tab)}
                 >
-                <div className="background-products1"></div>
-                <div className="background-products2"></div>
                 <div className={`text-wrapper-3 ${selectedDiv === item.id ? 'active' : ''}`}>{item.label}</div>
                 </div>
             </div>
-            
         ))}
-        <div className="divider"></div>
     </div>
 );
 };

@@ -3,6 +3,7 @@ import TopNavBar from "../Navbar/TopNavBar";
 import "./SearchBox.css";
 import AutoCompleteInput from "../AutoCompleteInput/AutoCompleteInput";
 import { Navigate, useNavigate } from "react-router-dom";
+// import { format } from "date-fns";
 
 const tabs = document.querySelectorAll(".tab");
 
@@ -33,6 +34,11 @@ interface Flight {
   price: number;
   available_seats: number;
 }
+
+// const formatTime = (time: string) => {
+//   const date = new Date(time);
+//   return format(date, "dd:mm:yyyy");
+// };
 
 const SearchBox: React.FC<SearchBoxProps> = ({
   setReturnFlights,

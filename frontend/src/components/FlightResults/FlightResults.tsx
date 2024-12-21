@@ -149,7 +149,7 @@ const FlightResults: React.FC<FlightResultsProps> = ({
     <div className="flight-results">
       <h2>Kết quả tìm kiếm chuyến bay</h2>
       {currentFlights.map((flight) => (
-        <div key={flight.flight_id} className="flight-item">
+        <div key={flight.flight_id} className="flight-item1">
           <div className="flight-info">
             <div className="time-details">
               <p className="date">
@@ -255,7 +255,10 @@ const FlightResults: React.FC<FlightResultsProps> = ({
                         }`}
                         onClick={() => setSelectedFare("economySaver")}
                       >
-                        <h3>Phổ thông tiết kiệm</h3>
+                        <h3>
+                          Phổ thông tiết <br />
+                          kiệm
+                        </h3>
                         <div className="fare-details">
                           <h3 style={{ color: "#f0584d" }}>
                             <strong>
