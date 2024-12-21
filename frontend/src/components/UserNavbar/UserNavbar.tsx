@@ -45,6 +45,7 @@ const TopBar: React.FC = () => {
 
     // Hàm xử lý sự kiện click cho các mục
     const handleClick = (tab: number | null) => {
+        navigate("/user");
         if (tab !== null) {
             setActiveContent(tab)
         }

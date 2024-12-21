@@ -3,6 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./ReturnPage.css";
 import TopNavBar from "../Navbar/TopNavBar";
 import Footer from "../Footer/Footer";
+import UserNavBar from "../UserNavbar/UserNavbar"
+import { UserProvider } from "../UserContent/UserContext";
+
 
 export interface Flight {
   flight_id: string;
@@ -107,7 +110,9 @@ const ReturnPage: React.FC<{}> = ({}) => {
   if (returnFlights.length === 0) {
     return (
       <>
-        <TopNavBar />
+        <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
         <div className="flight-results">
           <h2>Kết quả tìm kiếm chuyến bay</h2>
           <div className="no-flight" style={{ marginBottom: "200px" }}>
@@ -130,7 +135,9 @@ const ReturnPage: React.FC<{}> = ({}) => {
 
   return (
     <>
-      <TopNavBar />
+      <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
       <div className="flight-results">
         <h2>Kết quả tìm kiếm chuyến bay</h2>
 

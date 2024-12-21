@@ -11,6 +11,8 @@ import {
 import "./SearchResults.css";
 import TopNavBar from "../Navbar/TopNavBar";
 import Footer from "../Footer/Footer";
+import UserNavBar from "../UserNavbar/UserNavbar"
+import { UserProvider } from "../UserContent/UserContext";
 
 interface Flight {
   flight_id: string;
@@ -45,7 +47,9 @@ const SearchResults: React.FC = () => {
 
   return (
     <>
-      <TopNavBar />
+      <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
       <div className="search-results">
         <h3>Kết quả tìm kiếm</h3>
         {flights.length > 0 ? (
