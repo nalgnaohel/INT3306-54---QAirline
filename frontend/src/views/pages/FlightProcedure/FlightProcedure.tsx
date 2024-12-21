@@ -6,6 +6,8 @@ import ConfirmationPage from "../../../components/ConfirmationPage/ConfirmationP
 import Footer from "../../../components/Footer/Footer";
 import TopNavBar from "../../../components/Navbar/TopNavBar";
 import { useLocation, useNavigate } from "react-router-dom";
+import UserNavBar from "../../../components/UserNavbar/UserNavbar"
+import { UserProvider } from "../../../components/UserContent/UserContext";
 
 const FlightProcedure: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -33,7 +35,9 @@ const FlightProcedure: React.FC = () => {
 
   return (
     <>
-      <TopNavBar />
+      <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
       <div>
         {currentStep === 1 && <FlightDetails onContinue={goToNextStep} />}
         {currentStep === 2 && (

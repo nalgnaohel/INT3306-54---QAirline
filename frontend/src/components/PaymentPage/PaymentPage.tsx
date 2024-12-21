@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./PaymentPage.css";
 import TopNavBar from "../Navbar/TopNavBar";
 import Footer from "../Footer/Footer";
+import UserNavBar from "../UserNavbar/UserNavbar"
+import { UserProvider } from "../UserContent/UserContext";
 
 const PaymentPage: React.FC = () => {
   // Chuyển hướng đến trang thanh toán
@@ -13,7 +15,9 @@ const PaymentPage: React.FC = () => {
   };
   return (
     <>
-      <TopNavBar />
+      <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
       <div className="payment-container">
         <h2 className="payment-title">Thanh Toán</h2>
         <p className="payment-description">

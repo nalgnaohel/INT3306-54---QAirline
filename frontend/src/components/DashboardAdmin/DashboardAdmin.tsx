@@ -50,38 +50,38 @@ const DashboardAdmin: React.FC = () => {
   // ];
 
   const chart3Data = [
-    { month: 'Jan', domestic: 120, international: 80 },
-    { month: 'Feb', domestic: 150, international: 100 },
-    { month: 'Mar', domestic: 140, international: 90 },
-    { month: 'Apr', domestic: 160, international: 110 },
-    { month: 'May', domestic: 170, international: 120 },
-    { month: 'Jun', domestic: 150, international: 100 },
-    { month: 'Jul', domestic: 180, international: 130 },
-    { month: 'Aug', domestic: 160, international: 110 },
+    { month: 'Th01', domestic: 120, international: 80 },
+    { month: 'Th02', domestic: 150, international: 100 },
+    { month: 'Th03', domestic: 140, international: 90 },
+    { month: 'Th04', domestic: 160, international: 110 },
+    { month: 'Th05', domestic: 170, international: 120 },
+    { month: 'Th06', domestic: 150, international: 100 },
+    { month: 'Th07', domestic: 180, international: 130 },
+    { month: 'Th08', domestic: 160, international: 110 },
   ];
 
   const chart3Keys = [
-    { name: "domestic", color: "#fbc02d" },
-    { name: "international", color: "#80bcff" },
+    { id: "domestic", name: "Trong nước", color: "#fbc02d" },
+    { id: "international", name: "Quốc tế", color: "#80bcff" },
   ];
 
   const chart4Data = [
-    { month: "Feb", Income: 12000, Expense: 5000 },
-    { month: "Mar", Income: 15000, Expense: 7000 },
-    { month: "Apr", Income: 14000, Expense: 8000 },
-    { month: "May", Income: 16500, Expense: 9000 },
-    { month: "Jun", Income: 17000, Expense: 8500 },
-    { month: "Jul", Income: 20000, Expense: 9500 },
+    { month: "Th01", Income: 12000, Expense: 5000 },
+    { month: "Th02", Income: 15000, Expense: 7000 },
+    { month: "Th03", Income: 14000, Expense: 8000 },
+    { month: "Th04", Income: 16500, Expense: 9000 },
+    { month: "Th05", Income: 17000, Expense: 8500 },
+    { month: "Th06", Income: 20000, Expense: 9500 },
   ];
 
   const chart4Keys = [
-    { name: "Income", color: "#fbc02d" },
-    { name: "Expense", color: "#80bcff" },
+    { id: "Income", name: "Doanh thu", color: "#fbc02d" },
+    { id: "Expense", name: "Chi phí", color: "#80bcff" },
   ];
 
   const airlinesData = [
     { name: "Vietnam Airline", value: 35, color: "#F5C23B" },
-    { name: "	Bamboo Airwayy", value: 30, color: "#2E2E2E" },
+    { name: "	Bamboo Airwayy", value: 30, color: "#80bcff" },
     { name: "VietJet Air", value: 20, color: "#BFBFBF" },
     { name: "Jetstar Airlines", value: 15, color: "#D6D6D6" },
   ];
@@ -119,10 +119,10 @@ const DashboardAdmin: React.FC = () => {
       </div>
       <div className="row row2">
         <div className="line-chart-1">
-          <Chart1 data={data} totalTickets={totalTickets} />
+          <Chart1 data={data} title="Bán vé" totalTickets={totalTickets} unit="Vé đã bán" />
         </div>
         <div className="line-chart-2">
-          <Chart4 data={chart4Data} title="Revenue Growth" keys={chart4Keys} />
+          <Chart4 data={chart4Data} title="Lợi nhuận" keys={chart4Keys} />
         </div>
       </div>
       {/* <div className="bar-chart-1">
@@ -133,7 +133,7 @@ const DashboardAdmin: React.FC = () => {
           <Chart3 data={chart3Data} title="Lịch bay" keys={chart3Keys} />
         </div>
         <div className="pie-chart-1">
-          <Chart5 data={airlinesData} />
+          <Chart5 data={airlinesData} title="Hãng bay phổ biến" />
         </div>
       </div>
     </div>

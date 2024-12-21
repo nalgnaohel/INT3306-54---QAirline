@@ -1,5 +1,6 @@
 import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
+import plane from "../../assets/images/air-freight.png"
 import "./Chart5.css";
 
 interface Chart5Data {
@@ -10,14 +11,16 @@ interface Chart5Data {
 
 interface Chart5Props {
   data: Chart5Data[];
+  title: string;
 }
 
-const Chart5: React.FC<Chart5Props> = ({ data }) => {
+const Chart5: React.FC<Chart5Props> = ({ data, title}) => {
   const radiusOuter = 90; // Adjust for the size of the outer pie
 
   return (
     <div className="chart5-container">
-      <h3 className="chart5-title">Popular Airlines</h3>
+      <h3 className="chart5-title">{title}</h3>
+      <img src={plane} />
       <PieChart width={200} height={200}>
         <Pie
           data={data}
@@ -42,7 +45,7 @@ const Chart5: React.FC<Chart5Props> = ({ data }) => {
           cx="50%"
           cy="50%"
           outerRadius={radiusOuter - 45}
-          fill="#F7D97E"
+          fill="#ffccff"
           innerRadius={0}
           isAnimationActive={false}
         />

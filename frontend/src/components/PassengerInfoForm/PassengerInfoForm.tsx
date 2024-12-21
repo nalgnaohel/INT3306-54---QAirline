@@ -4,6 +4,8 @@ import "./PassengerInfoForm.css";
 import TopNavBar from "../Navbar/TopNavBar";
 import Footer from "../Footer/Footer";
 import Dialog from "../Dialog/Dialog";
+import UserNavBar from "../UserNavbar/UserNavbar"
+import { UserProvider } from "../UserContent/UserContext";
 
 const PassengerInfoForm = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -199,7 +201,9 @@ const PassengerInfoForm = () => {
 
   return (
     <>
-      <TopNavBar />
+      <UserProvider>
+        {localStorage.getItem('currentUser') === null ? <TopNavBar /> : <UserNavBar />}
+      </UserProvider>
       <div className="form-container">
         <h2 className="form-title">Nhập thông tin hành khách</h2>
         <form onSubmit={handleSubmit} className="passenger-form">
