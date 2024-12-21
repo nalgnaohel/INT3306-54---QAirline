@@ -4,6 +4,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/auth"
 	"github.com/nalgnaohel/INT3306-54---QAirline/backend/internal/models"
+	"github.com/nalgnaohel/INT3306-54---QAirline/backend/pkg/utils"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 )
@@ -63,4 +64,40 @@ func (auth *authRepo) Delete(userID uuid.UUID) error {
 		return errors.Wrap(err, "authRepo.Delete.Where.Delete")
 	}
 	return nil
+}
+
+// DB Get all user
+func (auth *authRepo) GetAll(query *utils.PagingQuery) (*models.UserList, error) {
+	results := auth.db.First(&models.User{})
+	if results.Error != nil {
+		return nil, results.Error
+	}
+	total := int(results.RowsAffected)
+	if total == 0 {
+		return &models.UserList{
+			TotalCount: 0,
+			TotalPages: utils.GetTotalPages(0, query.GetQuerySize()),
+			Page:       query.GetPage(),
+			Size:       query.GetQuerySize(),
+			HasMore:    false,
+			Users:      make([]*models.User, 0),
+		}, nil
+	}
+
+	users := make([]*models.User, 0, query.GetQuerySize())
+	err := auth.db.Raw(`
+		SELECT *
+		FROM users`).Scan(&users).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "authRepo.GetAll.Query")
+	}
+
+	return &models.UserList{
+		TotalCount: total,
+		TotalPages: utils.GetTotalPages(total, query.GetQuerySize()),
+		Page:       query.GetPage(),
+		Size:       query.GetQuerySize(),
+		HasMore:    query.GetPage() < utils.GetTotalPages(total, query.GetQuerySize()),
+		Users:      users,
+	}, nil
 }

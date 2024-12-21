@@ -78,7 +78,7 @@ CREATE TABLE if not exists flights (
 );
 
 
-CREATE TABLE tickets (
+CREATE TABLE if not exists tickets (
     ticket_id VARCHAR(255) PRIMARY KEY,
     flight_id VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -92,13 +92,6 @@ CREATE TABLE tickets (
     booked_at TIMESTAMP NOT NULL,
     FOREIGN KEY (flight_id) REFERENCES flights(flight_id) 
 );
--- Dữ liệu mẫu cho bảng tickets
-INSERT INTO tickets (ticket_id, flight_id, email, identity_no, seat_number, price, departure, arrival, departure_time, arrival_time, booked_at) VALUES
-('T001', 'VN1017', 'ahsjfgevc@gmail.com', 'a636336',  '1A', 1500.00, 'Hà Nội', 'Hồ Chí Minh', '2024-12-25 08:00:00', '2024-12-25 10:30:00', '2024-12-20 12:00:00'),
-('T002', 'VN1018', 'ahsjfgevc1@gmail.com','6363', '2B', 1200.00, 'Hồ Chí Minh', 'Hà Nội', '2024-12-26 09:00:00', '2024-12-26 11:30:00', '2024-12-21 14:30:00'),
-('T003', 'VN1016', 'ahsjfgevc2@gmail.com', '64366','3C', 1000.00, 'Đà Nẵng', 'Hà Nội', '2024-12-27 07:30:00', '2024-12-27 09:45:00', '2024-12-22 16:45:00'),
-('T004', 'VN1017', 'lanlehoang8124@gmail.com','001123456789', '4C', 1300.00, 'Hồ Chí Minh', 'Đà Nẵng', '2024-12-28 14:00:00', '2024-12-28 16:00:00', '2024-12-23 09:15:00'),
-('T005', 'VN1018', 'vanhuyluan@gmail.com', '02012004','5B', 1100.00, 'Hà Nội', 'Đà Nẵng', '2024-12-29 12:30:00', '2024-12-29 14:30:00', '2024-12-24 18:30:00');
 
 -- ALTER TABLE `qairline-dtb`.`flights` ADD FOREIGN KEY (`aircraft_id`) REFERENCES `qairline-dtb`.`aircrafts` (`aircraft_id`);
 -- alter TABLE `qairline-dtb`.`flights` ADD FOREIGN KEY (`departure_code`) REFERENCES `qairline-dtb`.`airports` (`iata_code`);
@@ -304,6 +297,14 @@ VALUES ('VN3049', 'Vietnam Airlines', 'CXR', 'HAN', '2024-12-09 19:00:00', '2024
 
 INSERT INTO `qairline-dtb`.`flights` (`flight_id`, `brand`, `departure_code`, `arrival_code`, `departure_time`, `arrival_time`, `aircraft_id`, `price`, `available_seats`, `status`)
 VALUES ('VN3050', 'Vietnam Airlines', 'VCA', 'VII', '2024-12-10 22:00:00', '2024-12-11 00:00:00', 'VN-A329', 3000000, 100, 'on-time');
+
+-- Dữ liệu mẫu cho bảng tickets
+INSERT INTO tickets (ticket_id, flight_id, email, identity_no, seat_number, price, departure, arrival, departure_time, arrival_time, booked_at) VALUES
+('T001', 'VN1017', 'ahsjfgevc@gmail.com', 'a636336',  '1A', 1500.00, 'Hà Nội', 'Hồ Chí Minh', '2024-12-25 08:00:00', '2024-12-25 10:30:00', '2024-12-20 12:00:00'),
+('T002', 'VN1018', 'ahsjfgevc1@gmail.com','6363', '2B', 1200.00, 'Hồ Chí Minh', 'Hà Nội', '2024-12-26 09:00:00', '2024-12-26 11:30:00', '2024-12-21 14:30:00'),
+('T003', 'VN1016', 'ahsjfgevc2@gmail.com', '64366','3C', 1000.00, 'Đà Nẵng', 'Hà Nội', '2024-12-27 07:30:00', '2024-12-27 09:45:00', '2024-12-22 16:45:00'),
+('T004', 'VN1017', 'lanlehoang8124@gmail.com','001123456789', '4C', 1300.00, 'Hồ Chí Minh', 'Đà Nẵng', '2024-12-28 14:00:00', '2024-12-28 16:00:00', '2024-12-23 09:15:00'),
+('T005', 'VN1018', 'vanhuyluan@gmail.com', '02012004','5B', 1100.00, 'Hà Nội', 'Đà Nẵng', '2024-12-29 12:30:00', '2024-12-29 14:30:00', '2024-12-24 18:30:00');
 
 -- Dữ liệu mẫu cho bảng tickets
 INSERT INTO tickets (ticket_id, flight_id, email, identity_no, seat_number, price, departure, arrival, departure_time, arrival_time, booked_at) VALUES

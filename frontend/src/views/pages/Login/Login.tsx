@@ -52,79 +52,54 @@ const Login: React.FC = () => {
 
         //debug
         console.log("Token:", token);
-        console.log("Current User:", currentUser);
+        console.log("Current User:", currentUser.type);
 
         //redirect to home page
-        if (currentUser.type === "admin") {
-          navigator("/admin");
+        if (currentUser.type === 'admin') {
+            navigator('/admin');
         } else {
-          navigator("/");
+            navigator('/');
         }
-      } catch (error) {
-        setEmailErr(true);
-        if (emailMsgRef.current) {
-          emailMsgRef.current.innerText = "Email hoặc mật khẩu không đúng";
         }
-        console.error("Unexpected Error:", error);
+        catch (error) {
+            setEmailErr(true);
+            if (emailMsgRef.current) {
+                emailMsgRef.current.innerText = 'Email hoặc mật khẩu không đúng';
+            }
+            console.error('Unexpected Error:', error);
+        }
       }
     }
-  };
-
-  return (
-    <>
-      <div className="signup-in-background">
-        <img className="background1" src={background} />
-        <div className="background2"></div>
-        <div className="background3"></div>
-      </div>
-      <TopNavBar />
-      <div className="main-container" background-image>
-        <div className="login-form-container">
-          <form className="login-form" action="POST" onSubmit={handleSubmit}>
-            <img src="logo.png" />
-            <h2>Đăng nhập QAirline</h2>
-            {/* Email */}
-            <div className="form">
-              <label htmlFor="username">E-Mail</label>
-              <input
-                ref={emailInputRef}
-                type="email"
-                name="username"
-                placeholder="Email của bạn"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <p ref={emailMsgRef} className={` ${emailErr ? "show" : "hide"}`}>
-                Email khong duoc de trong
-              </p>
+      
+    return (
+        <><TopNavBar />
+        <div className="main-container" background-image>
+            <div className="login-form-container">
+                <form className="login-form" action="POST" onSubmit={handleSubmit}>
+                    <h2>Đăng nhập QAirline</h2>
+                    {/* Email */}
+                    <label htmlFor="username">E-Mail</label>
+                    <input ref={emailInputRef} type="email" name="username" placeholder="Email của bạn"
+                        value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <p ref={emailMsgRef}
+                        className={` ${emailErr ? 'show' : 'hide'}`}>Email khong duoc de trong</p>
+                    {/* Password */}
+                    <label htmlFor="password">Password</label>
+                    <input type="password" name="password" placeholder="Password"
+                        value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <p className={` ${passwordErr ? 'show' : 'hide'}`}>Mat khau khong duoc de trong</p>
+                    <button type="submit">Đăng nhập</button>
+                </form>
+                <div className="login-options">
+                    <a href="/forgot-password">Quên mật khẩu?</a>
+                </div>
+                <div className="toSignup">
+                    <p>Bạn chưa có tài khoản? </p>
+                    <a href="/signup">Đăng ký ngay</a>
+                </div>
             </div>
-            {/* Password */}
-            <div className="form">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <p className={` ${passwordErr ? "show" : "hide"}`}>
-                Mat khau khong duoc de trong
-              </p>
-            </div>
-            <button type="submit">Đăng nhập</button>
-            <a href="/forgot-password">Quên mật khẩu?</a>
-          </form>
-          <div className="login-options"></div>
-          <div className="toSignup">
-            <p>Bạn chưa có tài khoản? </p>
-            <a href="/signup">Đăng ký ngay</a>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
+        </div></>
+    );
 };
 
 export default Login;

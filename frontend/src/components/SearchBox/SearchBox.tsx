@@ -27,8 +27,8 @@ interface SearchBoxProps {
 interface Flight {
   flight_id: string;
   brand: string;
-  departure: string;
-  arrival: string;
+  departure_code: string;
+  arrival_code: string;
   departure_time: string;
   arrival_time: string;
   price: number;
