@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import "./Login.css";
 import TopNavBar from "../../../components/Navbar/TopNavBar";
 import { useNavigate } from "react-router-dom";
+import background from "../../../assets/images/plane.png";
+import Footer from "../../../components/Footer/Footer";
 
 const Login: React.FC = () => {
   //const formRef = useRef();

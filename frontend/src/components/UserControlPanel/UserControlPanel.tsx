@@ -42,9 +42,6 @@ return (
                 </div>
             </div>
         ))}
-        <div className="divider1"></div>
-        <div className="divider2"></div>
-        <div className="divider3"></div>
     </div>
 );
 };

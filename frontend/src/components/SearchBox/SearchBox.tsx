@@ -34,6 +34,11 @@ interface Flight {
   available_seats: number;
 }
 
+// const formatTime = (time: string) => {
+//   const date = new Date(time);
+//   return format(date, "dd:mm:yyyy");
+// };
+
 const SearchBox: React.FC<SearchBoxProps> = ({
   setReturnFlights,
   setIsSearching,

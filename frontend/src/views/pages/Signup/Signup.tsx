@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./Signup.css";
 import moment from "moment";
+import background from "../../../assets/images/plane.png"
 import Footer from "../../../components/Footer/Footer";
 import TopNavBar from "../../../components/Navbar/TopNavBar";
 import { useNavigate } from "react-router-dom";
@@ -206,6 +207,11 @@ const Signup: React.FC = () => {
 
   return (
     <>
+      <div className="signup-in-background">
+        <img className="background1" src={background} />
+        <div className="background2"></div>
+        <div className="background3"></div>
+      </div>
       <TopNavBar />
       <div className="Signup">
         <div className="main-container">
@@ -402,6 +408,7 @@ const Signup: React.FC = () => {
         </div>
         {/* <Footer /> */}
       </div>
+      <Footer />
     </>
   );
 };

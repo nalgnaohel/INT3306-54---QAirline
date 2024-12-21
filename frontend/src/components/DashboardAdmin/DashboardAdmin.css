@@ -1,13 +1,15 @@
 .dashboard-admin {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: space-between;
     padding: 16px;
   }
 
-  .line-chart-1 {
-    width: 450px;
-  }
+.dashboard-admin .row {
+    display: flex;
+    gap: 10px;
+}
 
   

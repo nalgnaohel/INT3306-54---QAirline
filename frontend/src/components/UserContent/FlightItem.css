@@ -52,7 +52,7 @@
 .ticket-content {
     display: flex;
     align-items: end;
-    gap: 100px;
+    gap: 12%;
     padding: 10px 0 20px 40px;
 }
 
@@ -73,14 +73,16 @@
 }
 
 .ticket-action {
-    margin-left: 50px;
+    margin-left: 5%;
     display: flex;
-    gap: 50px;
+    column-gap: 3vw;
 }
 
 .ticket-action button {
     background-color: transparent;
     padding: 0;
+    border: none;
+    cursor: pointer;
 }
 
 .ticket-more-detail {

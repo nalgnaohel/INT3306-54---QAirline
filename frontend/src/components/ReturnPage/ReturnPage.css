@@ -15,7 +15,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-.flight-item {
+.flight-item1 {
   display: grid;
   grid-template-columns: 2fr 1fr; /* Phần thông tin chuyến bay và hạng vé */
   background-color: #f8fcff;
@@ -25,12 +25,12 @@ h2 {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.flight-item:hover {
+.flight-item1:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.flight-item .flight-info {
+.flight-item1 .flight-info {
   background-color: #e0f2fe;
   padding: 20px;
   display: grid;
@@ -109,7 +109,7 @@ h2 {
   padding-left: 50px;
 }
 
-.flight-item .fare-options {
+.flight-item1 .fare-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -201,7 +201,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-.flight-results button {
+button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -212,7 +212,7 @@ h2 {
   border-radius: 10px;
 }
 
-.flight-results button:hover {
+button:hover {
   background-color: #0056b3;
 }
 

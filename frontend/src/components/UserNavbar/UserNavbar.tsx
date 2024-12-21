@@ -52,10 +52,9 @@ const TopBar: React.FC = () => {
     };
 
     return (
-        <div className="top-bar">
+        <div className="user-navbar">
             <div className="top-bar-container">
                 <img className="logo-user-navbar" src="logo.png" onClick={() => navigate("/")}/>
-                <div className="separator"></div>
                 <div className="top-bar-button">
                     <div className="button" onClick={() => navigate("/")}>Trang chủ</div>
                     <div className="button">Trợ giúp</div>

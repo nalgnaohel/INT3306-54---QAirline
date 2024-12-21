@@ -148,6 +148,20 @@ func (th *ticketHandler) UpdateTicket(c *fiber.Ctx) error {
     return c.Status(fiber.StatusOK).JSON(updatedTicket)
 }
 
+// GetAllTickets gets all tickets
+func (th *ticketHandler) GetAllTickets(c *fiber.Ctx) error {
+    tickets, err := th.ticketBusi.GetAll()
+    if err != nil {
+        log.Error("ticketHandler.GetAllTickets %e", err)
+        return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+            "status": "Internal Server Error",
+            "error":  "Cannot get all tickets - " + err.Error(),
+        })
+    }
+
+    return c.Status(fiber.StatusOK).JSON(tickets)
+}
+
 
 // NewTicketHandlers creates new ticket handlers
 func NewTicketHandlers(ticketBusi ticket.TicketBusi) ticket.Handlers {
