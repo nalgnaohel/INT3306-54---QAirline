@@ -6,6 +6,7 @@
     left: 0;
     background-color: #e0f3fe;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    z-index: 2;
 }
 
 .top-bar-container {

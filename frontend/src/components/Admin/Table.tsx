@@ -3,10 +3,12 @@ import { useTableContext } from "./TableContext";
 import edit from "../../assets/images/Admin/edit.png";
 import remove from "../../assets/images/Admin/trash-can.png";
 import "./Table.css";
-import DashboardAdmin from '../DashboardAdmin/DashboardAdmin';
-import { error } from 'console';
-import TextEditor from '../TextEditor/TextEditor';
-import { useNavigate } from 'react-router-dom';
+import DashboardAdmin from "../DashboardAdmin/DashboardAdmin";
+import { error } from "console";
+import TextEditor from "../TextEditor/TextEditor";
+import { useNavigate } from "react-router-dom";
+import { randomFill } from "crypto";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 const Table: React.FC = () => {
   //token for authorization
@@ -333,7 +335,7 @@ const Table: React.FC = () => {
           "ADMIN",
           "Nam",
           "admin",
-          "123456",
+          "",
           "admin@gmail.com",
           "+84123456789",
           "Việt Nam",
@@ -346,7 +348,7 @@ const Table: React.FC = () => {
           "VAN A",
           "Nam",
           "hehe",
-          "12345678",
+          "",
           "example@gmail.com",
           "+84123456789",
           "Việt Nam",
