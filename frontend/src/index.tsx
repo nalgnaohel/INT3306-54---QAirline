@@ -66,15 +66,6 @@ const router = createBrowserRouter([
     element: <PageNews />,
   },
   {
-<<<<<<< HEAD
-    path: "/admin",
-    element: <AuthRoute element={<Admin />} isAuthenticated={localStorage.getItem('token') !== null} isAdmin={isAdmin()} />,
-  },
-  {
-    path: "/user",
-    element: <User />,
-  }
-=======
     path: "/seat-management",
     element: <BookingManagement />,
   },
@@ -92,7 +83,11 @@ const router = createBrowserRouter([
       />
     ),
   },
->>>>>>> dev_luan
+  {
+    path: "/user",
+    element: <User />,
+  }
+
 ]);
 
 const root = ReactDOM.createRoot(

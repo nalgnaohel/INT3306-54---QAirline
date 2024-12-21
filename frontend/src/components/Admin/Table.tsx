@@ -130,7 +130,7 @@ const Table: React.FC = () => {
         })
           .then(resp => resp.json())
           .then(data => {
-            console.log(data.users);
+            console.log(data.data.users);
             setAirportsFetched(true);
             tables[5].rows = data.data.users.map((user: any, index: number) => [
               (index + 1).toString(),
@@ -354,10 +354,10 @@ const Table: React.FC = () => {
 
   // Xóa dữ liệu của một hàng
   const handleRemove = (rowIndex: number) => {
+    let realIndex = tables[activeTable!!].rows[rowIndex][0];
+    console.log(realIndex);
     if (window.confirm("Bạn có chắc chắn muốn xóa dòng này?")) {
       if (activeTable !== null) {
-        let realIndex = tables[activeTable].rows[rowIndex][0];
-        console.log(realIndex);
         setTables((prevTables) =>
           prevTables.map((table) =>
             table.id === activeTable
@@ -437,7 +437,7 @@ const Table: React.FC = () => {
             .then(resp => resp.json())
             .then(data => {
               console.log(data);
-            })
+            }) 
         } else if (activeTable === 2) {
           fetch(`http://127.0.0.1:5000/api/flight/${newRowData[1]}`, {
             method: 'PUT',
@@ -461,7 +461,46 @@ const Table: React.FC = () => {
             .then(data => {
               console.log(data);
             })
-          }
+          } else if (activeTable === 4) {
+            fetch(`http://127.0.0.1:5000/api/airport/${newRowData[1]}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+              },
+              body: JSON.stringify({
+                iata_code: newRowData[1],
+                name: newRowData[2],
+                city: newRowData[3],
+                country: newRowData[4],
+              }),
+            })
+              .then(resp => resp.json())
+              .then(data => {
+                console.log(data);
+              })
+            } else if (activeTable === 6) {
+              fetch(`http://127.0.0.1:5000/api/auth/${newRowData[4]}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                  last_name: newRowData[0],
+                  first_name: newRowData[1],
+                  gender: newRowData[2],
+                  email: newRowData[5],
+                  phone_number: newRowData[6],
+                  nationality: newRowData[7],
+                  type: newRowData[8]
+                }),
+              })
+                .then(resp => resp.json())
+                .then(data => {
+                  console.log(data);
+                })
+            } 
       } catch (error) {
           console.log('Error updating aircraft - ', error);
       }
