@@ -15,12 +15,14 @@ import PageNews from "./views/pages/PageNews/PageNews";
 import Admin from "./views/pages/Admin/Admin";
 import AuthRoute from "./AuthRoute";
 import User from "./views/pages/User/User";
+import BookingManagement from "./components/BookingManagement/BookingManagement";
+import SearchResults from "./components/SearchResults/SearchResults";
 
 const isAdmin = () => {
-  const storedUser = localStorage.getItem('currentUser');
+  const storedUser = localStorage.getItem("currentUser");
   if (storedUser) {
     const parsedUser = JSON.parse(storedUser);
-    return parsedUser.type === 'admin';
+    return parsedUser.type === "admin";
   }
   return false;
 };
@@ -64,6 +66,7 @@ const router = createBrowserRouter([
     element: <PageNews />,
   },
   {
+<<<<<<< HEAD
     path: "/admin",
     element: <AuthRoute element={<Admin />} isAuthenticated={localStorage.getItem('token') !== null} isAdmin={isAdmin()} />,
   },
@@ -71,6 +74,25 @@ const router = createBrowserRouter([
     path: "/user",
     element: <User />,
   }
+=======
+    path: "/seat-management",
+    element: <BookingManagement />,
+  },
+  {
+    path: "/search-results",
+    element: <SearchResults />,
+  },
+  {
+    path: "/admin",
+    element: (
+      <AuthRoute
+        element={<Admin />}
+        isAuthenticated={localStorage.getItem("token") !== null}
+        isAdmin={isAdmin()}
+      />
+    ),
+  },
+>>>>>>> dev_luan
 ]);
 
 const root = ReactDOM.createRoot(

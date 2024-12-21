@@ -1,0 +1,31 @@
+# Config file for `air` live reloading
+
+[build]
+# Working directory
+bin = "tmp"
+# Binary name
+cmd = "main"
+# Build command
+cmds = ["go build -o ./tmp/main ."]
+# Include these file extensions
+include_ext = ["go", "tpl", "tmpl", "html"]
+# Exclude these directories
+exclude_dir = ["assets", "tmp", "vendor"]
+# Exclude these files
+exclude_file = ["air.toml"]
+
+[log]
+# Log level
+level = "debug"
+# Log color
+color = true
+# Log timestamp
+timestamp = true
+
+[server]
+# Server address
+address = ":8080"
+# Server read timeout
+read_timeout = 10
+# Server write timeout
+write_timeout = 10

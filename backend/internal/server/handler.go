@@ -77,6 +77,13 @@ func (s *Server) MapHandlers(fib *fiber.App) error {
 
 	aircraftGroup := api.Group("/aircraft")
 	aircraftDelivery.MapAircraftRoutes(aircraftGroup, mw, aircraftHandlers, authBusiness, s.cfg)
+<<<<<<< HEAD
+=======
+
+	// Setup Ticket routes
+	ticketGroup := api.Group("/ticket")
+	ticketDelivery.SetupRouter(ticketGroup, mw, ticketHandlers, ticketBusiness, s.cfg)
+>>>>>>> dev_luan
 
 	airportGroup := api.Group("/airport")
 	airportDelivery.MapAirportRoutes(airportGroup, mw, airportHandlers, authBusiness, s.cfg)

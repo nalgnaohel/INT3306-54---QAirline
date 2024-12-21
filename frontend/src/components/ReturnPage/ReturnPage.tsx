@@ -83,7 +83,8 @@ const ReturnPage: React.FC<{}> = ({}) => {
           state: {
             flight: flight,
             returnFlight: selectedReturnFlight,
-            fareType: selectedFare,
+            fareType: fareType,
+            fareType1: selectedFare,
             passengerCounts: passengerCounts,
             tripType: tripType,
           },
@@ -109,17 +110,20 @@ const ReturnPage: React.FC<{}> = ({}) => {
         <TopNavBar />
         <div className="flight-results">
           <h2>Kết quả tìm kiếm chuyến bay</h2>
-          <p>Không tìm thấy chuyến bay nào phù hợp với tìm kiếm của bạn.</p>
-          <button
-            className="home-button"
-            style={{ margin: "20px" }}
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Quay lại trang chủ
-          </button>
+          <div className="no-flight" style={{ marginBottom: "200px" }}>
+            <p>Không tìm thấy chuyến bay nào phù hợp với tìm kiếm của bạn.</p>
+            <button
+              className="home-button"
+              style={{ margin: "20px" }}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Quay lại trang chủ
+            </button>
+          </div>
         </div>
+        <Footer />
       </>
     );
   }
@@ -206,8 +210,8 @@ const ReturnPage: React.FC<{}> = ({}) => {
                 >
                   <p>Phổ thông</p>
                   <span>
-                    {calculateTotalPrice(flight.price).toLocaleString("vi-VN")}
-                    .000 VND
+                    {calculateTotalPrice(flight.price).toLocaleString("vi-VN")}{" "}
+                    VND
                   </span>
                   <div className="dropdown">▼</div>
                 </div>
@@ -225,7 +229,10 @@ const ReturnPage: React.FC<{}> = ({}) => {
                 >
                   <p>Thương gia</p>
                   <span>
-                    {(flight.price * 2).toLocaleString("vi-VN")}.000 VND
+                    {calculateTotalPrice(flight.price * 1.5).toLocaleString(
+                      "vi-VN"
+                    )}{" "}
+                    VND
                   </span>
                   <div className="dropdown">▼</div>
                 </div>
@@ -247,7 +254,10 @@ const ReturnPage: React.FC<{}> = ({}) => {
                           <div className="fare-details">
                             <h3 style={{ color: "#f0584d" }}>
                               <strong>
-                                {flight.price.toLocaleString("vi-VN")}.000 VND
+                                {calculateTotalPrice(
+                                  flight.price
+                                ).toLocaleString("vi-VN")}{" "}
+                                VND
                               </strong>
                             </h3>
                             <p>
@@ -284,8 +294,10 @@ const ReturnPage: React.FC<{}> = ({}) => {
                           <div className="fare-details">
                             <h3 style={{ color: "#f0584d" }}>
                               <strong>
-                                {(flight.price + 500).toLocaleString("vi-VN")}
-                                .000 VND
+                                {calculateTotalPrice(
+                                  flight.price + 500000
+                                ).toLocaleString("vi-VN")}{" "}
+                                VND
                               </strong>
                             </h3>
                             <p>
@@ -328,7 +340,9 @@ const ReturnPage: React.FC<{}> = ({}) => {
                           <div className="fare-details">
                             <h3 style={{ color: "#f0584d" }}>
                               <strong>
-                                {(flight.price * 2).toLocaleString("vi-VN")}.000
+                                {calculateTotalPrice(
+                                  flight.price * 1.5
+                                ).toLocaleString("vi-VN")}{" "}
                                 VND
                               </strong>
                             </h3>
@@ -368,10 +382,10 @@ const ReturnPage: React.FC<{}> = ({}) => {
                           <div className="fare-details">
                             <h3 style={{ color: "#f0584d" }}>
                               <strong>
-                                {(flight.price * 2 + 700).toLocaleString(
-                                  "vi-VN"
-                                )}
-                                .000 VND
+                                {calculateTotalPrice(
+                                  flight.price * 1.5 + 700000
+                                ).toLocaleString("vi-VN")}{" "}
+                                VND
                               </strong>
                             </h3>
                             <p>

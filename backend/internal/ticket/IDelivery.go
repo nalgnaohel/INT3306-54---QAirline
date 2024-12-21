@@ -9,4 +9,5 @@ type Handlers interface {
     GetTicketByID(c *fiber.Ctx) error
     DeleteTicket(c *fiber.Ctx) error
     UpdateTicket(c *fiber.Ctx) error
+    UpdateSeat(c *fiber.Ctx) error
 }

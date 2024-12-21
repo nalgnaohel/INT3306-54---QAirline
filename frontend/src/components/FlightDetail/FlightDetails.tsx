@@ -1,11 +1,57 @@
 import React from "react";
 import "./FlightDetails.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface FlightDetailsProps {
   onContinue: () => void;
 }
 
 const FlightDetails: React.FC<FlightDetailsProps> = ({ onContinue }) => {
+  const location = useLocation();
+  const {
+    flight_id,
+    departure,
+    arrival,
+    departure_time,
+    arrival_time,
+    price,
+    email,
+    bookingCode,
+  } = location.state || {};
+  console.log(location.state);
+  const splitDateTime = (dateTimeString: string) => {
+    const dateTime = new Date(dateTimeString);
+
+    // Lấy ngày (định dạng YYYY-MM-DD)
+    const date = dateTime.toISOString().split("T")[0];
+
+    // Lấy giờ (định dạng HH:MM)
+    const hours = dateTime.getHours().toString().padStart(2, "0");
+    const minutes = dateTime.getMinutes().toString().padStart(2, "0");
+    const time = `${hours}:${minutes}`;
+
+    return { date, time };
+  };
+
+  const calculateDuration = (
+    departure_time: string,
+    arrival_time: string
+  ): string => {
+    const departure = new Date(departure_time);
+    const arrival = new Date(arrival_time);
+    const diffMs = arrival.getTime() - departure.getTime(); // Difference in milliseconds
+
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+    return `${hours}h ${minutes}m`;
+  };
+
+  const { date: departureDate, time: departureTime } =
+    splitDateTime(departure_time);
+
+  const { date: arrivalDate, time: arrivalTime } = splitDateTime(arrival_time);
+
   return (
     <div className="flight-details-container">
       <div className="progress-steps">
@@ -18,16 +64,18 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({ onContinue }) => {
       <div className="details-card">
         <h2 className="card-title">Chi tiết chuyến bay</h2>
         <div className="time-info">
-          <span className="time">15:00</span>
-          <span className="location">SGN</span>
+          <span className="time">{departureTime}</span>
+          <span className="location">{departure}</span>
           <span className="arrow">→</span>
-          <span className="time">17:15</span>
-          <span className="location">HAN</span>
+          <span className="time">{arrivalTime}</span>
+          <span className="location">{arrival}</span>
         </div>
-        <div className="flight-info">
-          <div className="date">Ngày khởi hành: 30 Th05, 2023</div>
+        <div className="flight-info2">
+          <div className="date1">Ngày khởi hành: {departureDate}</div>
           <div className="passenger">Hành khách: 1 Người lớn</div>
-          <div className="duration">Thời gian bay: 2h 15m</div>
+          <div className="duration">
+            Thời gian bay: {calculateDuration(departure_time, arrival_time)}
+          </div>
           <div className="payment">Phương thức thanh toán: Thẻ tín dụng</div>
         </div>
 

@@ -17,13 +17,25 @@ func NewTicketRepo(db *gorm.DB) ticket.TicketRepository {
 	}
 }
 
-// DB Create new ticket
-func (repo *ticketRepo) Create(ticket *models.Ticket) (*models.Ticket, error) {
-	err := repo.db.Create(&ticket).Error
+// DB Create a new ticket
+func (repo *ticketRepo) Create(tickets models.Ticket) (models.Ticket, error) {
+	err := repo.db.Create(&tickets).Error
 	if err != nil {
-		return nil, err
+		return models.Ticket{}, err
 	}
-	return ticket, nil
+	return tickets, nil
+}
+
+//update seat of ticket
+func (repo *ticketRepo) UpdateSeat(ticketID string, seat string) error {
+	result := repo.db.Model(&models.Ticket{}).Where("ticket_id = ?", ticketID).Update("seat_number", seat)
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected == 0 {
+		return gorm.ErrRecordNotFound
+	}
+	return nil
 }
 
 
@@ -51,12 +63,14 @@ func (repo *ticketRepo) Delete(ticketID string) error {
 
 // DB Update ticket
 func (repo *ticketRepo) Update(ticket *models.Ticket) (*models.Ticket, error) {
-	err := repo.db.Where("ticket_id = ?", ticket.TicketID).Updates(ticket).Error
-	if err != nil {
-		return nil, err
-	}
-	return ticket, nil
+    // Sử dụng `Updates` để chỉ update `seat_number` và giữ lại các thông tin khác
+    err := repo.db.Where("ticket_id = ?", ticket.TicketID).Updates(ticket).Error
+    if err != nil {
+        return nil, err
+    }
+    return ticket, nil
 }
+
 
 // DB Get all tickets
 func (repo *ticketRepo) GetAll() ([]*models.Ticket, error) {
@@ -68,10 +82,10 @@ func (repo *ticketRepo) GetAll() ([]*models.Ticket, error) {
 	return tickets, nil
 }
 
-// DB Get tickets by user ID
-func (repo *ticketRepo) GetByUserID(userID string) ([]*models.Ticket, error) {
+// DB Get tickets by email
+func (repo *ticketRepo) GetByEmail(email string) ([]*models.Ticket, error) {
 	var tickets []*models.Ticket
-	err := repo.db.Where("user_id = ?", userID).Find(&tickets).Error
+	err := repo.db.Where("email = ?", email).Find(&tickets).Error
 	if err != nil {
 		return nil, err
 	}
