@@ -190,3 +190,22 @@ func (fh *flightHandler) GetStatusFlightsStatistics() fiber.Handler {
 		})
 	}
 }
+
+// GetFlightByEmail - get flight by email
+func (fh *flightHandler) GetFlightByEmail() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		email := c.Query("email")
+		flights, err := fh.flightBusiness.GetFlightByEmail(email)
+		if err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"status": "Not Found",
+				"error":  "Cannot find flight - " + err.Error(),
+			})
+		}
+
+		return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+			"status":  "Success",
+			"flights": flights,
+		})
+	}
+}

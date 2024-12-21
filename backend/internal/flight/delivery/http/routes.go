@@ -12,6 +12,7 @@ func MapFlightRoutes(flightRouter fiber.Router, mw *middleware.Middleware, handl
 	flightRouter.Get("/all", handlers.GetAll())
 	//flightRouter.Get("/roundtripflight", handlers.GetFlightRoundTrip())
 	flightRouter.Use(mw.JWTAuthMiddleware(authBusiness, cfg)) // middleware for jwt - khi fetch can them header Authorization
+	flightRouter.Get("/flightbyemail", handlers.GetFlightByEmail())
 	flightRouter.Post("/", handlers.Create())
 	flightRouter.Get("/flight/:flightID", handlers.GetByFlightID())
 	flightRouter.Delete("/:flightID", handlers.Delete())

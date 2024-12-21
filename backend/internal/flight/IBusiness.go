@@ -15,4 +15,5 @@ type FlightBusiness interface {
 	//GetFlightRoundTrip(departure string, arrival string, departureDate string, returnDate string) ([]*models.Flight, error)
 	GetAll(query *utils.PagingQuery) (*models.FlightList, error)
 	GetStatusFlightsStatistics() ([]models.FlightStatus, error)
+	GetFlightByEmail(email string) ([]*models.Flight, error)
 }

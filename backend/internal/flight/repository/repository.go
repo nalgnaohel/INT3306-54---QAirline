@@ -186,3 +186,16 @@ func (f *flightRepo) GetStatusFlightsStatistics() ([]models.FlightStatus, error)
 	}
 	return flightStatus, nil
 }
+
+// DB Get flights by email
+func (f *flightRepo) GetFlightByEmail(email string) ([]*models.Flight, error) {
+	var flights []*models.Flight
+	err := f.db.Table("tickets").Select("DISTINCT email, flights.flight_id").
+		Where("email = ?", email).
+		Joins("JOIN flights ON tickets.flight_id = flights.flight_id").
+		Find(&flights).Error
+	if err != nil {
+		return nil, errors.Wrap(err, "flightRepo.GetFlightByEmail.Find")
+	}
+	return flights, nil
+}
