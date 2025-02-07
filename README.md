@@ -1,3 +1,3 @@
-# QAirline 
+# QAirline - Vui từng chuyến bay
 
-Webapp for ordering airline flight tickets for Web Application Development Course.
+Ứng dụng web quản lý đặt vé máy bay.
