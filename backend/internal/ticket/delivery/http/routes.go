@@ -9,25 +9,24 @@ import (
 )
 
 // SetupRouter will set up all routes for ticket handling
-func SetupRouter(ticketRouter fiber.Router, mw *middleware.Middleware, handlers ticket.Handlers, authBusiness auth.AuthBusiness, cfg *config.Config) {
+func MapTicketRoutes(ticketRouter fiber.Router, mw *middleware.Middleware, handlers ticket.Handlers, authBusiness auth.AuthBusiness, cfg *config.Config) {
 	// API route để tạo vé mới
-	ticketRouter.Post("/tickets", handlers.CreateTicket)
+	ticketRouter.Post("/", handlers.CreateTicket)
 
 	// API route để lấy vé theo ID
-	ticketRouter.Get("/tickets/:ticketID", handlers.GetTicketByID)
+	ticketRouter.Get("/ticket/:ticketID", handlers.GetTicketByID)
 
 	// API route để update vé
-	ticketRouter.Put("/tickets/:ticketID", handlers.UpdateTicket)
+	ticketRouter.Put("/:ticketID", handlers.UpdateTicket)
 
 	// API route để xóa vé
-	ticketRouter.Delete("/tickets/:ticketID", handlers.DeleteTicket)
+	ticketRouter.Delete("/:ticketID", handlers.DeleteTicket)
 
 	// API route để update seat của vé
-	ticketRouter.Put("/tickets/:ticketID/seat", handlers.UpdateSeat)
+	ticketRouter.Put("/:ticketID/seat", handlers.UpdateSeat)
 
 	// API route để lấy tất cả vé
-	ticketRouter.Get("/alltickets", handlers.GetAllTickets)
-
+	ticketRouter.Get("/all", handlers.GetAllTickets)
 
 	// Các API khác như update, delete, get all tickets, get by user ID, get by flight ID
 	// ticketRouter.Put("/tickets/:ticketID", handlers.UpdateTicket)
