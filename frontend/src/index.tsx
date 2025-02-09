@@ -18,24 +18,6 @@ import BookingManagement from "./components/BookingManagement/BookingManagement"
 import SearchResults from "./components/SearchResults/SearchResults";
 import User from "./views/pages/User/User";
 
-const isAdmin = () => {
-  const storedUser = localStorage.getItem("currentUser");
-  if (storedUser) {
-    const parsedUser = JSON.parse(storedUser);
-    return parsedUser.type === "admin";
-  }
-  return false;
-};
-
-const isClient = () => {
-  const storedUser = localStorage.getItem("currentUser");
-  if (storedUser) {
-    const parsedUser = JSON.parse(storedUser);
-    return parsedUser.type === "client";
-  }
-  return false;
-}
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -86,14 +68,18 @@ const router = createBrowserRouter([
     element: (
       <AuthRoute
         element={<Admin />}
-        isAuthenticated={localStorage.getItem("token") !== null}
-        isAdmin={isAdmin()}
+        authRole="admin"
       />
     ),
   },
   {
     path: "/user",
-    element:(<AuthRoute element = {<User />} isAuthenticated={localStorage.getItem("token") !== null} isAdmin={!isAdmin()} />)
+    element: (
+      <AuthRoute
+        element={<User />}
+        authRole="client"
+      />
+    ),
   }
 
 ]);
@@ -102,9 +88,9 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  //</React.StrictMode>
 );
 
 reportWebVitals();

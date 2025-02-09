@@ -4,6 +4,7 @@ import TopNavBar from "../../../components/Navbar/TopNavBar";
 import { useNavigate } from "react-router-dom";
 import background from "../../../assets/images/plane.png"
 import Footer from "../../../components/Footer/Footer";
+import AuthRouteProps from "../../../AuthRoute";
 
 const Login: React.FC = () => {
   //const formRef = useRef();
@@ -50,20 +51,16 @@ const Login: React.FC = () => {
         localStorage.setItem("token", token);
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-        //debug
-        console.log("Token:", token);
-        console.log("Current User:", currentUser);
-
+        alert("Đăng nhập thành công");
         //redirect to home page
         if (currentUser.type === 'admin') {
+            console.log(JSON.parse(localStorage.getItem("currentUser") || "{}"));
             navigator('/admin');
-        } else if (currentUser.type === 'client') {
-            navigator('/user');
         } else {
             navigator('/');
         }
         }
-        catch (error) {
+      catch (error) {
             setEmailErr(true);
             if (emailMsgRef.current) {
                 emailMsgRef.current.innerText = 'Email hoặc mật khẩu không đúng';
@@ -81,7 +78,7 @@ const Login: React.FC = () => {
           <div className="background3"></div>
         </div>
         <TopNavBar />
-        <div className="main-container" background-image>
+        <div className="main-container" background-image="true">
             <div className="login-form-container">
                 <form className="login-form" action="POST" onSubmit={handleSubmit}>
                     <img src="logo.png"/>
