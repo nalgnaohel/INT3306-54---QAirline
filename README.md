@@ -46,11 +46,12 @@
     Frontend được chạy ở port 3000.
 
 ---
-# Demo
+## Demo
 Video demo webapp tại [đây](https://drive.google.com/drive/u/0/folders/1BMiSJuRpR-4vlAiy4CreEMI9_vQ_lKEi).
 
 ---
-# Dự định 
+## Dự định 
 Do thời gian làm ứng dụng web có hạn (trong khoảng 2 tháng), và team làm sản phẩm đều bận nhiều project/deadlines khác nhau trên trường, còn có một số điểm cần cải thiện/có thể nâng cấp hơn, hoặc thử để nâng chất lượng sản phẩm và kỹ năng của team dev.
-- Deploy backend (docker-compose gồm api và mysql) lên cloud, chẳng hạn như AWS hay Azure
+- Deploy backend (docker-compose gồm api và mysql) lên cloud, chẳng hạn như AWS hay Azure (hiện tại mới chỉ deploy được frontend trên vercel)
 - Thêm redis để cache
+- ...
