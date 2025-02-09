@@ -5,7 +5,7 @@
 ![Yêu cầu của QAirline](QAirline.png)
 
 ---
-##Chức năng
+## Chức năng
 * Đối với khách hàng:
   - Xem thông tin các chuyến bay mình đã đặt
   - Tìm kiếm chuyến bay dựa trên điểm đến, điểm đi và ngày bay
@@ -19,3 +19,8 @@
   - Quản lý (xem, sửa thông tin, xoá/huỷ) đặt chỗ 
 
 ---
+## Cài đặt
+* Presequites
+  - Node.js và npm 
+  - MySQL cho database
+  - Golang
